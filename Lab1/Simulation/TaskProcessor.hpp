@@ -9,10 +9,12 @@ namespace cs {
 		number m_mu;
 		number m_sigma;
 		TaskStorage *m_storage;
+		number *m_time_coefficient;
 	protected:
 		void loop();
 	public:
-		TaskProcessor(TaskStorage *storage) : m_storage(storage) {}
+		TaskProcessor(TaskStorage *storage, number *time_coefficient) 
+			: m_storage(storage), m_time_coefficient(time_coefficient) {}
 		inline void start() {
 			if (m_state != SimulationState::Error)
 				m_state = SimulationState::Running;
@@ -27,6 +29,12 @@ namespace cs {
 		inline void stop() {
 			if (m_state != SimulationState::Error)
 				m_state = SimulationState::Stoped;
+		}
+		inline void changeMu(number m) {
+			m_mu = m;
+		}
+		inline void changeSigma(number s) {
+			m_sigma = s;
 		}
 	};
 }

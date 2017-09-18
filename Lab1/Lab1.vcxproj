@@ -40,7 +40,6 @@
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="GUI\main.cpp" />
     <ClCompile Include="Simulation\ProcessorSimulator.cpp" />
-    <ClCompile Include="Simulation\ProcessorSimultor.cpp" />
     <ClCompile Include="Simulation\TaskGenerator.cpp" />
     <ClCompile Include="Simulation\TaskProcessor.cpp" />
     <ClCompile Include="Simulation\TaskStorage.cpp" />
@@ -107,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_GUI.h" />
-    <ClInclude Include="Simulation\ProcessorSimultor.hpp" />
+    <ClInclude Include="Simulation\ProcessorSimulator.hpp" />
     <ClInclude Include="Simulation\Shared.hpp" />
     <ClInclude Include="Simulation\TaskGenerator.hpp" />
     <ClInclude Include="Simulation\TaskProcessor.hpp" />

@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
-      <Extensions>qrc;*</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
       <Extensions>moc;h;cpp</Extensions>
@@ -34,9 +29,6 @@
     <ClCompile Include="GUI\main.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Simulation\ProcessorSimulator.cpp">
-      <Filter>Simulation</Filter>
-    </ClCompile>
     <ClCompile Include="Simulation\TaskGenerator.cpp">
       <Filter>Simulation</Filter>
     </ClCompile>
@@ -46,8 +38,8 @@
     <ClCompile Include="Simulation\TaskStorage.cpp">
       <Filter>Simulation</Filter>
     </ClCompile>
-    <ClCompile Include="Simulation\ProcessorSimultor.cpp">
-      <Filter>Generated Files</Filter>
+    <ClCompile Include="Simulation\ProcessorSimulator.cpp">
+      <Filter>Simulation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +57,6 @@
     <ClInclude Include="GeneratedFiles\ui_GUI.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="Simulation\ProcessorSimultor.hpp">
-      <Filter>Simulation</Filter>
-    </ClInclude>
     <ClInclude Include="Simulation\Shared.hpp">
       <Filter>Simulation</Filter>
     </ClInclude>
@@ -78,6 +67,9 @@
       <Filter>Simulation</Filter>
     </ClInclude>
     <ClInclude Include="Simulation\TaskStorage.hpp">
+      <Filter>Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation\ProcessorSimulator.hpp">
       <Filter>Simulation</Filter>
     </ClInclude>
   </ItemGroup>

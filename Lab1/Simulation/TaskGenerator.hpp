@@ -8,10 +8,12 @@ namespace cs {
 		SimulationState m_state;
 		number m_lambda;
 		TaskStorage *m_storage;
+		number *m_time_coefficient;
 	protected:
 		void loop();
 	public:
-		TaskGenerator(TaskStorage *storage) : m_storage(storage) {}
+		TaskGenerator(TaskStorage *storage, number *time_coefficient)
+			: m_storage(storage), m_time_coefficient(time_coefficient) {}
 		inline void start() {
 			if (m_state != SimulationState::Error)
 				m_state = SimulationState::Running;
@@ -26,6 +28,9 @@ namespace cs {
 		inline void stop() {
 			if (m_state != SimulationState::Error)
 				m_state = SimulationState::Stoped;
+		}
+		inline void changeLambda(number l) {
+			m_lambda = l;
 		}
 	};
 }
