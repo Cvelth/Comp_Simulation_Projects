@@ -39,6 +39,11 @@
     </ClCompile>
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="GUI\main.cpp" />
+    <ClCompile Include="Simulation\ProcessorSimulator.cpp" />
+    <ClCompile Include="Simulation\ProcessorSimultor.cpp" />
+    <ClCompile Include="Simulation\TaskGenerator.cpp" />
+    <ClCompile Include="Simulation\TaskProcessor.cpp" />
+    <ClCompile Include="Simulation\TaskStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="GUI\GUI.h">
@@ -102,6 +107,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_GUI.h" />
+    <ClInclude Include="Simulation\ProcessorSimultor.hpp" />
+    <ClInclude Include="Simulation\Shared.hpp" />
+    <ClInclude Include="Simulation\TaskGenerator.hpp" />
+    <ClInclude Include="Simulation\TaskProcessor.hpp" />
+    <ClInclude Include="Simulation\TaskStorage.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>

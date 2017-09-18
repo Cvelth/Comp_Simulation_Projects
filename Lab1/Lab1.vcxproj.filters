@@ -34,6 +34,21 @@
     <ClCompile Include="GUI\main.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Simulation\ProcessorSimulator.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulation\TaskGenerator.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulation\TaskProcessor.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulation\TaskStorage.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulation\ProcessorSimultor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="GUI\GUI.h">
@@ -49,6 +64,21 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_GUI.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation\ProcessorSimultor.hpp">
+      <Filter>Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation\Shared.hpp">
+      <Filter>Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation\TaskGenerator.hpp">
+      <Filter>Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation\TaskProcessor.hpp">
+      <Filter>Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation\TaskStorage.hpp">
+      <Filter>Simulation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
