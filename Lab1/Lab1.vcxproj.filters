@@ -35,9 +35,6 @@
     <ClCompile Include="Simulation\TaskProcessor.cpp">
       <Filter>Simulation</Filter>
     </ClCompile>
-    <ClCompile Include="Simulation\TaskStorage.cpp">
-      <Filter>Simulation</Filter>
-    </ClCompile>
     <ClCompile Include="Simulation\ProcessorSimulator.cpp">
       <Filter>Simulation</Filter>
     </ClCompile>

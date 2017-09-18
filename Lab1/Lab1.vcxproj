@@ -42,7 +42,6 @@
     <ClCompile Include="Simulation\ProcessorSimulator.cpp" />
     <ClCompile Include="Simulation\TaskGenerator.cpp" />
     <ClCompile Include="Simulation\TaskProcessor.cpp" />
-    <ClCompile Include="Simulation\TaskStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="GUI\GUI.h">

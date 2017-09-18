@@ -8,6 +8,7 @@ namespace cs {
 		SimulationState m_state;
 		number m_mu;
 		number m_sigma;
+		number m_tau;
 		TaskStorage *m_storage;
 		number *m_time_coefficient;
 	protected:
@@ -35,6 +36,9 @@ namespace cs {
 		}
 		inline void changeSigma(number s) {
 			m_sigma = s;
+		}
+		inline void changeTau(number t) {
+			m_tau = t;
 		}
 	};
 }

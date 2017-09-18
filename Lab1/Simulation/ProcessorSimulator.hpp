@@ -24,5 +24,6 @@ namespace cs {
 		void changeLambda(number l);
 		void changeMu(number m);
 		void changeSigma(number s);
+		void changeTau(number t);
 	};
 }

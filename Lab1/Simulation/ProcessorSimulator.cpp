@@ -44,3 +44,7 @@ void cs::ProcessorSimulator::changeMu(number m) {
 void cs::ProcessorSimulator::changeSigma(number s) {
 	m_processor->changeSigma(s);
 }
+
+void cs::ProcessorSimulator::changeTau(number t) {
+	m_processor->changeTau(t);
+}
