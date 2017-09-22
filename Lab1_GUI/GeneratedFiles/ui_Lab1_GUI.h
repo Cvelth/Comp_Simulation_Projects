@@ -36,6 +36,9 @@ public:
     QLabel *label_2;
     QLineEdit *mu;
     QSpacerItem *horizontalSpacer_2;
+    QLabel *label_3;
+    QLineEdit *tau;
+    QSpacerItem *horizontalSpacer_3;
     QPushButton *start;
     QVBoxLayout *visualization_layout;
     QSlider *time;
@@ -54,6 +57,10 @@ public:
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         label = new QLabel(Lab1_GUIClass);
         label->setObjectName(QStringLiteral("label"));
+        QFont font;
+        font.setFamily(QStringLiteral("Cambria"));
+        font.setPointSize(14);
+        label->setFont(font);
 
         horizontalLayout_3->addWidget(label);
 
@@ -68,6 +75,7 @@ public:
 
         label_2 = new QLabel(Lab1_GUIClass);
         label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setFont(font);
 
         horizontalLayout_3->addWidget(label_2);
 
@@ -80,16 +88,33 @@ public:
 
         horizontalLayout_3->addItem(horizontalSpacer_2);
 
+        label_3 = new QLabel(Lab1_GUIClass);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setFont(font);
+
+        horizontalLayout_3->addWidget(label_3);
+
+        tau = new QLineEdit(Lab1_GUIClass);
+        tau->setObjectName(QStringLiteral("tau"));
+
+        horizontalLayout_3->addWidget(tau);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_3);
+
         start = new QPushButton(Lab1_GUIClass);
         start->setObjectName(QStringLiteral("start"));
 
         horizontalLayout_3->addWidget(start);
 
-        horizontalLayout_3->setStretch(1, 5);
+        horizontalLayout_3->setStretch(1, 8);
         horizontalLayout_3->setStretch(2, 1);
-        horizontalLayout_3->setStretch(4, 5);
+        horizontalLayout_3->setStretch(4, 8);
         horizontalLayout_3->setStretch(5, 1);
-        horizontalLayout_3->setStretch(6, 3);
+        horizontalLayout_3->setStretch(7, 8);
+        horizontalLayout_3->setStretch(8, 1);
+        horizontalLayout_3->setStretch(9, 3);
 
         verticalLayout_2->addLayout(horizontalLayout_3);
 
@@ -118,8 +143,12 @@ public:
     void retranslateUi(QWidget *Lab1_GUIClass)
     {
         Lab1_GUIClass->setWindowTitle(QApplication::translate("Lab1_GUIClass", "GUI", Q_NULLPTR));
-        label->setText(QApplication::translate("Lab1_GUIClass", "lambda = ", Q_NULLPTR));
-        label_2->setText(QApplication::translate("Lab1_GUIClass", "mu = ", Q_NULLPTR));
+        label->setText(QApplication::translate("Lab1_GUIClass", "\316\273 = ", Q_NULLPTR));
+        lambda->setText(QApplication::translate("Lab1_GUIClass", "2.3", Q_NULLPTR));
+        label_2->setText(QApplication::translate("Lab1_GUIClass", "\316\274 = ", Q_NULLPTR));
+        mu->setText(QApplication::translate("Lab1_GUIClass", "5.2", Q_NULLPTR));
+        label_3->setText(QApplication::translate("Lab1_GUIClass", "\317\204 = ", Q_NULLPTR));
+        tau->setText(QApplication::translate("Lab1_GUIClass", "1.0", Q_NULLPTR));
         start->setText(QApplication::translate("Lab1_GUIClass", "Start", Q_NULLPTR));
     } // retranslateUi
 

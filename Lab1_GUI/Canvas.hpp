@@ -2,8 +2,13 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
+namespace cs {
+	class ProcessorSimulator;
+}
+
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
 private:
+	cs::ProcessorSimulator* m_simulator;
 	float m_aspect_ratio;
 protected:
 	virtual void initializeGL() override;
@@ -13,6 +18,9 @@ protected:
 	virtual void initialDraw();
 
 public:
-	Canvas(QWidget *parent = nullptr);
+	Canvas(cs::ProcessorSimulator* simulator, QWidget *parent = nullptr);
 	~Canvas();
+
+protected slots:
+	void start_simulation();
 };

@@ -13,9 +13,8 @@ void cs::TaskGenerator::loop() {
 			if (m_state == SimulationState::Running) {
 				if (!d || d->mean() != m_lambda)
 					d = new std::poisson_distribution<number>(m_lambda);
-				auto wait = (*d)(g);
-				std::this_thread::sleep_for(std::chrono::duration<number>(
-					*m_time_coefficient * cs::constants::time_correction * wait));
+				auto wait = *m_time_coefficient * cs::constants::time_correction *(*d)(g);
+				std::this_thread::sleep_for(std::chrono::duration<number>(wait));
 				m_storage->push();
 			}
 	});

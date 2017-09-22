@@ -3,12 +3,18 @@
 
 namespace cs {
 	class TaskStorage;
+	class CurrentGeneration {
+	protected:
+		
+	public:
+	};
 
 	class TaskGenerator {
 		SimulationState m_state;
 		number m_lambda;
 		TaskStorage *m_storage;
 		number *m_time_coefficient;
+		CurrentGeneration m_current;
 	protected:
 		void loop();
 	public:
