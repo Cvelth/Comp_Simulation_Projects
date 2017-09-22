@@ -1,7 +1,7 @@
 #include "Canvas.hpp"
 
 Canvas::Canvas(cs::ProcessorSimulator *simulator, QWidget *parent) 
-	: QOpenGLWidget(parent), m_simulator(simulator) {
+	: QOpenGLWidget(parent), m_simulator(simulator), m_first(true) {
 }
 
 Canvas::~Canvas()
@@ -22,4 +22,9 @@ void Canvas::resizeGL(int w, int h) {
 
 void Canvas::paintGL() {
 	initialDraw();
+	drawGenerator();
+}
+
+void Canvas::redraw() {
+	update();
 }

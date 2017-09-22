@@ -7,9 +7,11 @@ namespace cs {
 }
 
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
+	Q_OBJECT
 private:
 	cs::ProcessorSimulator* m_simulator;
 	float m_aspect_ratio;
+	bool m_first;
 protected:
 	virtual void initializeGL() override;
 	virtual void resizeGL(int w, int h) override;
@@ -21,6 +23,6 @@ public:
 	Canvas(cs::ProcessorSimulator* simulator, QWidget *parent = nullptr);
 	~Canvas();
 
-protected slots:
-	void start_simulation();
+public slots:
+	void redraw();
 };

@@ -55,14 +55,9 @@ void Canvas::initialDraw() {
 	glVertex2f(+0.83, +0.47);
 	glEnd();
 
+	//Stack
 	glBegin(GL_QUADS);
 	sendColor(elements);
-	//Generator
-	glVertex2f(-0.8, +0.6);
-	glVertex2f(-0.8, +0.4);
-	glVertex2f(-0.2, +0.4);
-	glVertex2f(-0.2, +0.6);
-	//Stack
 	glVertex2f(-0.4, -0.0);
 	glVertex2f(+0.4, -0.0);
 	glVertex2f(+0.4, -0.8);
@@ -77,4 +72,24 @@ void Canvas::initialDraw() {
 	glEnd();
 }
 
-void Canvas::drawGenerator() {}
+#include "..\ProcessorSimulator\ProcessorSimulator.hpp"
+#include "..\ProcessorSimulator\TaskGenerator.hpp"
+void Canvas::drawGenerator() {
+	float percent = m_simulator->generator()->getCurrentPercent() / 1.e+3f;
+	percent = percent > 1.f ? 1.f : percent;
+	float point = 0.6f * percent - 0.8f;
+
+	glBegin(GL_QUADS);
+	sendColor(m_simulator->generator()->getCurrentColor());
+	glVertex2f(-0.8, +0.6);
+	glVertex2f(-0.8, +0.4);
+	glVertex2f(point, +0.4);
+	glVertex2f(point, +0.6);
+
+	sendColor(elements);
+	glVertex2f(point, +0.6);
+	glVertex2f(point, +0.4);
+	glVertex2f(-0.2, +0.4);
+	glVertex2f(-0.2, +0.6);
+	glEnd();
+}

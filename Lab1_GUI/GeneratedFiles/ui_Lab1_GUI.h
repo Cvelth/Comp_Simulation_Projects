@@ -126,9 +126,9 @@ public:
 
         time = new QSlider(Lab1_GUIClass);
         time->setObjectName(QStringLiteral("time"));
-        time->setMinimum(1);
+        time->setMinimum(3);
         time->setMaximum(100);
-        time->setValue(50);
+        time->setValue(100);
         time->setOrientation(Qt::Horizontal);
 
         verticalLayout_2->addWidget(time);
