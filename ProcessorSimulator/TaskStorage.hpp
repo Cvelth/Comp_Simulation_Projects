@@ -16,6 +16,8 @@ namespace cs {
 		Task(float color = -1.f);
 		Task& operator=(Task const &other) {
 			m_color = other.m_color;
+			m_processing_left = other.m_processing_left;
+			m_was_processed = other.m_was_processed;
 			return *this;
 		}
 		inline Color const& color() const {
@@ -71,8 +73,8 @@ namespace cs {
 		}
 
 		virtual void for_each(std::function<void(Task const& task)> const& lambda) override {
-			for (auto t : m_queue)
-				lambda(t);
+			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++)
+				lambda(*t);
 		}
 	};
 	/* To correct.

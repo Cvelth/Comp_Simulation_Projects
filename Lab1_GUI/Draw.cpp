@@ -120,10 +120,12 @@ void Canvas::drawStorage() {
 		glVertex2f(+0.4, y);
 		glVertex2f(-0.4, y);
 	});
-	sendColor(elements);
-	glVertex2f(-0.4, y);
-	glVertex2f(+0.4, y);
-	glVertex2f(+0.4, -0.8);
-	glVertex2f(-0.4, -0.8);						
+	sendColor(elements); 
+	if (y > -0.8) {
+		glVertex2f(-0.4, y);
+		glVertex2f(+0.4, y);
+		glVertex2f(+0.4, -0.8);
+		glVertex2f(-0.4, -0.8);
+	}
 	glEnd();
 }

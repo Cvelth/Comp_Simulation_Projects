@@ -7,7 +7,7 @@ Lab1_GUI::Lab1_GUI(QWidget *parent)
 	ui.setupUi(this);
 	connect(ui.start, &QPushButton::clicked, this, &Lab1_GUI::start_simulation);
 	connect(ui.time, &QSlider::valueChanged, this, &Lab1_GUI::change_time_coefficient);
-	m_timer.setInterval(16);
+	m_timer.setInterval(0);
 
 	m_simulator.changeTimeCoefficient(1.f);
 	m_simulator.initialize(cs::StorageType::LIFO);

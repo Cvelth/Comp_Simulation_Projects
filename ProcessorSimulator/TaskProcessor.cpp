@@ -32,9 +32,9 @@ void cs::TaskProcessor::loop() {
 					duration = std::chrono::duration<float>(wait);
 
 				m_current_processing_start = std::chrono::high_resolution_clock::now();
+				m_current_processing_end = m_current_processing_start + std::chrono::duration<float>(wait);
 				m_current_processing_start -= std::chrono::duration<float>(m_tau * 
 																		   m_current_task.was_processed());
-				m_current_processing_end = m_current_processing_start + std::chrono::duration<float>(wait);
 				std::this_thread::sleep_for(duration);
 				if (repush) {
 					m_current_task.set_processing_left(processing_left);
