@@ -10,6 +10,7 @@ void sendColor(cs::Color const& c) {
 namespace default_colors {
 	cs::Color lines = {0.7f, 0.3f, 0.9f};
 	cs::Color elements = {0.95f, 0.75f, 0.95f};
+	cs::Color background = {0.1f, 0.f, 0.15f};
 }
 using namespace default_colors;
 
@@ -63,13 +64,6 @@ void Canvas::initialDraw() {
 	glVertex2f(+0.4, -0.8);
 	glVertex2f(-0.4, -0.8);
 	glEnd();
-
-	//Processor
-	glBegin(GL_POLYGON);
-	sendColor(elements);
-	for (float a = 0.0; a < 2 * M_PI; a += M_PI / 20)
-		glVertex2f(sinf(a) / m_aspect_ratio * 0.25 + 0.5, cosf(a) * 0.25 + 0.5);
-	glEnd();
 }
 
 #include "..\ProcessorSimulator\ProcessorSimulator.hpp"
@@ -91,5 +85,18 @@ void Canvas::drawGenerator() {
 	glVertex2f(point, +0.4);
 	glVertex2f(-0.2, +0.4);
 	glVertex2f(-0.2, +0.6);
+	glEnd();
+}
+
+void Canvas::drawProcessor() {
+	glBegin(GL_POLYGON);
+	sendColor(elements);
+	for (float a = 0.0; a < 2 * M_PI; a += M_PI / 20)
+		glVertex2f(sinf(a) / m_aspect_ratio * 0.25 + 0.5, cosf(a) * 0.25 + 0.5);
+	glEnd();
+	glBegin(GL_POLYGON);
+	sendColor(background);
+	for (float a = 0.0; a < 2 * M_PI; a += M_PI / 20)
+		glVertex2f(sinf(a) / m_aspect_ratio * 0.15 + 0.5, cosf(a) * 0.15 + 0.5);
 	glEnd();
 }

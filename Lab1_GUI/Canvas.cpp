@@ -23,6 +23,7 @@ void Canvas::resizeGL(int w, int h) {
 void Canvas::paintGL() {
 	initialDraw();
 	drawGenerator();
+	drawProcessor();
 }
 
 void Canvas::redraw() {

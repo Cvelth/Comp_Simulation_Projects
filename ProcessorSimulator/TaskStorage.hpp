@@ -9,6 +9,7 @@ namespace cs {
 	}
 	class Task {
 		Color m_color;
+		float m_processing_left;
 	public:
 		Task(float color = -1.f);
 		Task& operator=(Task const &other) {
@@ -17,6 +18,12 @@ namespace cs {
 		}
 		inline Color const& color() const {
 			return m_color;
+		}
+		inline float processing_left() const {
+			return m_processing_left;
+		}
+		inline void set_processing_left(float value) {
+			m_processing_left = value;
 		}
 	};
 	class Queue : public std::deque<Task> {};
