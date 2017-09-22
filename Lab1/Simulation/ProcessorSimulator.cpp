@@ -9,7 +9,7 @@ void cs::ProcessorSimulator::initialize(StorageType type) {
 			m_storage = new LIFO();
 			break;
 		case StorageType::PER:
-			m_storage = new PER();
+			//m_storage = new PER();
 			break;
 	}
 	m_generator = new TaskGenerator(m_storage, &m_time_coefficient);

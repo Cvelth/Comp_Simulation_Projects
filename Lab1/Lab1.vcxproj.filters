@@ -38,6 +38,15 @@
     <ClCompile Include="Simulation\ProcessorSimulator.cpp">
       <Filter>Simulation</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Canvas.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Canvas.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="GUI\GUI.h">
@@ -47,6 +56,9 @@
       <Filter>GUI</Filter>
     </CustomBuild>
     <CustomBuild Include="GUI\GUI.ui">
+      <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Canvas.hpp">
       <Filter>GUI</Filter>
     </CustomBuild>
   </ItemGroup>
