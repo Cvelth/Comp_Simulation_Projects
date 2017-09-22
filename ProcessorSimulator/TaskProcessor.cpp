@@ -16,6 +16,7 @@ void cs::TaskProcessor::loop() {
 					m_current_task = m_storage->pop();
 				} catch (cs::Exceptions::EmptyQueue) {
 					m_current_task = Task(0.f);
+					m_current_task.set_processing_left(m_tau);
 				}
 				m_is_processing = true;
 				float wait;
