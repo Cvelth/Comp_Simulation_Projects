@@ -114,6 +114,7 @@
     <ClCompile Include="ProcessorSimulator.cpp" />
     <ClCompile Include="TaskGenerator.cpp" />
     <ClCompile Include="TaskProcessor.cpp" />
+    <ClCompile Include="TaskStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessorSimulator.hpp" />

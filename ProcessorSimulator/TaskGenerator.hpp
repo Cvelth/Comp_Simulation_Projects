@@ -1,25 +1,23 @@
 #pragma once
 #include "Shared.hpp"
+#include <chrono>
 
 namespace cs {
+	class Task;
 	class TaskStorage;
-	class CurrentGeneration {
-	protected:
-		
-	public:
-	};
-
 	class TaskGenerator {
 		SimulationState m_state;
 		number m_lambda;
 		TaskStorage *m_storage;
 		number *m_time_coefficient;
-		CurrentGeneration m_current;
+		std::chrono::time_point<std::chrono::high_resolution_clock> m_current_generation_start;
+		std::chrono::time_point<std::chrono::high_resolution_clock> m_current_generation_end;
+		Task* m_current_task;
 	protected:
 		void loop();
 	public:
 		TaskGenerator(TaskStorage *storage, number *time_coefficient)
-			: m_storage(storage), m_time_coefficient(time_coefficient) {}
+			: m_storage(storage), m_time_coefficient(time_coefficient), m_state(SimulationState::Stoped) {}
 		inline void start() {
 			if (m_state != SimulationState::Error)
 				m_state = SimulationState::Running;
@@ -38,5 +36,7 @@ namespace cs {
 		inline void changeLambda(number l) {
 			m_lambda = l;
 		}
+		float getCurrentPercent();
+		Color const& getCurrentColor();
 	};
 }

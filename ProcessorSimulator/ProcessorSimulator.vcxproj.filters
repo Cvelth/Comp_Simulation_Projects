@@ -20,6 +20,9 @@
     <ClCompile Include="TaskProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TaskStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessorSimulator.hpp">

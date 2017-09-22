@@ -8,10 +8,15 @@ namespace cs {
 		class EmptyQueue {};
 	}
 	class Task {
-
+		Color m_color;
 	public:
+		Task();
 		Task& operator=(Task const &other) {
+			m_color = other.m_color;
 			return *this;
+		}
+		inline Color const& color() const {
+			return m_color;
 		}
 	};
 	class Queue : public std::deque<Task> {};

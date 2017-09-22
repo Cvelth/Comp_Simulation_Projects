@@ -1,11 +1,22 @@
 #include "Canvas.hpp"
+#include "..\ProcessorSimulator\Shared.hpp"
 #define _USE_MATH_DEFINES
 #include <math.h>
+
+void sendColor(cs::Color const& c) {
+	glColor3f(c.r, c.g, c.b);
+}
+
+namespace default_colors {
+	cs::Color lines = {0.7f, 0.3f, 0.9f};
+	cs::Color elements = {0.95f, 0.75f, 0.95f};
+}
+using namespace default_colors;
 
 void Canvas::initialDraw() {
 	//Connection lines:
 	glBegin(GL_LINES);
-	glColor3f(0.7, 0.3, 0.9);
+	sendColor(lines);
 	//edge -> generator
 	glVertex2f(-1.0, +0.5);
 	glVertex2f(-0.8, +0.5);
@@ -25,7 +36,7 @@ void Canvas::initialDraw() {
 
 	//Arrows:
 	glBegin(GL_TRIANGLES);
-	glColor3f(0.7, 0.3, 0.9);
+	sendColor(lines);
 	//to generator
 	glVertex2f(-0.85, +0.50);
 	glVertex2f(-0.88, +0.53);
@@ -45,7 +56,7 @@ void Canvas::initialDraw() {
 	glEnd();
 
 	glBegin(GL_QUADS);
-	glColor3f(0.95, 0.75, 0.95);
+	sendColor(elements);
 	//Generator
 	glVertex2f(-0.8, +0.6);
 	glVertex2f(-0.8, +0.4);
@@ -60,8 +71,10 @@ void Canvas::initialDraw() {
 
 	//Processor
 	glBegin(GL_POLYGON);
-	glColor3f(0.95, 0.75, 0.95);
+	sendColor(elements);
 	for (float a = 0.0; a < 2 * M_PI; a += M_PI / 20)
 		glVertex2f(sinf(a) / m_aspect_ratio * 0.25 + 0.5, cosf(a) * 0.25 + 0.5);
 	glEnd();
 }
+
+void Canvas::drawGenerator() {}

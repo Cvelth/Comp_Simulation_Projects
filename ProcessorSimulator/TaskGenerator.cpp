@@ -13,10 +13,21 @@ void cs::TaskGenerator::loop() {
 			if (m_state == SimulationState::Running) {
 				if (!d || d->mean() != m_lambda)
 					d = new std::poisson_distribution<number>(m_lambda);
-				auto wait = *m_time_coefficient * cs::constants::time_correction *(*d)(g);
-				std::this_thread::sleep_for(std::chrono::duration<number>(wait));
-				m_storage->push();
+				auto start = std::chrono::high_resolution_clock::now();
+				auto duration = std::chrono::duration<float>(*m_time_coefficient * cs::constants::time_correction * (*d)(g));
+				auto end = start + duration;
+				m_current_task = new Task();
+				std::this_thread::sleep_for(duration);
+				m_storage->push(m_current_task);
 			}
 	});
 	t.detach();
+}
+
+float cs::TaskGenerator::getCurrentPercent() {
+	return (std::chrono::high_resolution_clock::now() - m_current_generation_start) * 100 / (m_current_generation_end - m_current_generation_start);
+}
+
+cs::Color const& cs::TaskGenerator::getCurrentColor() {
+	return m_current_task->color();
 }

@@ -16,7 +16,7 @@ protected:
 	virtual void paintGL() override;
 
 	virtual void initialDraw();
-
+	virtual void drawGenerator();
 public:
 	Canvas(cs::ProcessorSimulator* simulator, QWidget *parent = nullptr);
 	~Canvas();
