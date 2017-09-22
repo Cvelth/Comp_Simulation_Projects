@@ -19,8 +19,8 @@ void cs::TaskProcessor::loop() {
 					m_current_task.set_processing_left(m_tau);
 				}
 				m_is_processing = true;
-				float wait;
-				if ((wait = m_current_task.processing_left()) == 0.f) 
+				float wait = m_current_task.processing_left();
+				if (wait == 0.f)
 					wait = *m_time_coefficient * cs::constants::time_correction * (*d)(g);
 
 				std::chrono::duration<float> duration;
@@ -32,10 +32,13 @@ void cs::TaskProcessor::loop() {
 					duration = std::chrono::duration<float>(wait);
 
 				m_current_processing_start = std::chrono::high_resolution_clock::now();
-				m_current_processing_end = m_current_processing_start + duration;
+				m_current_processing_start -= std::chrono::duration<float>(m_tau * 
+																		   m_current_task.was_processed());
+				m_current_processing_end = m_current_processing_start + std::chrono::duration<float>(wait);
 				std::this_thread::sleep_for(duration);
 				if (repush) {
 					m_current_task.set_processing_left(processing_left);
+					m_current_task.process();
 					m_storage->repush(&m_current_task);
 				}
 		}
