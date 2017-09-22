@@ -10,10 +10,10 @@ namespace cs {
 		number m_lambda;
 		TaskStorage *m_storage;
 		number *m_time_coefficient;
-		std::chrono::time_point<std::chrono::high_resolution_clock, std::chrono::duration<float, std::ratio<1, 1000000000>>> m_current_generation_start;
-		std::chrono::time_point<std::chrono::high_resolution_clock, std::chrono::duration<float,std::ratio<1,1000000000>>> m_current_generation_end;
+		time_point m_current_generation_start;
+		time_point m_current_generation_end;
 		bool m_is_generating;
-		Task* m_current_task;
+		Task *m_current_task;
 	protected:
 		void loop();
 	public:

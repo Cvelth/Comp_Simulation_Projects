@@ -14,7 +14,8 @@ void cs::TaskGenerator::loop() {
 				if (!d || d->mean() != m_lambda)
 					d = new std::poisson_distribution<number>(m_lambda);
 				m_current_generation_start = std::chrono::high_resolution_clock::now();
-				auto duration = std::chrono::duration<float>(*m_time_coefficient * cs::constants::time_correction * (*d)(g));
+				auto duration = std::chrono::duration<float>(*m_time_coefficient * 
+															 cs::constants::time_correction * (*d)(g));
 				m_current_generation_end = m_current_generation_start + duration;
 				m_current_task = new Task();
 				m_is_generating = true;
@@ -27,7 +28,8 @@ void cs::TaskGenerator::loop() {
 
 float cs::TaskGenerator::getCurrentPercent() {
 	if (m_is_generating)
-		return (std::chrono::high_resolution_clock::now() - m_current_generation_start) * 1000 / (m_current_generation_end - m_current_generation_start);
+		return (std::chrono::high_resolution_clock::now() - m_current_generation_start) * 1000 / 
+		(m_current_generation_end - m_current_generation_start);
 	else
 		return 0.f;
 }

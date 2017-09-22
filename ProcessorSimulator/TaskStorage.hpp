@@ -10,7 +10,7 @@ namespace cs {
 	class Task {
 		Color m_color;
 	public:
-		Task();
+		Task(float color = -1.f);
 		Task& operator=(Task const &other) {
 			m_color = other.m_color;
 			return *this;
