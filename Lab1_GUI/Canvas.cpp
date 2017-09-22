@@ -24,6 +24,7 @@ void Canvas::paintGL() {
 	initialDraw();
 	drawGenerator();
 	drawProcessor();
+	drawStorage();
 }
 
 void Canvas::redraw() {

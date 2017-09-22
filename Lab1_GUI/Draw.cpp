@@ -55,15 +55,6 @@ void Canvas::initialDraw() {
 	glVertex2f(+0.83, +0.53);
 	glVertex2f(+0.83, +0.47);
 	glEnd();
-
-	//Stack
-	glBegin(GL_QUADS);
-	sendColor(elements);
-	glVertex2f(-0.4, -0.0);
-	glVertex2f(+0.4, -0.0);
-	glVertex2f(+0.4, -0.8);
-	glVertex2f(-0.4, -0.8);
-	glEnd();
 }
 
 #include "..\ProcessorSimulator\ProcessorSimulator.hpp"
@@ -114,5 +105,25 @@ void Canvas::drawProcessor() {
 	sendColor(background);
 	for (float a = 0.0; a < M_PI * 2.f; a += M_PI / 20)
 		glVertex2f(sinf(a) / m_aspect_ratio * 0.15 + 0.5, cosf(a) * 0.15 + 0.5);
+	glEnd();
+}
+
+#include "..\ProcessorSimulator\TaskStorage.hpp"
+void Canvas::drawStorage() {
+	float y = 0.f;
+	glBegin(GL_QUADS);
+	m_simulator->storage()->for_each([&y, this](cs::Task const& task) {
+		sendColor(task.color());
+		glVertex2f(-0.4, y);
+		glVertex2f(+0.4, y);
+		y -= 0.08;
+		glVertex2f(+0.4, y);
+		glVertex2f(-0.4, y);
+	});
+	sendColor(elements);
+	glVertex2f(-0.4, y);
+	glVertex2f(+0.4, y);
+	glVertex2f(+0.4, -0.8);
+	glVertex2f(-0.4, -0.8);						
 	glEnd();
 }

@@ -2,6 +2,7 @@
 #include "Shared.hpp"
 #include <deque>
 #include <mutex>
+#include <functional>
 
 namespace cs {
 	namespace Exceptions {
@@ -41,6 +42,8 @@ namespace cs {
 		virtual void push(Task *task = nullptr) abstract;
 		virtual void repush(Task *task = nullptr) abstract;
 		virtual Task pop() abstract;
+
+		virtual void for_each(std::function<void(Task const& task)> const& lambda) abstract;
 	};
 	class LIFO : public TaskStorage {
 		Queue m_queue;
@@ -65,6 +68,11 @@ namespace cs {
 			} else
 				throw Exceptions::EmptyQueue();
 			return ret;
+		}
+
+		virtual void for_each(std::function<void(Task const& task)> const& lambda) override {
+			for (auto t : m_queue)
+				lambda(t);
 		}
 	};
 	/* To correct.

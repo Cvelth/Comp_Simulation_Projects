@@ -20,6 +20,7 @@ protected:
 	virtual void initialDraw();
 	virtual void drawGenerator();
 	virtual void drawProcessor();
+	virtual void drawStorage();
 public:
 	Canvas(cs::ProcessorSimulator* simulator, QWidget *parent = nullptr);
 	~Canvas();
