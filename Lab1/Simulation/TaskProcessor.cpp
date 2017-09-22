@@ -13,10 +13,15 @@ void cs::TaskProcessor::loop() {
 			if (m_state == SimulationState::Running) {
 				if (!d || d->mean() != m_mu || d->sigma() != m_sigma)
 					d = new std::normal_distribution<float>(m_mu, m_sigma);
-				auto wait = (*d)(g);
-				m_storage->pop();
-				std::this_thread::sleep_for(std::chrono::duration<float>(
-					* m_time_coefficient * cs::constants::time_correction * wait));
+				try {
+					auto wait = (*d)(g);
+					m_storage->pop();
+					std::this_thread::sleep_for(std::chrono::duration<float>(
+						*m_time_coefficient * cs::constants::time_correction * wait));
+				} catch (cs::Exceptions::EmptyQueue) {
+					std::this_thread::sleep_for(std::chrono::duration<float>(
+						*m_time_coefficient * cs::constants::time_correction * m_tau));
+				}
 		}
 	});
 	t.detach();

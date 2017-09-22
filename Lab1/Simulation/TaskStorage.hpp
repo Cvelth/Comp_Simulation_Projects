@@ -1,6 +1,7 @@
 #pragma once
 #include "Shared.hpp"
 #include <deque>
+#include <mutex>
 
 namespace cs {
 	namespace Exceptions {
@@ -14,7 +15,9 @@ namespace cs {
 		}
 	};
 	class Queue : public std::deque<Task> {};
-	class TaskStorage {			
+	class TaskStorage {
+	protected:
+		std::mutex m_mutex;
 	public:
 		virtual void push(Task *task = nullptr) abstract;
 		virtual void repush(Task *task = nullptr) abstract;
@@ -25,6 +28,7 @@ namespace cs {
 	public:
 		LIFO() : m_queue() {}
 		virtual void push(Task *task = nullptr) override {
+			std::lock_guard<std::mutex> l(m_mutex);
 			if (task)
 				m_queue.push_back(*task);
 			else
@@ -35,6 +39,7 @@ namespace cs {
 		}
 		virtual Task pop() override {
 			Task ret;
+			std::lock_guard<std::mutex> l(m_mutex);
 			if (m_queue.size()) {
 				ret = m_queue.back();
 				m_queue.pop_back();
@@ -43,6 +48,7 @@ namespace cs {
 			return ret;
 		}
 	};
+	/* To correct.
 	class PER : public TaskStorage {
 		Queue m_initial_queue;
 		Queue m_repush_queue;
@@ -71,4 +77,5 @@ namespace cs {
 			return ret; 
 		}
 	};
+	*/
 }

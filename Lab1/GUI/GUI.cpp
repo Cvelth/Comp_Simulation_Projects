@@ -6,7 +6,7 @@ GUI::GUI(QWidget *parent)
 {
 	ui.setupUi(this);
 	cs::ProcessorSimulator p;
-	p.changeTimeCoefficient(1.f);
+	p.changeTimeCoefficient(1.e-6f);
 	p.initialize(cs::StorageType::LIFO);
 	p.changeLambda(2.3);
 	p.changeMu(5.2);
