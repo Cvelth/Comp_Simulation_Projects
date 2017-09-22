@@ -8,5 +8,5 @@ cs::Task::Task(float color) : m_processing_left(0.f), m_was_processed(0) {
 	if (color < 0.f || color > 1.f)
 		m_color = Color{d(g), d(g), d(g)};
 	else
-		m_color = Color{color, color, color};
+		m_color = Color{0.95f, 0.75f, 0.95f};
 }
