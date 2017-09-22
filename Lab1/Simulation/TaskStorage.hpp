@@ -1,51 +1,74 @@
 #pragma once
 #include "Shared.hpp"
+#include <deque>
 
 namespace cs {
+	namespace Exceptions {
+		class EmptyQueue {};
+	}
+	class Task {
+
+	public:
+		Task& operator=(Task const &other) {
+			return *this;
+		}
+	};
+	class Queue : public std::deque<Task> {};
 	class TaskStorage {			
 	public:
-		virtual void push() abstract;
-		virtual bool pop() abstract;
-		virtual void repush() abstract;
+		virtual void push(Task *task = nullptr) abstract;
+		virtual void repush(Task *task = nullptr) abstract;
+		virtual Task pop() abstract;
 	};
 	class LIFO : public TaskStorage {
-		size_t m_queue;
+		Queue m_queue;
 	public:
-		LIFO() : m_queue(0) {}
-		virtual void push() override {
-			m_queue++;
+		LIFO() : m_queue() {}
+		virtual void push(Task *task = nullptr) override {
+			if (task)
+				m_queue.push_back(*task);
+			else
+				m_queue.push_back(Task());
 		}
-		virtual bool pop() override {
-			if (m_queue != 0) {
-				m_queue--;
-				return true;
+		virtual void repush(Task *task = nullptr) override {
+			push(task);
+		}
+		virtual Task pop() override {
+			Task ret;
+			if (m_queue.size()) {
+				ret = m_queue.back();
+				m_queue.pop_back();
 			} else
-				return false;
-		}
-		virtual void repush() override {
-			push();
+				throw Exceptions::EmptyQueue();
+			return ret;
 		}
 	};
 	class PER : public TaskStorage {
-		size_t m_queue_1;
-		size_t m_queue_2;
+		Queue m_initial_queue;
+		Queue m_repush_queue;
 	public:
-		PER() : m_queue_1(0), m_queue_2(0) {}
-		virtual void push() override {
-			m_queue_1++;
+		PER() : m_initial_queue(), m_repush_queue() {}
+		virtual void push(Task *task = nullptr) override {
+			if (task)
+				m_initial_queue.push_back(*task);
+			else
+				m_initial_queue.push_back(Task());
 		}
-		virtual bool pop() override {
-			if (m_queue_1 != 0) {
-				m_queue_1--;
-				return true;
-			} else if (m_queue_2 != 0) {
-				m_queue_2--;
-				return true;
-			} else
-				return false;
+		virtual void repush(Task *task = nullptr) override {
+			if (task)
+				m_repush_queue.push_back(*task);
+			else
+				m_repush_queue.push_back(Task());
 		}
-		virtual void repush() override {
-			m_queue_2++;
+		virtual Task pop() override {
+			Task ret;
+			if (m_initial_queue.size())
+				ret = m_initial_queue.front();
+			else if (m_repush_queue.size())
+				ret = m_repush_queue.front();
+			else
+				throw Exceptions::EmptyQueue();
+			return ret; 
 		}
 	};
 }
