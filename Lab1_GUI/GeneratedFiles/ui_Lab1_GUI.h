@@ -13,11 +13,11 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
@@ -29,15 +29,14 @@ class Ui_Lab1_GUIClass
 {
 public:
     QVBoxLayout *verticalLayout_2;
-    QGroupBox *groupBox;
-    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *horizontalLayout_3;
     QLabel *label;
     QLineEdit *lambda;
     QSpacerItem *horizontalSpacer;
     QLabel *label_2;
     QLineEdit *mu;
-    QGroupBox *groupBox_2;
-    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer_2;
+    QPushButton *start;
     QVBoxLayout *visualization_layout;
     QSlider *time;
 
@@ -50,56 +49,55 @@ public:
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        groupBox = new QGroupBox(Lab1_GUIClass);
-        groupBox->setObjectName(QStringLiteral("groupBox"));
-        horizontalLayout = new QHBoxLayout(groupBox);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label = new QLabel(groupBox);
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        label = new QLabel(Lab1_GUIClass);
         label->setObjectName(QStringLiteral("label"));
 
-        horizontalLayout->addWidget(label);
+        horizontalLayout_3->addWidget(label);
 
-        lambda = new QLineEdit(groupBox);
+        lambda = new QLineEdit(Lab1_GUIClass);
         lambda->setObjectName(QStringLiteral("lambda"));
 
-        horizontalLayout->addWidget(lambda);
+        horizontalLayout_3->addWidget(lambda);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addItem(horizontalSpacer);
+        horizontalLayout_3->addItem(horizontalSpacer);
 
-        label_2 = new QLabel(groupBox);
+        label_2 = new QLabel(Lab1_GUIClass);
         label_2->setObjectName(QStringLiteral("label_2"));
 
-        horizontalLayout->addWidget(label_2);
+        horizontalLayout_3->addWidget(label_2);
 
-        mu = new QLineEdit(groupBox);
+        mu = new QLineEdit(Lab1_GUIClass);
         mu->setObjectName(QStringLiteral("mu"));
 
-        horizontalLayout->addWidget(mu);
+        horizontalLayout_3->addWidget(mu);
 
-        horizontalLayout->setStretch(1, 5);
-        horizontalLayout->setStretch(2, 1);
-        horizontalLayout->setStretch(4, 5);
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        verticalLayout_2->addWidget(groupBox);
+        horizontalLayout_3->addItem(horizontalSpacer_2);
 
-        groupBox_2 = new QGroupBox(Lab1_GUIClass);
-        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        horizontalLayout_2 = new QHBoxLayout(groupBox_2);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        start = new QPushButton(Lab1_GUIClass);
+        start->setObjectName(QStringLiteral("start"));
+
+        horizontalLayout_3->addWidget(start);
+
+        horizontalLayout_3->setStretch(1, 5);
+        horizontalLayout_3->setStretch(2, 1);
+        horizontalLayout_3->setStretch(4, 5);
+        horizontalLayout_3->setStretch(5, 1);
+        horizontalLayout_3->setStretch(6, 3);
+
+        verticalLayout_2->addLayout(horizontalLayout_3);
+
         visualization_layout = new QVBoxLayout();
         visualization_layout->setSpacing(6);
         visualization_layout->setObjectName(QStringLiteral("visualization_layout"));
 
-        horizontalLayout_2->addLayout(visualization_layout);
-
-
-        verticalLayout_2->addWidget(groupBox_2);
+        verticalLayout_2->addLayout(visualization_layout);
 
         time = new QSlider(Lab1_GUIClass);
         time->setObjectName(QStringLiteral("time"));
@@ -120,10 +118,9 @@ public:
     void retranslateUi(QWidget *Lab1_GUIClass)
     {
         Lab1_GUIClass->setWindowTitle(QApplication::translate("Lab1_GUIClass", "GUI", Q_NULLPTR));
-        groupBox->setTitle(QApplication::translate("Lab1_GUIClass", "Inputs", Q_NULLPTR));
         label->setText(QApplication::translate("Lab1_GUIClass", "lambda = ", Q_NULLPTR));
         label_2->setText(QApplication::translate("Lab1_GUIClass", "mu = ", Q_NULLPTR));
-        groupBox_2->setTitle(QApplication::translate("Lab1_GUIClass", "Visualization", Q_NULLPTR));
+        start->setText(QApplication::translate("Lab1_GUIClass", "Start", Q_NULLPTR));
     } // retranslateUi
 
 };
