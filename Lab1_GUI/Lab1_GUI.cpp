@@ -41,7 +41,7 @@ void Lab1_GUI::start_simulation() {
 	m_per_simulator.changeTau(ui.tau->text().toFloat());
 
 	if (!m_lifo_simulator.is_running())
-		m_lifo_simulator.start();
+		//m_lifo_simulator.start();
 	if (!m_per_simulator.is_running())
 		m_per_simulator.start();
 
