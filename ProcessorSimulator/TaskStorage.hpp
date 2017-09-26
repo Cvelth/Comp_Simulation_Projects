@@ -1,6 +1,6 @@
 #pragma once
 #include "Shared.hpp"
-#include <deque>
+#include <list>
 #include <mutex>
 #include <functional>
 
@@ -36,10 +36,10 @@ namespace cs {
 			m_was_processed++;
 		}
 	};
-	class Queue : public std::deque<Task> {};
+	class Queue : public std::list<Task> {};
 	class TaskStorage {
 	protected:
-		std::mutex m_mutex;
+		//std::mutex m_mutex;
 	public:
 		virtual void push(Task *task = nullptr) abstract;
 		virtual void repush(Task *task = nullptr) abstract;
@@ -55,7 +55,7 @@ namespace cs {
 	public:
 		LIFO() : m_queue() {}
 		virtual void push(Task *task = nullptr) override {
-			std::lock_guard<std::mutex> l(m_mutex);
+			//std::lock_guard<std::mutex> l(m_mutex);
 			if (task)
 				m_queue.push_back(*task);
 			else
@@ -66,7 +66,7 @@ namespace cs {
 		}
 		virtual Task pop() override {
 			Task ret;
-			std::lock_guard<std::mutex> l(m_mutex);
+			//std::lock_guard<std::mutex> l(m_mutex);
 			if (m_queue.size()) {
 				ret = m_queue.back();
 				m_queue.pop_back();
@@ -76,7 +76,7 @@ namespace cs {
 		}
 
 		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
-			std::lock_guard<std::mutex> l(m_mutex);
+			//std::lock_guard<std::mutex> l(m_mutex);
 			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++) {
 				lambda(*t);
 			}
@@ -92,57 +92,19 @@ namespace cs {
 	};
 
 	class PER : public TaskStorage {
-		Queue m_queue;
-	public:
-		PER() : m_queue() {}
-		virtual void push(Task *task = nullptr) override {
-			std::lock_guard<std::mutex> l(m_mutex);
-			if (task)
-				m_queue.push_back(*task);
-			else
-				m_queue.push_back(Task());
-		}
-		virtual void repush(Task *task = nullptr) override {
-			push(task);
-		}
-		virtual Task pop() override {
-			Task ret;
-			std::lock_guard<std::mutex> l(m_mutex);
-			if (m_queue.size()) {
-				ret = m_queue.back();
-				m_queue.pop_back();
-			} else
-				throw Exceptions::EmptyQueue();
-			return ret;
-		}
-
-		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
-			std::lock_guard<std::mutex> l(m_mutex);
-			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++) {
-				lambda(*t);
-			}
-		}
-		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
-			return for_each_push(lambda);
-		}
-
-		virtual size_t type() override {
-			return 2;
-		}
-	};
-	/* To correct.
-	class PER : public TaskStorage {
 		Queue m_initial_queue;
 		Queue m_repush_queue;
 	public:
 		PER() : m_initial_queue(), m_repush_queue() {}
 		virtual void push(Task *task = nullptr) override {
+			//std::lock_guard<std::mutex> l(m_mutex);
 			if (task)
 				m_initial_queue.push_back(*task);
 			else
 				m_initial_queue.push_back(Task());
 		}
 		virtual void repush(Task *task = nullptr) override {
+			//std::lock_guard<std::mutex> l(m_mutex);
 			if (task)
 				m_repush_queue.push_back(*task);
 			else
@@ -150,14 +112,33 @@ namespace cs {
 		}
 		virtual Task pop() override {
 			Task ret;
-			if (m_initial_queue.size())
+			//std::lock_guard<std::mutex> l(m_mutex);
+			if (m_initial_queue.size()) {
 				ret = m_initial_queue.front();
-			else if (m_repush_queue.size())
+				m_initial_queue.pop_front();
+			} else if(m_repush_queue.size()) {
 				ret = m_repush_queue.front();
-			else
+				m_repush_queue.pop_front();
+			} else
 				throw Exceptions::EmptyQueue();
-			return ret; 
+			return ret;
+		}
+
+		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
+			//std::lock_guard<std::mutex> l(m_mutex);
+			for (auto t = m_initial_queue.rbegin(); t != m_initial_queue.rend(); t++) {
+				lambda(*t);
+			}
+		}
+		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
+			//std::lock_guard<std::mutex> l(m_mutex);
+			for (auto t = m_repush_queue.rbegin(); t != m_repush_queue.rend(); t++) {
+				lambda(*t);
+			}
+		}
+
+		virtual size_t type() override {
+			return 2;
 		}
 	};
-	*/
 }

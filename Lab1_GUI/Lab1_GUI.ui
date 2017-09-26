@@ -32,7 +32,7 @@
      <item>
       <widget class="QLineEdit" name="lambda">
        <property name="text">
-        <string>2.3</string>
+        <string>2</string>
        </property>
       </widget>
      </item>
@@ -65,7 +65,7 @@
      <item>
       <widget class="QLineEdit" name="mu">
        <property name="text">
-        <string>5.2</string>
+        <string>2</string>
        </property>
       </widget>
      </item>

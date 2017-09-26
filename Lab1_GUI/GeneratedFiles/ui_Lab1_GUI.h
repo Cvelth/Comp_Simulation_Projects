@@ -144,9 +144,9 @@ public:
     {
         Lab1_GUIClass->setWindowTitle(QApplication::translate("Lab1_GUIClass", "GUI", Q_NULLPTR));
         label->setText(QApplication::translate("Lab1_GUIClass", "\316\273 = ", Q_NULLPTR));
-        lambda->setText(QApplication::translate("Lab1_GUIClass", "2.3", Q_NULLPTR));
+        lambda->setText(QApplication::translate("Lab1_GUIClass", "2", Q_NULLPTR));
         label_2->setText(QApplication::translate("Lab1_GUIClass", "\316\274 = ", Q_NULLPTR));
-        mu->setText(QApplication::translate("Lab1_GUIClass", "5.2", Q_NULLPTR));
+        mu->setText(QApplication::translate("Lab1_GUIClass", "2", Q_NULLPTR));
         label_3->setText(QApplication::translate("Lab1_GUIClass", "\317\204 = ", Q_NULLPTR));
         tau->setText(QApplication::translate("Lab1_GUIClass", "1.0", Q_NULLPTR));
         start->setText(QApplication::translate("Lab1_GUIClass", "Start", Q_NULLPTR));

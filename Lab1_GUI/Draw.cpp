@@ -35,9 +35,9 @@ void Canvas::initialDraw() {
 	glVertex2f(-0.15, -0.2);
 	//stack -> center
 	glVertex2f(+0.05, +0.5);
-	glVertex2f(+0.05, -0.3);
-	glVertex2f(+0.15, -0.3);
-	glVertex2f(-0.15, -0.3);
+	glVertex2f(+0.05, -0.6);
+	glVertex2f(+0.15, -0.6);
+	glVertex2f(-0.15, -0.6);
 	//center -> edge
 	glVertex2f(+1.0, +0.5);
 	glVertex2f(+0.05, +0.5);
@@ -136,12 +136,12 @@ void Canvas::drawStorage() {
 			sendColor(task.color());
 			glVertex2f(-0.4, y);
 			glVertex2f(+0.4, y);
-			y -= 0.08;
+			y -= 0.04;
 			glVertex2f(+0.4, y);
 			glVertex2f(-0.4, y);
 		});
 		sendColor(elements);
-		if (y > -0.8) {
+		if (y > -1.0) {
 			glVertex2f(-0.4, y);
 			glVertex2f(+0.4, y);
 			glVertex2f(+0.4, -0.8);
@@ -155,12 +155,12 @@ void Canvas::drawStorage() {
 			sendColor(task.color());
 			glVertex2f(-0.9, y);
 			glVertex2f(-0.1, y);
-			y -= 0.08;
+			y -= 0.04;
 			glVertex2f(-0.1, y);
 			glVertex2f(-0.9, y);
 		});
 		sendColor(elements);
-		if (y > -0.8) {
+		if (y > -1.0) {
 			glVertex2f(-0.9, y);
 			glVertex2f(-0.1, y);
 			glVertex2f(-0.1, -0.8);
@@ -172,7 +172,7 @@ void Canvas::drawStorage() {
 			sendColor(task.color());
 			glVertex2f(+0.9, y);
 			glVertex2f(+0.1, y);
-			y -= 0.08; 
+			y -= 0.04; 
 			glVertex2f(+0.1, y);
 			glVertex2f(+0.9, y);
 		});
