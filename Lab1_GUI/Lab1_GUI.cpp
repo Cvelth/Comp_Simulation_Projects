@@ -28,8 +28,8 @@ Lab1_GUI::~Lab1_GUI() {
 }
 
 void Lab1_GUI::change_time_coefficient(int value) {
-	m_lifo_simulator.changeTimeCoefficient(0.01f * value);
-	m_per_simulator.changeTimeCoefficient(0.01f * value);
+	m_lifo_simulator.changeTimeCoefficient(1e-3f * value);
+	m_per_simulator.changeTimeCoefficient(1e-3f * value);
 }
 
 void Lab1_GUI::start_simulation() {
@@ -41,7 +41,7 @@ void Lab1_GUI::start_simulation() {
 	m_per_simulator.changeTau(ui.tau->text().toFloat());
 
 	if (!m_lifo_simulator.is_running())
-		//m_lifo_simulator.start();
+		m_lifo_simulator.start();
 	if (!m_per_simulator.is_running())
 		m_per_simulator.start();
 

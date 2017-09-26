@@ -104,11 +104,12 @@ void Canvas::drawProcessor() {
 	float percent = m_simulator->processor()->getCurrentPercent() / 1.e+3f;
 	percent = percent > 1.f ? 1.f : percent;
 	float angle = M_PI * 2.f * percent;
+	const float points = 60;
 	
 	glBegin(GL_POLYGON);
 	sendColor(elements);
 	glVertex2f(0.5f, 0.5f);
-	for (float a = angle; a <= M_PI * 2.f + M_PI / 20; a += M_PI / 20)
+	for (float a = angle; a <= M_PI * 2.f + M_PI / points; a += M_PI / points)
 		glVertex2f(sinf(a) / m_aspect_ratio * 0.25 + 0.5, cosf(a) * 0.25 + 0.5);
 	glVertex2f(0.5f, 0.5f);
 	glEnd();
@@ -116,14 +117,14 @@ void Canvas::drawProcessor() {
 	glBegin(GL_POLYGON);
 	sendColor(m_simulator->processor()->getCurrentColor());
 	glVertex2f(0.5f, 0.5f);
-	for (float a = 0.f; a <= angle + M_PI / 20; a += M_PI / 20)
+	for (float a = 0.f; a <= angle + M_PI / points; a += M_PI / points)
 		glVertex2f(sinf(a) / m_aspect_ratio * 0.25 + 0.5, cosf(a) * 0.25 + 0.5);
 	glVertex2f(0.5f, 0.5f);
 	glEnd();
 
 	glBegin(GL_POLYGON);
 	sendColor(background);
-	for (float a = 0.0; a < M_PI * 2.f; a += M_PI / 20)
+	for (float a = 0.0; a < M_PI * 2.f; a += M_PI / points)
 		glVertex2f(sinf(a) / m_aspect_ratio * 0.15 + 0.5, cosf(a) * 0.15 + 0.5);
 	glEnd();
 }
