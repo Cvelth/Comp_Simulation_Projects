@@ -40,3 +40,7 @@ cs::Color const& cs::TaskGenerator::getCurrentColor() {
 	else
 		return Color{0,0,0};
 }
+
+bool cs::TaskGenerator::is_running() {
+	return m_state == SimulationState::Running;
+}

@@ -48,3 +48,7 @@ void cs::ProcessorSimulator::changeSigma(number s) {
 void cs::ProcessorSimulator::changeTau(number t) {
 	m_processor->changeTau(t);
 }
+
+bool cs::ProcessorSimulator::is_running() {
+	return m_generator->is_running() && m_processor->is_running();
+}

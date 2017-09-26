@@ -25,12 +25,12 @@ void Lab1_GUI::change_time_coefficient(int value) {
 }
 
 void Lab1_GUI::start_simulation() {
-	m_simulator.stop();
 	m_simulator.changeLambda(ui.lambda->text().toFloat());
 	m_simulator.changeMu(ui.mu->text().toFloat());
 	m_simulator.changeTau(ui.tau->text().toFloat());
-	m_simulator.start();
-	ui.start->setText("Restart");
+	if (!m_simulator.is_running())
+		m_simulator.start();
+	ui.start->setText("Update");
 	connect(&m_timer, &QTimer::timeout, m_canvas, &Canvas::redraw);
 	m_timer.start();
 }

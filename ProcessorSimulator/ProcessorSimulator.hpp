@@ -29,5 +29,7 @@ namespace cs {
 		inline TaskGenerator* generator() { return m_generator; }
 		inline TaskStorage* storage() { return m_storage; }
 		inline TaskProcessor* processor() { return m_processor; }
+
+		bool is_running();
 	};
 }

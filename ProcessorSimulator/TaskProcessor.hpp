@@ -46,5 +46,6 @@ namespace cs {
 		}
 		float getCurrentPercent();
 		Color const& getCurrentColor();
+		bool is_running();
 	};
 }

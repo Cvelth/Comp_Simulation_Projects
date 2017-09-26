@@ -60,3 +60,7 @@ cs::Color const& cs::TaskProcessor::getCurrentColor() {
 	else
 		return Color{0,0,0};
 }
+
+bool cs::TaskProcessor::is_running() {
+	return m_state == SimulationState::Running;
+}
