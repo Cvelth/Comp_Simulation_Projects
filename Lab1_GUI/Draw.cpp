@@ -145,8 +145,8 @@ void Canvas::drawStorage() {
 		if (y > -1.0) {
 			glVertex2f(-0.4, y);
 			glVertex2f(+0.4, y);
-			glVertex2f(+0.4, -0.8);
-			glVertex2f(-0.4, -0.8);
+			glVertex2f(+0.4, -1.0);
+			glVertex2f(-0.4, -1.0);
 		}
 		glEnd();
 	} else if (m_simulator->type() == cs::StorageType::PER) {
@@ -164,8 +164,8 @@ void Canvas::drawStorage() {
 		if (y > -1.0) {
 			glVertex2f(-0.9, y);
 			glVertex2f(-0.1, y);
-			glVertex2f(-0.1, -0.8);
-			glVertex2f(-0.9, -0.8);
+			glVertex2f(-0.1, -1.0);
+			glVertex2f(-0.9, -1.0);
 		}
 
 		y = 0.f;
@@ -181,8 +181,8 @@ void Canvas::drawStorage() {
 		if (y > -0.8) {
 			glVertex2f(+0.9, y);
 			glVertex2f(+0.1, y);
-			glVertex2f(+0.1, -0.8);
-			glVertex2f(+0.9, -0.8);
+			glVertex2f(+0.1, -1.0);
+			glVertex2f(+0.9, -1.0);
 		}
 		glEnd();
 	}
