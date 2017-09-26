@@ -52,8 +52,8 @@ void Canvas::initialDraw() {
 	glVertex2f(+0.02, +0.20);
 	//from processor
 	glVertex2f(+0.85, +0.50);
-	glVertex2f(+0.83, +0.53);
-	glVertex2f(+0.83, +0.47);
+	glVertex2f(+0.82, +0.53);
+	glVertex2f(+0.82, +0.47);
 	glEnd();
 }
 
@@ -66,16 +66,16 @@ void Canvas::drawGenerator() {
 
 	glBegin(GL_QUADS);
 	sendColor(m_simulator->generator()->getCurrentColor());
-	glVertex2f(-0.8, +0.6);
-	glVertex2f(-0.8, +0.4);
-	glVertex2f(point, +0.4);
-	glVertex2f(point, +0.6);
+	glVertex2f(-0.8, +0.55);
+	glVertex2f(-0.8, +0.45);
+	glVertex2f(point, +0.45);
+	glVertex2f(point, +0.55);
 
 	sendColor(elements);
-	glVertex2f(point, +0.6);
-	glVertex2f(point, +0.4);
-	glVertex2f(-0.2, +0.4);
-	glVertex2f(-0.2, +0.6);
+	glVertex2f(point, +0.55);
+	glVertex2f(point, +0.45);
+	glVertex2f(-0.2, +0.45);
+	glVertex2f(-0.2, +0.55);
 	glEnd();
 }
 
@@ -120,7 +120,7 @@ void Canvas::drawStorage() {
 		glVertex2f(+0.4, y);
 		glVertex2f(-0.4, y);
 	});
-	sendColor(elements); 
+	sendColor(elements);
 	if (y > -0.8) {
 		glVertex2f(-0.4, y);
 		glVertex2f(+0.4, y);

@@ -73,8 +73,43 @@ namespace cs {
 		}
 
 		virtual void for_each(std::function<void(Task const& task)> const& lambda) override {
-			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++)
+			std::lock_guard<std::mutex> l(m_mutex);
+			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++) {
 				lambda(*t);
+			}
+		}
+	};
+
+	class PER : public TaskStorage {
+		Queue m_queue;
+	public:
+		PER() : m_queue() {}
+		virtual void push(Task *task = nullptr) override {
+			std::lock_guard<std::mutex> l(m_mutex);
+			if (task)
+				m_queue.push_back(*task);
+			else
+				m_queue.push_back(Task());
+		}
+		virtual void repush(Task *task = nullptr) override {
+			push(task);
+		}
+		virtual Task pop() override {
+			Task ret;
+			std::lock_guard<std::mutex> l(m_mutex);
+			if (m_queue.size()) {
+				ret = m_queue.back();
+				m_queue.pop_back();
+			} else
+				throw Exceptions::EmptyQueue();
+			return ret;
+		}
+
+		virtual void for_each(std::function<void(Task const& task)> const& lambda) override {
+			std::lock_guard<std::mutex> l(m_mutex);
+			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++) {
+				lambda(*t);
+			}
 		}
 	};
 	/* To correct.

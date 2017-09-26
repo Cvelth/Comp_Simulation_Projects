@@ -40,7 +40,7 @@ public:
     QLineEdit *tau;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *start;
-    QVBoxLayout *visualization_layout;
+    QHBoxLayout *visualization_layout;
     QSlider *time;
 
     void setupUi(QWidget *Lab1_GUIClass)
@@ -118,7 +118,7 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_3);
 
-        visualization_layout = new QVBoxLayout();
+        visualization_layout = new QHBoxLayout();
         visualization_layout->setSpacing(6);
         visualization_layout->setObjectName(QStringLiteral("visualization_layout"));
 

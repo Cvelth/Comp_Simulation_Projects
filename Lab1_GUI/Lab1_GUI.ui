@@ -125,7 +125,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="visualization_layout"/>
+    <layout class="QHBoxLayout" name="visualization_layout"/>
    </item>
    <item>
     <widget class="QSlider" name="time">

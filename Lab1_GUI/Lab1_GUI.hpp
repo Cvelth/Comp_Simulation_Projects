@@ -11,9 +11,12 @@ class Lab1_GUI : public QWidget
 	Q_OBJECT
 
 protected:
-	cs::ProcessorSimulator m_simulator;
 	QTimer m_timer;
-	Canvas *m_canvas;
+
+	cs::ProcessorSimulator m_lifo_simulator;
+	cs::ProcessorSimulator m_per_simulator;
+	Canvas *m_lifo_canvas;
+	Canvas *m_per_canvas;
 
 public:
 	Lab1_GUI(QWidget *parent = Q_NULLPTR);
