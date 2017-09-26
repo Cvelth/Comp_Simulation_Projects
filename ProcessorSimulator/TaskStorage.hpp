@@ -45,7 +45,10 @@ namespace cs {
 		virtual void repush(Task *task = nullptr) abstract;
 		virtual Task pop() abstract;
 
-		virtual void for_each(std::function<void(Task const& task)> const& lambda) abstract;
+		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) abstract;
+		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) abstract;
+
+		virtual size_t type() abstract;
 	};
 	class LIFO : public TaskStorage {
 		Queue m_queue;
@@ -72,11 +75,19 @@ namespace cs {
 			return ret;
 		}
 
-		virtual void for_each(std::function<void(Task const& task)> const& lambda) override {
+		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
 			std::lock_guard<std::mutex> l(m_mutex);
 			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++) {
 				lambda(*t);
 			}
+		}
+
+		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
+			return for_each_push(lambda);
+		}
+
+		virtual size_t type() override {
+			return 1;
 		}
 	};
 
@@ -105,11 +116,18 @@ namespace cs {
 			return ret;
 		}
 
-		virtual void for_each(std::function<void(Task const& task)> const& lambda) override {
+		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
 			std::lock_guard<std::mutex> l(m_mutex);
 			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++) {
 				lambda(*t);
 			}
+		}
+		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
+			return for_each_push(lambda);
+		}
+
+		virtual size_t type() override {
+			return 2;
 		}
 	};
 	/* To correct.

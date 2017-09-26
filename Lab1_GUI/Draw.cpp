@@ -2,6 +2,10 @@
 #include "..\ProcessorSimulator\Shared.hpp"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "..\ProcessorSimulator\ProcessorSimulator.hpp"
+#include "..\ProcessorSimulator\TaskGenerator.hpp"
+#include "..\ProcessorSimulator\TaskProcessor.hpp"
+#include "..\ProcessorSimulator\TaskStorage.hpp"
 
 void sendColor(cs::Color const& c) {
 	glColor3f(c.r, c.g, c.b);
@@ -26,13 +30,24 @@ void Canvas::initialDraw() {
 	glVertex2f(-0.05, +0.5);
 	//center -> stack
 	glVertex2f(-0.05, +0.5);
-	glVertex2f(-0.05, +0.0);
+	glVertex2f(-0.05, -0.2);
+	glVertex2f(-0.05, -0.2);
+	glVertex2f(-0.15, -0.2);
 	//stack -> center
 	glVertex2f(+0.05, +0.5);
-	glVertex2f(+0.05, +0.0);
+	glVertex2f(+0.05, -0.3);
+	glVertex2f(+0.15, -0.3);
+	glVertex2f(-0.15, -0.3);
 	//center -> edge
 	glVertex2f(+1.0, +0.5);
 	glVertex2f(+0.05, +0.5);
+
+	//processor -> repush_stack
+	if (m_simulator->type() == cs::StorageType::PER) {
+		glVertex2f(+0.86, +0.5);
+		glVertex2f(+0.86, -0.3);
+	}
+
 	glEnd();
 
 	//Arrows:
@@ -51,14 +66,20 @@ void Canvas::initialDraw() {
 	glVertex2f(+0.08, +0.20);
 	glVertex2f(+0.02, +0.20);
 	//from processor
-	glVertex2f(+0.85, +0.50);
-	glVertex2f(+0.82, +0.53);
-	glVertex2f(+0.82, +0.47);
+	glVertex2f(+0.95, +0.50);
+	glVertex2f(+0.92, +0.53);
+	glVertex2f(+0.92, +0.47);
+
+	//to repush_stack
+	if (m_simulator->type() == cs::StorageType::PER) {
+		glVertex2f(+0.86, +0.20);
+		glVertex2f(+0.89, +0.24);
+		glVertex2f(+0.83, +0.24);
+	}
+
 	glEnd();
 }
 
-#include "..\ProcessorSimulator\ProcessorSimulator.hpp"
-#include "..\ProcessorSimulator\TaskGenerator.hpp"
 void Canvas::drawGenerator() {
 	float percent = m_simulator->generator()->getCurrentPercent() / 1.e+3f;
 	percent = percent > 1.f ? 1.f : percent;
@@ -79,7 +100,6 @@ void Canvas::drawGenerator() {
 	glEnd();
 }
 
-#include "..\ProcessorSimulator\TaskProcessor.hpp"
 void Canvas::drawProcessor() {
 	float percent = m_simulator->processor()->getCurrentPercent() / 1.e+3f;
 	percent = percent > 1.f ? 1.f : percent;
@@ -108,24 +128,61 @@ void Canvas::drawProcessor() {
 	glEnd();
 }
 
-#include "..\ProcessorSimulator\TaskStorage.hpp"
 void Canvas::drawStorage() {
-	float y = 0.f;
-	glBegin(GL_QUADS);
-	m_simulator->storage()->for_each([&y, this](cs::Task const& task) {
-		sendColor(task.color());
-		glVertex2f(-0.4, y);
-		glVertex2f(+0.4, y);
-		y -= 0.08;
-		glVertex2f(+0.4, y);
-		glVertex2f(-0.4, y);
-	});
-	sendColor(elements);
-	if (y > -0.8) {
-		glVertex2f(-0.4, y);
-		glVertex2f(+0.4, y);
-		glVertex2f(+0.4, -0.8);
-		glVertex2f(-0.4, -0.8);
+	if (m_simulator->type() == cs::StorageType::LIFO) {
+		float y = 0.f;
+		glBegin(GL_QUADS);
+		m_simulator->storage()->for_each_push([&y, this](cs::Task const& task) {
+			sendColor(task.color());
+			glVertex2f(-0.4, y);
+			glVertex2f(+0.4, y);
+			y -= 0.08;
+			glVertex2f(+0.4, y);
+			glVertex2f(-0.4, y);
+		});
+		sendColor(elements);
+		if (y > -0.8) {
+			glVertex2f(-0.4, y);
+			glVertex2f(+0.4, y);
+			glVertex2f(+0.4, -0.8);
+			glVertex2f(-0.4, -0.8);
+		}
+		glEnd();
+	} else if (m_simulator->type() == cs::StorageType::PER) {
+		float y = 0.f;
+		glBegin(GL_QUADS);
+		m_simulator->storage()->for_each_push([&y, this](cs::Task const& task) {
+			sendColor(task.color());
+			glVertex2f(-0.9, y);
+			glVertex2f(-0.1, y);
+			y -= 0.08;
+			glVertex2f(-0.1, y);
+			glVertex2f(-0.9, y);
+		});
+		sendColor(elements);
+		if (y > -0.8) {
+			glVertex2f(-0.9, y);
+			glVertex2f(-0.1, y);
+			glVertex2f(-0.1, -0.8);
+			glVertex2f(-0.9, -0.8);
+		}
+
+		y = 0.f;
+		m_simulator->storage()->for_each_repush([&y, this](cs::Task const& task) {
+			sendColor(task.color());
+			glVertex2f(+0.9, y);
+			glVertex2f(+0.1, y);
+			y -= 0.08; 
+			glVertex2f(+0.1, y);
+			glVertex2f(+0.9, y);
+		});
+		sendColor(elements);
+		if (y > -0.8) {
+			glVertex2f(+0.9, y);
+			glVertex2f(+0.1, y);
+			glVertex2f(+0.1, -0.8);
+			glVertex2f(+0.9, -0.8);
+		}
+		glEnd();
 	}
-	glEnd();
 }

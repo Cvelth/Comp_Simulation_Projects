@@ -31,5 +31,6 @@ namespace cs {
 		inline TaskProcessor* processor() { return m_processor; }
 
 		bool is_running();
+		StorageType type();
 	};
 }

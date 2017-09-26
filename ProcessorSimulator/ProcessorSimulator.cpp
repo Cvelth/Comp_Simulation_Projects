@@ -52,3 +52,10 @@ void cs::ProcessorSimulator::changeTau(number t) {
 bool cs::ProcessorSimulator::is_running() {
 	return m_generator->is_running() && m_processor->is_running();
 }
+cs::StorageType cs::ProcessorSimulator::type() {
+	auto t = m_storage->type();
+	switch (t) {
+		case 1:	return StorageType::LIFO;
+		case 2:	return StorageType::PER;
+	}
+}
