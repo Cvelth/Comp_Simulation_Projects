@@ -9,17 +9,18 @@ void cs::TaskGenerator::loop() {
 		std::random_device seed;
 		std::mt19937_64 g(seed());
 		std::poisson_distribution<number> *d = nullptr;
+		m_current_generation_start = std::chrono::high_resolution_clock::now();
 		while (m_state == SimulationState::Running || m_state == SimulationState::Paused) 
 			if (m_state == SimulationState::Running) {
 				if (!d || d->mean() != m_lambda)
 					d = new std::poisson_distribution<number>(m_lambda);
-				m_current_generation_start = std::chrono::high_resolution_clock::now();
 				auto duration = std::chrono::duration<float>(*m_time_coefficient * 
 															 cs::constants::time_correction * (*d)(g));
 				m_current_generation_end = m_current_generation_start + duration;
 				m_current_task = new Task();
 				m_is_generating = true;
-				std::this_thread::sleep_for(duration);
+				std::this_thread::sleep_until(m_current_generation_end);
+				m_current_generation_start = std::chrono::high_resolution_clock::now();
 				m_storage->push(m_current_task);
 			}
 	});
@@ -34,7 +35,7 @@ float cs::TaskGenerator::getCurrentPercent() {
 		return 0.f;
 }
 
-cs::Color const& cs::TaskGenerator::getCurrentColor() {
+cs::Color cs::TaskGenerator::getCurrentColor() {
 	if (m_is_generating)
 		return m_current_task->color();
 	else

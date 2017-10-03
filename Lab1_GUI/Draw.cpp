@@ -178,7 +178,7 @@ void Canvas::drawStorage() {
 			glVertex2f(+0.9, y);
 		});
 		sendColor(elements);
-		if (y > -0.8) {
+		if (y > -1.0) {
 			glVertex2f(+0.9, y);
 			glVertex2f(+0.1, y);
 			glVertex2f(+0.1, -1.0);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Shared.hpp"
 #include <list>
-#include <mutex>
+#include <shared_mutex>
 #include <functional>
 
 namespace cs {
@@ -13,7 +13,7 @@ namespace cs {
 		float m_processing_left;
 		unsigned int m_was_processed;
 	public:
-		Task(float color = -1.f);
+		Task(float color = -1.f, float processing_left = 0.f);
 		Task& operator=(Task const &other) {
 			m_color = other.m_color;
 			m_processing_left = other.m_processing_left;
@@ -39,7 +39,7 @@ namespace cs {
 	class Queue : public std::list<Task> {};
 	class TaskStorage {
 	protected:
-		std::mutex m_mutex;
+		std::shared_mutex m_mutex;
 	public:
 		virtual void push(Task *task = nullptr) abstract;
 		virtual void repush(Task *task = nullptr) abstract;
@@ -55,7 +55,7 @@ namespace cs {
 	public:
 		LIFO() : m_queue() {}
 		virtual void push(Task *task = nullptr) override {
-			std::lock_guard<std::mutex> l(m_mutex);
+			std::unique_lock<std::shared_mutex> l(m_mutex);
 			if (task)
 				m_queue.push_back(*task);
 			else
@@ -66,7 +66,7 @@ namespace cs {
 		}
 		virtual Task pop() override {
 			Task ret;
-			std::lock_guard<std::mutex> l(m_mutex);
+			std::unique_lock<std::shared_mutex> l(m_mutex);
 			if (m_queue.size()) {
 				ret = m_queue.back();
 				m_queue.pop_back();
@@ -76,7 +76,7 @@ namespace cs {
 		}
 
 		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
-			std::lock_guard<std::mutex> l(m_mutex);
+			std::shared_lock<std::shared_mutex> l(m_mutex);
 			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++) {
 				lambda(*t);
 			}
@@ -97,14 +97,14 @@ namespace cs {
 	public:
 		PER() : m_initial_queue(), m_repush_queue() {}
 		virtual void push(Task *task = nullptr) override {
-			std::lock_guard<std::mutex> l(m_mutex);
+			std::unique_lock<std::shared_mutex> l(m_mutex);
 			if (task)
 				m_initial_queue.push_back(*task);
 			else
 				m_initial_queue.push_back(Task());
 		}
 		virtual void repush(Task *task = nullptr) override {
-			std::lock_guard<std::mutex> l(m_mutex);
+			std::unique_lock<std::shared_mutex> l(m_mutex);
 			if (task)
 				m_repush_queue.push_back(*task);
 			else
@@ -112,7 +112,7 @@ namespace cs {
 		}
 		virtual Task pop() override {
 			Task ret;
-			std::lock_guard<std::mutex> l(m_mutex);
+			std::unique_lock<std::shared_mutex> l(m_mutex);
 			if (m_initial_queue.size()) {
 				ret = m_initial_queue.front();
 				m_initial_queue.pop_front();
@@ -125,13 +125,13 @@ namespace cs {
 		}
 
 		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
-			std::lock_guard<std::mutex> l(m_mutex);
+			std::shared_lock<std::shared_mutex> l(m_mutex);
 			for (auto t = m_initial_queue.rbegin(); t != m_initial_queue.rend(); t++) {
 				lambda(*t);
 			}
 		}
 		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
-			std::lock_guard<std::mutex> l(m_mutex);
+			std::shared_lock<std::shared_mutex> l(m_mutex);
 			for (auto t = m_repush_queue.rbegin(); t != m_repush_queue.rend(); t++) {
 				lambda(*t);
 			}

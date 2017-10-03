@@ -45,7 +45,7 @@ namespace cs {
 			m_tau = t;
 		}
 		float getCurrentPercent();
-		Color const& getCurrentColor();
+		Color getCurrentColor();
 		bool is_running();
 	};
 }

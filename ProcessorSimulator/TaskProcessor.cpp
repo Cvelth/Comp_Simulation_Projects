@@ -8,15 +8,14 @@ void cs::TaskProcessor::loop() {
 		std::random_device seed;
 		std::mt19937_64 g(seed());
 		std::normal_distribution<number> *d = nullptr;
+		m_current_processing_start = std::chrono::high_resolution_clock::now();
 		while (m_state == SimulationState::Running || m_state == SimulationState::Paused)
 			if (m_state == SimulationState::Running) {
-				m_current_processing_start = std::chrono::high_resolution_clock::now();
 
 				try {
 					m_current_task = m_storage->pop();
 				} catch (cs::Exceptions::EmptyQueue) {
-					m_current_task = Task(0.f);
-					m_current_task.set_processing_left(m_tau);
+					m_current_task = Task(0.f, m_tau);
 				}
 				float wait = m_current_task.processing_left();
 				if (wait == 0.f) {
@@ -43,6 +42,8 @@ void cs::TaskProcessor::loop() {
 				m_is_processing = true;
 
 				std::this_thread::sleep_until(m_current_processing_step);
+				m_current_processing_start = std::chrono::high_resolution_clock::now();
+
 				if (repush) {
 					m_current_task.set_processing_left(processing_left);
 					m_current_task.process();
@@ -61,7 +62,7 @@ float cs::TaskProcessor::getCurrentPercent() {
 		return 0.f;
 }
 
-cs::Color const& cs::TaskProcessor::getCurrentColor() {
+cs::Color cs::TaskProcessor::getCurrentColor() {
 	if (m_is_processing)
 		return m_current_task.color();
 	else

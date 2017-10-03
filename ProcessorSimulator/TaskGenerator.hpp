@@ -39,7 +39,7 @@ namespace cs {
 			m_lambda = l;
 		}
 		float getCurrentPercent();
-		Color const& getCurrentColor();
+		Color getCurrentColor();
 		bool is_running();
 	};
 }
