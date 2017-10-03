@@ -10,8 +10,8 @@ void cs::TaskGenerator::loop() {
 		std::mt19937_64 g(seed());
 		std::poisson_distribution<number> *d = nullptr;
 		m_current_generation_start = std::chrono::high_resolution_clock::now();
-		while (m_state == SimulationState::Running || m_state == SimulationState::Paused) 
-			if (m_state == SimulationState::Running) {
+		while (*m_state == SimulationState::Running || *m_state == SimulationState::Paused) 
+			if (*m_state == SimulationState::Running) {
 				if (!d || d->mean() != m_lambda)
 					d = new std::poisson_distribution<number>(m_lambda);
 				auto duration = std::chrono::duration<float>(*m_time_coefficient * 
@@ -43,5 +43,5 @@ cs::Color cs::TaskGenerator::getCurrentColor() {
 }
 
 bool cs::TaskGenerator::is_running() {
-	return m_state == SimulationState::Running;
+	return *m_state == SimulationState::Running;
 }

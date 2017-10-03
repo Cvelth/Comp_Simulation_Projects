@@ -3,6 +3,8 @@
 #include "TaskProcessor.hpp"
 #include "TaskStorage.hpp"
 
+cs::ProcessorSimulator::ProcessorSimulator() : m_state(cs::SimulationState::Stoped) {}
+
 void cs::ProcessorSimulator::initialize(StorageType type) {
 	switch (type) {
 		case StorageType::LIFO:
@@ -12,8 +14,8 @@ void cs::ProcessorSimulator::initialize(StorageType type) {
 			m_storage = new PER();
 			break;
 	}
-	m_generator = new TaskGenerator(m_storage, &m_time_coefficient);
-	m_processor = new TaskProcessor(m_storage, &m_time_coefficient);
+	m_generator = new TaskGenerator(m_storage, &m_time_coefficient, &m_state);
+	m_processor = new TaskProcessor(m_storage, &m_time_coefficient, &m_state);
 }
 
 void cs::ProcessorSimulator::start() {

@@ -14,7 +14,9 @@ namespace cs {
 		TaskGenerator *m_generator;
 		TaskStorage *m_storage;
 		TaskProcessor *m_processor;
+		SimulationState m_state;
 	public:
+		ProcessorSimulator();
 		void initialize(StorageType type);
 		void start();
 		void pause();

@@ -9,8 +9,8 @@ void cs::TaskProcessor::loop() {
 		std::mt19937_64 g(seed());
 		std::normal_distribution<number> *d = nullptr;
 		m_current_processing_start = std::chrono::high_resolution_clock::now();
-		while (m_state == SimulationState::Running || m_state == SimulationState::Paused)
-			if (m_state == SimulationState::Running) {
+		while (*m_state == SimulationState::Running || *m_state == SimulationState::Paused)
+			if (*m_state == SimulationState::Running) {
 
 				try {
 					m_current_task = m_storage->pop();
@@ -48,7 +48,9 @@ void cs::TaskProcessor::loop() {
 					m_current_task.set_processing_left(processing_left);
 					m_current_task.process();
 					m_storage->repush(&m_current_task);
-				}
+				} else
+					if (++m_executed_count == 100)
+						*m_state = SimulationState::Paused;
 		}
 	});
 	t.detach();
@@ -69,6 +71,10 @@ cs::Color cs::TaskProcessor::getCurrentColor() {
 		return Color{0,0,0};
 }
 
+size_t cs::TaskProcessor::getExecutedCount() {
+	return m_executed_count;
+}
+
 bool cs::TaskProcessor::is_running() {
-	return m_state == SimulationState::Running;
+	return *m_state == SimulationState::Running;
 }
