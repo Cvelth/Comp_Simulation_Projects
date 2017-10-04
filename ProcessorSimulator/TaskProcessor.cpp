@@ -12,23 +12,23 @@ void cs::TaskProcessor::loop() {
 		m_is_processing = true;
 		while (*m_state == SimulationState::Running || *m_state == SimulationState::Paused)
 			if (*m_state == SimulationState::Running) {
-
-				try {
-					m_current_task = m_storage->pop();
-				} catch (cs::Exceptions::EmptyQueue) {
-					m_current_task = Task(0.f, m_tau);
-				}
+				m_current_task = m_storage->pop_default(Task(0.f, m_tau));
 				float wait = m_current_task.processing_left();
 				if (wait == 0.f) {
-					if (!d || d->mean() != m_mu || d->sigma() != m_sigma)
+					if (!d)
 						d = new std::normal_distribution<number>(m_mu, m_sigma);
+					else if (d->mean() != m_mu || d->sigma() != m_sigma) {
+						delete d;
+						d = new std::normal_distribution<number>(m_mu, m_sigma);
+					}
 					wait = (*d)(g);
 				}
 
 				float processing_left = wait - m_tau;
 				bool repush = processing_left > 0.f;
-				float scaled_wait = cs::constants::time_correction * *m_time_coefficient * wait;
-				float scaled_tau = cs::constants::time_correction * *m_time_coefficient * m_tau;
+				float scale = cs::constants::time_correction * *m_time_coefficient;
+				float scaled_wait = scale * wait;
+				float scaled_tau = scale * m_tau;
 				time_point m_current_processing_step = m_current_processing_start;
 				if (repush)
 					m_current_processing_step += std::chrono::duration<float>(scaled_tau);
