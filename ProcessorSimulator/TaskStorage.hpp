@@ -74,18 +74,15 @@ namespace cs {
 				throw Exceptions::EmptyQueue();
 			return ret;
 		}
-
 		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
 			std::shared_lock<std::shared_mutex> l(m_mutex);
 			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++) {
 				lambda(*t);
 			}
 		}
-
 		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
 			return for_each_push(lambda);
 		}
-
 		virtual size_t type() override {
 			return 1;
 		}
@@ -94,6 +91,7 @@ namespace cs {
 	class PER : public TaskStorage {
 		Queue m_initial_queue;
 		Queue m_repush_queue;
+		std::shared_mutex m_repush_mutex;
 	public:
 		PER() : m_initial_queue(), m_repush_queue() {}
 		virtual void push(Task *task = nullptr) override {
@@ -104,7 +102,7 @@ namespace cs {
 				m_initial_queue.push_back(Task());
 		}
 		virtual void repush(Task *task = nullptr) override {
-			std::unique_lock<std::shared_mutex> l(m_mutex);
+			std::unique_lock<std::shared_mutex> l(m_repush_mutex);
 			if (task)
 				m_repush_queue.push_back(*task);
 			else
@@ -112,18 +110,18 @@ namespace cs {
 		}
 		virtual Task pop() override {
 			Task ret;
-			std::unique_lock<std::shared_mutex> l(m_mutex);
 			if (m_initial_queue.size()) {
+				std::unique_lock<std::shared_mutex> l(m_mutex);
 				ret = m_initial_queue.front();
 				m_initial_queue.pop_front();
 			} else if(m_repush_queue.size()) {
+				std::unique_lock<std::shared_mutex> l(m_repush_mutex);
 				ret = m_repush_queue.front();
 				m_repush_queue.pop_front();
 			} else
 				throw Exceptions::EmptyQueue();
 			return ret;
 		}
-
 		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
 			std::shared_lock<std::shared_mutex> l(m_mutex);
 			for (auto t = m_initial_queue.rbegin(); t != m_initial_queue.rend(); t++) {
@@ -131,12 +129,11 @@ namespace cs {
 			}
 		}
 		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
-			std::shared_lock<std::shared_mutex> l(m_mutex);
+			std::shared_lock<std::shared_mutex> l(m_repush_mutex);
 			for (auto t = m_repush_queue.rbegin(); t != m_repush_queue.rend(); t++) {
 				lambda(*t);
 			}
 		}
-
 		virtual size_t type() override {
 			return 2;
 		}
