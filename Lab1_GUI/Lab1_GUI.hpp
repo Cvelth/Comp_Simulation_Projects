@@ -1,6 +1,6 @@
 #pragma once
 #include <QtWidgets/QWidget>
-#include "..\ProcessorSimulator\ProcessorSimulator.hpp"
+#include "..\QueueingSystem\QueueingSystem.hpp"
 #include "ui_Lab1_GUI.h"
 #include <QTimer>
 
@@ -13,8 +13,8 @@ class Lab1_GUI : public QWidget
 protected:
 	QTimer m_timer;
 
-	cs::ProcessorSimulator m_lifo_simulator;
-	cs::ProcessorSimulator m_per_simulator;
+	qs::QueueingSystemSimulation m_lifo_simulator;
+	qs::QueueingSystemSimulation m_per_simulator;
 	Canvas *m_lifo_canvas;
 	Canvas *m_per_canvas;
 

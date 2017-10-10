@@ -1,6 +1,6 @@
 #include "Canvas.hpp"
 
-Canvas::Canvas(cs::ProcessorSimulator *simulator, QWidget *parent) 
+Canvas::Canvas(qs::QueueingSystemSimulation *simulator, QWidget *parent)
 	: QOpenGLWidget(parent), m_simulator(simulator), m_first(true) {
 }
 

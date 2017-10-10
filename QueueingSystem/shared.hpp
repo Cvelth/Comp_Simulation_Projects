@@ -1,8 +1,9 @@
 #pragma once
-#include <chrono>
+#include <exception>
+//#define MULTI_THREADING
 
-namespace cs {
-	enum class SimulationState {
+namespace qs {
+	enum class SystemState {
 		Running = 1, Paused = 2, Stoped = 3, Error = 0
 	};
 	using number = float;
@@ -11,9 +12,9 @@ namespace cs {
 		number g;
 		number b;
 	};
-	using time_point = std::chrono::time_point<std::chrono::high_resolution_clock, 
-		std::chrono::duration<float, std::ratio<1, 1000000000>>>;
-
+	namespace Exceptions {
+		class EmptyQueue : std::exception {};
+	}
 	namespace constants {
 		const number time_correction = 1;
 	}

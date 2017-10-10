@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Storage">
+      <UniqueIdentifier>{104359ab-c2a3-4f13-88f3-cd0c4e067fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{19b00d0f-3059-401e-8063-1308b89f4cdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Execution">
+      <UniqueIdentifier>{9d04a920-d2df-4cf1-a23e-3287bc8c754e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PER.hpp">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="LIFO.hpp">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractStorage.hpp">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="shared.hpp">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.hpp">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecutionUnit.hpp">
+      <Filter>Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="ImitatorUnit.hpp">
+      <Filter>Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulatorUnit.hpp">
+      <Filter>Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueingSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Task.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueingSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorSymulator.cpp">
+      <Filter>Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratorSymulator.cpp">
+      <Filter>Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratorImitator.cpp">
+      <Filter>Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorImitator.cpp">
+      <Filter>Execution</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

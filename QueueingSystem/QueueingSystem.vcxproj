@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{ECC28DA9-2F83-4608-98FB-206057CF86C6}</ProjectGuid>
-    <RootNamespace>ProcessorSimulator</RootNamespace>
+    <ProjectGuid>{D1D6C555-4455-41FF-ADA0-EA7821BE4BD4}</ProjectGuid>
+    <RootNamespace>QueueingSystem</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -75,7 +75,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -83,7 +82,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,7 +91,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -107,7 +104,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -115,17 +111,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ProcessorSimulator.cpp" />
-    <ClCompile Include="TaskGenerator.cpp" />
-    <ClCompile Include="TaskProcessor.cpp" />
-    <ClCompile Include="TaskStorage.cpp" />
+    <ClInclude Include="AbstractStorage.hpp" />
+    <ClInclude Include="ExecutionUnit.hpp" />
+    <ClInclude Include="ImitatorUnit.hpp" />
+    <ClInclude Include="LIFO.hpp" />
+    <ClInclude Include="PER.hpp" />
+    <ClInclude Include="QueueingSystem.hpp" />
+    <ClInclude Include="shared.hpp" />
+    <ClInclude Include="SimulatorUnit.hpp" />
+    <ClInclude Include="Task.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ProcessorSimulator.hpp" />
-    <ClInclude Include="Shared.hpp" />
-    <ClInclude Include="TaskGenerator.hpp" />
-    <ClInclude Include="TaskProcessor.hpp" />
-    <ClInclude Include="TaskStorage.hpp" />
+    <ClCompile Include="GeneratorImitator.cpp" />
+    <ClCompile Include="GeneratorSymulator.cpp" />
+    <ClCompile Include="ProcessorImitator.cpp" />
+    <ClCompile Include="ProcessorSymulator.cpp" />
+    <ClCompile Include="QueueingSystem.cpp" />
+    <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
