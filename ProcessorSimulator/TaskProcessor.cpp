@@ -40,7 +40,8 @@ void cs::TaskProcessor::loop() {
 				m_current_processing_start -= 
 					std::chrono::duration<float>(scaled_tau * m_current_task.was_processed());
 
-				std::this_thread::sleep_until(m_current_processing_step);
+				if (std::chrono::high_resolution_clock::now() < m_current_processing_step)
+					std::this_thread::sleep_until(m_current_processing_step);
 				m_current_processing_start = std::chrono::high_resolution_clock::now();
 
 				if (repush) {
