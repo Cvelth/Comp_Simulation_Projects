@@ -5,21 +5,26 @@ Lab1_GUI::Lab1_GUI(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	connect(ui.start, &QPushButton::clicked, this, &Lab1_GUI::start_simulation);
+	connect(ui.simulate, &QPushButton::clicked, this, &Lab1_GUI::start_simulation);
+	connect(ui.imitate, &QPushButton::clicked, this, &Lab1_GUI::start_imitation);
 	connect(ui.time, &QSlider::valueChanged, this, &Lab1_GUI::change_time_coefficient);
 	m_timer.setInterval(0);
 
 	m_lifo_simulator.changeTimeCoefficient(1.f);
-	m_lifo_simulator.initialize(qs::SystemType::LIFO);
-	m_lifo_simulator.changeSigma(1.0);
-	m_lifo_canvas = new Canvas(&m_lifo_simulator);
-	ui.visualization_layout->addWidget(m_lifo_canvas);
-
 	m_per_simulator.changeTimeCoefficient(1.f);
+	m_lifo_simulator.initialize(qs::SystemType::LIFO);
 	m_per_simulator.initialize(qs::SystemType::PER);
+	m_lifo_simulator.changeSigma(1.0);
 	m_per_simulator.changeSigma(1.0);
+	m_lifo_canvas = new Canvas(&m_lifo_simulator);
 	m_per_canvas = new Canvas(&m_per_simulator);
+	ui.visualization_layout->addWidget(m_lifo_canvas);
 	ui.visualization_layout->addWidget(m_per_canvas);
+
+	m_lifo_imitator.initialize(qs::SystemType::LIFO);
+	m_per_imitator.initialize(qs::SystemType::PER);
+	m_lifo_imitator.changeSigma(1.0);
+	m_per_imitator.changeSigma(1.0);
 }
 
 Lab1_GUI::~Lab1_GUI() {
@@ -34,10 +39,10 @@ void Lab1_GUI::change_time_coefficient(int value) {
 
 void Lab1_GUI::start_simulation() {
 	m_lifo_simulator.changeLambda(ui.lambda->text().toFloat());
-	m_lifo_simulator.changeMu(ui.mu->text().toFloat());
-	m_lifo_simulator.changeTau(ui.tau->text().toFloat());
 	m_per_simulator.changeLambda(ui.lambda->text().toFloat());
+	m_lifo_simulator.changeMu(ui.mu->text().toFloat());
 	m_per_simulator.changeMu(ui.mu->text().toFloat());
+	m_lifo_simulator.changeTau(ui.tau->text().toFloat());
 	m_per_simulator.changeTau(ui.tau->text().toFloat());
 
 	if (!m_lifo_simulator.is_running())
@@ -45,8 +50,24 @@ void Lab1_GUI::start_simulation() {
 	if (!m_per_simulator.is_running())
 		m_per_simulator.start();
 
-	ui.start->setText("Update");
+	ui.simulate->setText("Update");
 	connect(&m_timer, &QTimer::timeout, m_lifo_canvas, &Canvas::redraw);
 	connect(&m_timer, &QTimer::timeout, m_per_canvas, &Canvas::redraw);
 	m_timer.start();
+}
+
+void Lab1_GUI::start_imitation() {
+	m_lifo_imitator.changeLambda(ui.lambda->text().toFloat());
+	m_per_imitator.changeLambda(ui.lambda->text().toFloat());
+	m_lifo_imitator.changeMu(ui.mu->text().toFloat());
+	m_per_imitator.changeMu(ui.mu->text().toFloat());
+	m_lifo_imitator.changeTau(ui.tau->text().toFloat());
+	m_per_imitator.changeTau(ui.tau->text().toFloat());
+
+	size_t number = ui.n->text().toUInt();
+
+	if (!m_lifo_imitator.is_running())
+		m_lifo_imitator.run(number);
+	if (!m_per_imitator.is_running())
+		m_per_imitator.run(number);
 }

@@ -65,5 +65,6 @@ namespace qs {
 	public:
 		using AbstractQueueingSystem::AbstractQueueingSystem;
 		virtual void initialize(SystemType type) override;
+		void run(size_t tasks);
 	};
 }

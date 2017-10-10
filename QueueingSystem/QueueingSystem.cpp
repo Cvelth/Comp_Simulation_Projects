@@ -16,6 +16,8 @@ void qs::QueueingSystemImitation::initialize(SystemType type) {
 	m_processor = new ProcessorImitator(m_storage, &m_state);
 }
 
+void qs::QueueingSystemImitation::run(size_t tasks) {}
+
 void qs::AbstractQueueingSystem::initializeStorage(SystemType type) {
 	switch (type) {
 		case SystemType::LIFO:
