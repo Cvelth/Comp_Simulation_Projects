@@ -1,6 +1,6 @@
 #pragma once
 #include <exception>
-//#define MULTI_THREADING
+#define MULTI_THREADING
 
 namespace qs {
 	enum class SystemState {

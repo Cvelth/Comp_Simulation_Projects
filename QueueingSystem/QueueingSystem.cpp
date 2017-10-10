@@ -1,5 +1,5 @@
 #include "QueueingSystem.hpp"
-#include "ImitatorUnit.hpp"
+//#include "ImitatorUnit.hpp"
 #include "SimulatorUnit.hpp"
 #include "LIFO.hpp"
 #include "PER.hpp"
@@ -12,11 +12,7 @@ void qs::QueueingSystemSimulation::initialize(SystemType type) {
 
 void qs::QueueingSystemImitation::initialize(SystemType type) {
 	initializeStorage(type);
-	m_generator = new GeneratorImitator(m_storage, &m_state);
-	m_processor = new ProcessorImitator(m_storage, &m_state);
 }
-
-void qs::QueueingSystemImitation::run(size_t tasks) {}
 
 void qs::AbstractQueueingSystem::initializeStorage(SystemType type) {
 	switch (type) {

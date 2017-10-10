@@ -11,9 +11,7 @@ namespace qs {
 	class AbstractQueueingSystem {
 	protected:
 		SystemState m_state;
-		GeneratorUnit *m_generator;
 		AbstractStorage *m_storage;
-		ProcessorUnit *m_processor;
 	protected:
 		void initializeStorage(SystemType type);
 	public:
@@ -26,22 +24,19 @@ namespace qs {
 
 		virtual void initialize(SystemType type) abstract;
 
-		void changeLambda(number l) {m_generator->changeLambda(l);}
-		void changeMu(number m) { m_processor->changeMu(m); }
-		void changeSigma(number s) { m_processor->changeSigma(s); }
-		void changeTau(number t) { m_processor->changeTau(t); }
+		virtual void changeLambda(number l) abstract;
+		virtual void changeMu(number m) abstract;
+		virtual void changeSigma(number s) abstract;
+		virtual void changeTau(number t) abstract;
 
-		inline GeneratorUnit* generator() { return m_generator; }
-		inline AbstractStorage* storage() { return m_storage; }
-		inline ProcessorUnit* processor() { return m_processor; }
-
-		inline bool is_running() {
-			return m_generator->is_running() && m_processor->is_running();
-		}
+		virtual inline AbstractStorage* storage() abstract;
+		virtual bool is_running() abstract;
 		SystemType type();
 	};
 
 	class QueueingSystemSimulation : public AbstractQueueingSystem {
+		GeneratorUnit *m_generator;
+		ProcessorUnit *m_processor;
 		number m_time_coefficient;
 	public:
 		using AbstractQueueingSystem::AbstractQueueingSystem;
@@ -57,6 +52,19 @@ namespace qs {
 		void stop() {
 			m_generator->stop();
 			m_processor->stop();
+		}
+
+		virtual void changeLambda(number l) override { m_generator->changeLambda(l); }
+		virtual void changeMu(number m) override { m_processor->changeMu(m); }
+		virtual void changeSigma(number s) override { m_processor->changeSigma(s); }
+		virtual void changeTau(number t) override { m_processor->changeTau(t); }
+
+		virtual GeneratorUnit* generator() { return m_generator; }
+		virtual AbstractStorage* storage() override { return m_storage; }
+		virtual ProcessorUnit* processor() { return m_processor; }
+
+		inline bool is_running() {
+			return m_generator->is_running() && m_processor->is_running();
 		}
 		void changeTimeCoefficient(number c) { m_time_coefficient = c; }
 	};

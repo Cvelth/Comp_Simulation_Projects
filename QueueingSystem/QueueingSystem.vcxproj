@@ -113,7 +113,6 @@
   <ItemGroup>
     <ClInclude Include="AbstractStorage.hpp" />
     <ClInclude Include="ExecutionUnit.hpp" />
-    <ClInclude Include="ImitatorUnit.hpp" />
     <ClInclude Include="LIFO.hpp" />
     <ClInclude Include="PER.hpp" />
     <ClInclude Include="QueueingSystem.hpp" />
@@ -122,9 +121,8 @@
     <ClInclude Include="Task.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratorImitator.cpp" />
     <ClCompile Include="GeneratorSymulator.cpp" />
-    <ClCompile Include="ProcessorImitator.cpp" />
+    <ClCompile Include="Imitator.cpp" />
     <ClCompile Include="ProcessorSymulator.cpp" />
     <ClCompile Include="QueueingSystem.cpp" />
     <ClCompile Include="Task.cpp" />

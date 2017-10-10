@@ -30,9 +30,6 @@
     <ClInclude Include="ExecutionUnit.hpp">
       <Filter>Execution</Filter>
     </ClInclude>
-    <ClInclude Include="ImitatorUnit.hpp">
-      <Filter>Execution</Filter>
-    </ClInclude>
     <ClInclude Include="SimulatorUnit.hpp">
       <Filter>Execution</Filter>
     </ClInclude>
@@ -48,12 +45,9 @@
     <ClCompile Include="GeneratorSymulator.cpp">
       <Filter>Execution</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratorImitator.cpp">
-      <Filter>Execution</Filter>
-    </ClCompile>
-    <ClCompile Include="ProcessorImitator.cpp">
-      <Filter>Execution</Filter>
-    </ClCompile>
     <ClCompile Include="QueueingSystem.cpp" />
+    <ClCompile Include="Imitator.cpp">
+      <Filter>Execution</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

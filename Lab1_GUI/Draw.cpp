@@ -4,11 +4,6 @@
 #include <math.h>
 #include "..\QueueingSystem\QueueingSystem.hpp"
 #include "..\QueueingSystem\ExecutionUnit.hpp"
-//#include "..\ProcessorSimulator\ProcessorSimulator.hpp"
-//#include "..\ProcessorSimulator\TaskGenerator.hpp"
-//#include "..\ProcessorSimulator\TaskProcessor.hpp"
-//#include "..\ProcessorSimulator\TaskStorage.hpp"
-
 
 void sendColor(qs::Color const& c) {
 	glColor3f(c.r, c.g, c.b);
