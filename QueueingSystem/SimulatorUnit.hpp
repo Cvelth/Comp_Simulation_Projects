@@ -7,33 +7,41 @@ namespace qs {
 
 	class SimulatorUnit : public ExecutionUnit {
 	protected:
+		number *m_time_coefficient;
 		time_point m_current_process_start;
 		time_point m_current_process_end;
 	public:
-		using ExecutionUnit::ExecutionUnit;
+		explicit SimulatorUnit(AbstractStorage* storage, number *time_coefficient, SystemState *state)
+			: ExecutionUnit(storage, state), m_time_coefficient(time_coefficient) {}
 	};
 
-	class GeneratorUnit : public SimulatorUnit {
-		number m_lambda;
+	class GeneratorSimulator : public SimulatorUnit, public GeneratorUnit {
 	protected:
-		void loop() override;
+		virtual void loop() override;
 	public:
 		using SimulatorUnit::SimulatorUnit;
 		virtual float getCurrentPercent() override;
-		inline void changeLambda(number l) { m_lambda = l; }
+
+		virtual bool is_running() override {
+			return *m_state == SystemState::Running;
+		}
+		virtual void start() override { SimulatorUnit::start(); }
+		virtual void pause() override { SimulatorUnit::pause(); }
+		virtual void stop() override { SimulatorUnit::stop(); }
 	};
 
-	class ProcessorUnit : public SimulatorUnit {
-		number m_mu;
-		number m_sigma;
-		number m_tau;
+	class ProcessorSimulator : public SimulatorUnit, public ProcessorUnit {
 	protected:
-		void loop() override;
+		virtual void loop() override;
 	public:
 		using SimulatorUnit::SimulatorUnit;
 		virtual float getCurrentPercent() override;
-		inline void changeMu(number m) { m_mu = m; }
-		inline void changeSigma(number s) { m_sigma = s; }
-		inline void changeTau(number t) { m_tau = t; }
+
+		virtual bool is_running() override {
+			return *m_state == SystemState::Running;
+		}
+		virtual void start() override { SimulatorUnit::start(); }
+		virtual void pause() override { SimulatorUnit::pause(); }
+		virtual void stop() override { SimulatorUnit::stop(); }
 	};
 }

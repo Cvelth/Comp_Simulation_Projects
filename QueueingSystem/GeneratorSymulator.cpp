@@ -3,7 +3,7 @@
 #include <random>
 #include "AbstractStorage.hpp"
 
-void qs::GeneratorUnit::loop() {
+void qs::GeneratorSimulator::loop() {
 	std::thread t([this]() {
 		std::random_device seed;
 		std::mt19937_64 g(seed());
@@ -26,7 +26,7 @@ void qs::GeneratorUnit::loop() {
 	t.detach();
 }
 
-float qs::GeneratorUnit::getCurrentPercent() {
+float qs::GeneratorSimulator::getCurrentPercent() {
 	if (m_is_active)
 		return (std::chrono::high_resolution_clock::now() - m_current_process_start) * 1000 /
 		(m_current_process_end - m_current_process_start);

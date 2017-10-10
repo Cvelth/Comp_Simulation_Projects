@@ -116,13 +116,17 @@
     <ClInclude Include="ImitatorUnit.hpp" />
     <ClInclude Include="LIFO.hpp" />
     <ClInclude Include="PER.hpp" />
+    <ClInclude Include="QueueingSystem.hpp" />
     <ClInclude Include="shared.hpp" />
     <ClInclude Include="SimulatorUnit.hpp" />
     <ClInclude Include="Task.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratorUnit.cpp" />
-    <ClCompile Include="ProcessorUnit.cpp" />
+    <ClCompile Include="GeneratorImitator.cpp" />
+    <ClCompile Include="GeneratorSymulator.cpp" />
+    <ClCompile Include="ProcessorImitator.cpp" />
+    <ClCompile Include="ProcessorSymulator.cpp" />
+    <ClCompile Include="QueueingSystem.cpp" />
     <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

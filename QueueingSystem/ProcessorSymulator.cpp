@@ -4,7 +4,7 @@
 #include <chrono>
 #include <random>
 
-void qs::ProcessorUnit::loop() {
+void qs::ProcessorSimulator::loop() {
 	std::thread t([this]() {
 		m_current_process_start = std::chrono::high_resolution_clock::now();
 		std::random_device seed;
@@ -58,7 +58,7 @@ void qs::ProcessorUnit::loop() {
 	t.detach();
 }
 
-float qs::ProcessorUnit::getCurrentPercent() {
+float qs::ProcessorSimulator::getCurrentPercent() {
 	if (m_is_active)
 		return (std::chrono::high_resolution_clock::now() - m_current_process_start) * 1000 /
 		(m_current_process_end - m_current_process_start);

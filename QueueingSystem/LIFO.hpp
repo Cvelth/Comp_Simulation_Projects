@@ -8,7 +8,7 @@
 #endif
 
 namespace qs {
-	class LIFO : public AbstractStorage<Task> {
+	class LIFO : public AbstractStorage {
 		#ifdef MULTI_THREADING
 			std::shared_mutex m_mutex;
 		#endif

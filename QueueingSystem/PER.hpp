@@ -8,7 +8,7 @@
 #endif
 
 namespace qs {
-	class PER : public AbstractStorage<Task> {
+	class PER : public AbstractStorage {
 		#ifdef MULTI_THREADING
 			std::shared_mutex m_mutex;
 			std::shared_mutex m_repush_mutex;

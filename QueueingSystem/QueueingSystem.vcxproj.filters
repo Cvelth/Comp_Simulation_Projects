@@ -44,15 +44,27 @@
     <ClInclude Include="SimulatorUnit.hpp">
       <Filter>Execution</Filter>
     </ClInclude>
+    <ClInclude Include="QueueingSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Task.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratorUnit.cpp">
+    <ClCompile Include="QueueingSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorSymulator.cpp">
       <Filter>Execution</Filter>
     </ClCompile>
-    <ClCompile Include="ProcessorUnit.cpp">
+    <ClCompile Include="GeneratorSymulator.cpp">
+      <Filter>Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratorImitator.cpp">
+      <Filter>Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorImitator.cpp">
       <Filter>Execution</Filter>
     </ClCompile>
   </ItemGroup>
