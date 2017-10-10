@@ -2,18 +2,21 @@
 #include "shared.hpp"
 #include "AbstractStorage.hpp"
 #include "ExecutionUnit.hpp"
+#include "LIFO.hpp"
+#include "PER.hpp"
+#include "TaskSimulation.hpp"
+#include "TaskImitation.hpp"
 
 namespace qs {
 	enum class SystemType {
 		LIFO, PER
 	};
 
+	template <typename Task>
 	class AbstractQueueingSystem {
 	protected:
 		SystemState m_state;
-		AbstractStorage *m_storage;
-	protected:
-		void initializeStorage(SystemType type);
+		AbstractStorage<Task> *m_storage;
 	public:
 		AbstractQueueingSystem() :
 			m_state(qs::SystemState::Stoped) {}
@@ -29,17 +32,25 @@ namespace qs {
 		virtual void changeSigma(number s) abstract;
 		virtual void changeTau(number t) abstract;
 
-		virtual inline AbstractStorage* storage() abstract;
 		virtual bool is_running() abstract;
-		SystemType type();
+		SystemType type() {
+			auto t = m_storage->type();
+			switch (t) {
+				case 1:	return SystemType::LIFO;
+				case 2:	return SystemType::PER;
+				default: throw std::exception("Unsupported storage type was requested");
+			}
+		}
+		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) { m_storage->for_each_push(lambda); }
+		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) { m_storage->for_each_repush(lambda);	}
 	};
 
-	class QueueingSystemSimulation : public AbstractQueueingSystem {
+	class QueueingSystemSimulation : public AbstractQueueingSystem<TaskSimulation> {
 		GeneratorUnit *m_generator;
 		ProcessorUnit *m_processor;
 		number m_time_coefficient;
 	public:
-		using AbstractQueueingSystem::AbstractQueueingSystem;
+		using AbstractQueueingSystem<TaskSimulation>::AbstractQueueingSystem;
 		virtual void initialize(SystemType type) override;
 		void start() {
 			m_generator->start();
@@ -60,7 +71,6 @@ namespace qs {
 		virtual void changeTau(number t) override { m_processor->changeTau(t); }
 
 		virtual GeneratorUnit* generator() { return m_generator; }
-		virtual AbstractStorage* storage() override { return m_storage; }
 		virtual ProcessorUnit* processor() { return m_processor; }
 
 		virtual bool is_running() override {
@@ -68,7 +78,7 @@ namespace qs {
 		}
 		void changeTimeCoefficient(number c) { m_time_coefficient = c; }
 	};
-	class QueueingSystemImitation : public AbstractQueueingSystem {
+	class QueueingSystemImitation : public AbstractQueueingSystem<qs::TaskImitation> {
 		number m_lambda;
 		number m_mu;
 		number m_sigma;
@@ -82,7 +92,6 @@ namespace qs {
 		virtual void changeMu(number m) override { m_mu = m; }
 		virtual void changeSigma(number s) override { m_sigma = s; }
 		virtual void changeTau(number t) override { m_tau = t; }
-		virtual AbstractStorage* storage() override { return m_storage; }
 		virtual bool is_running() override { return false; }
 	};
 }

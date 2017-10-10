@@ -1,18 +1,18 @@
 #pragma once
 #include "AbstractStorage.hpp"
 #include <vector>
-#include "Task.hpp"
 #include "shared.hpp"
 #ifdef MULTI_THREADING
 	#include <shared_mutex>
 #endif
 
 namespace qs {
-	class LIFO : public AbstractStorage {
+	template<typename Task>
+	class LIFO : public AbstractStorage<Task> {
 		#ifdef MULTI_THREADING
 			std::shared_mutex m_mutex;
 		#endif
-		std::vector<qs::Task> m_queue;
+		std::vector<Task> m_queue;
 	public:
 		LIFO() : m_queue() {}
 		virtual void push(Task *task = nullptr) override {

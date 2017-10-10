@@ -4,6 +4,7 @@
 #include <math.h>
 #include "..\QueueingSystem\QueueingSystem.hpp"
 #include "..\QueueingSystem\ExecutionUnit.hpp"
+#include "..\QueueingSystem\TaskSimulation.hpp"
 
 void sendColor(qs::Color const& c) {
 	glColor3f(c.r, c.g, c.b);
@@ -131,7 +132,7 @@ void Canvas::drawStorage() {
 	if (m_simulator->type() == qs::SystemType::LIFO) {
 		float y = 0.f;
 		glBegin(GL_QUADS);
-		m_simulator->storage()->for_each_push([&y, this](qs::Task const& task) {
+		m_simulator->for_each_push([&y, this](qs::TaskSimulation const& task) {
 			sendColor(task.color());
 			glVertex2f(-0.4, y);
 			glVertex2f(+0.4, y);
@@ -150,7 +151,7 @@ void Canvas::drawStorage() {
 	} else if (m_simulator->type() == qs::SystemType::PER) {
 		float y = 0.f;
 		glBegin(GL_QUADS);
-		m_simulator->storage()->for_each_push([&y, this](qs::Task const& task) {
+		m_simulator->for_each_push([&y, this](qs::TaskSimulation const& task) {
 			sendColor(task.color());
 			glVertex2f(-0.9, y);
 			glVertex2f(-0.1, y);
@@ -167,7 +168,7 @@ void Canvas::drawStorage() {
 		}
 
 		y = 0.f;
-		m_simulator->storage()->for_each_repush([&y, this](qs::Task const& task) {
+		m_simulator->for_each_repush([&y, this](qs::TaskSimulation const& task) {
 			sendColor(task.color());
 			glVertex2f(+0.9, y);
 			glVertex2f(+0.1, y);

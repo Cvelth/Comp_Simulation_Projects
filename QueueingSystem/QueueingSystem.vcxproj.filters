@@ -24,9 +24,6 @@
     <ClInclude Include="shared.hpp">
       <Filter>Shared</Filter>
     </ClInclude>
-    <ClInclude Include="Task.hpp">
-      <Filter>Shared</Filter>
-    </ClInclude>
     <ClInclude Include="ExecutionUnit.hpp">
       <Filter>Execution</Filter>
     </ClInclude>
@@ -34,11 +31,14 @@
       <Filter>Execution</Filter>
     </ClInclude>
     <ClInclude Include="QueueingSystem.hpp" />
+    <ClInclude Include="TaskImitation.hpp">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskSimulation.hpp">
+      <Filter>Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Task.cpp">
-      <Filter>Shared</Filter>
-    </ClCompile>
     <ClCompile Include="ProcessorSymulator.cpp">
       <Filter>Execution</Filter>
     </ClCompile>
@@ -48,6 +48,9 @@
     <ClCompile Include="QueueingSystem.cpp" />
     <ClCompile Include="Imitator.cpp">
       <Filter>Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskSimulation.cpp">
+      <Filter>Shared</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

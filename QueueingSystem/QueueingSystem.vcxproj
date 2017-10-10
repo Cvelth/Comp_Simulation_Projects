@@ -118,14 +118,15 @@
     <ClInclude Include="QueueingSystem.hpp" />
     <ClInclude Include="shared.hpp" />
     <ClInclude Include="SimulatorUnit.hpp" />
-    <ClInclude Include="Task.hpp" />
+    <ClInclude Include="TaskSimulation.hpp" />
+    <ClInclude Include="TaskImitation.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratorSymulator.cpp" />
     <ClCompile Include="Imitator.cpp" />
     <ClCompile Include="ProcessorSymulator.cpp" />
     <ClCompile Include="QueueingSystem.cpp" />
-    <ClCompile Include="Task.cpp" />
+    <ClCompile Include="TaskSimulation.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

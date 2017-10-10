@@ -1,18 +1,18 @@
 #pragma once
 #include "shared.hpp"
 namespace qs {
-	class Task {
+	class TaskSimulation {
 		Color m_color;
 		float m_processing_left;
 		unsigned int m_was_processed;
 	public:
-		Task(float color = -1.f, float processing_left = 0.f);
-		Task(Task const &other) {
+		TaskSimulation(float color = -1.f, float processing_left = 0.f);
+		TaskSimulation(TaskSimulation const &other) {
 			m_color = other.m_color;
 			m_processing_left = other.m_processing_left;
 			m_was_processed = other.m_was_processed;
 		}
-		Task& operator=(Task const &other) {
+		TaskSimulation& operator=(TaskSimulation const &other) {
 			m_color = other.m_color;
 			m_processing_left = other.m_processing_left;
 			m_was_processed = other.m_was_processed;

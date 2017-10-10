@@ -1,14 +1,14 @@
 #pragma once
 #include "AbstractStorage.hpp"
 #include <list>
-#include "Task.hpp"
 #include "shared.hpp"
 #ifdef MULTI_THREADING
 	#include <shared_mutex>
 #endif
 
 namespace qs {
-	class PER : public AbstractStorage {
+	template<typename Task>
+	class PER : public AbstractStorage<Task> {
 		#ifdef MULTI_THREADING
 			std::shared_mutex m_mutex;
 			std::shared_mutex m_repush_mutex;

@@ -1,19 +1,19 @@
 #pragma once
 #include "shared.hpp" 
-#include "Task.hpp"
+#include "AbstractStorage.hpp"
 namespace qs {
-	class AbstractStorage;
+	template <typename Task>
 	class ExecutionUnit {
 	protected:
 		SystemState *m_state;
-		AbstractStorage *m_storage;
+		AbstractStorage<Task> *m_storage;
 		bool m_is_active;
 		Task m_current_task;
 		size_t m_task_count;
 	protected:
 		virtual void loop() abstract;
 	public:
-		explicit ExecutionUnit(AbstractStorage* storage, SystemState *state)
+		explicit ExecutionUnit(AbstractStorage<Task>* storage, SystemState *state)
 			: m_storage(storage), m_state(state),
 			m_is_active(false), m_task_count(0u) {}
 
