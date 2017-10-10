@@ -15,6 +15,9 @@
     <Filter Include="Shared">
       <UniqueIdentifier>{19b00d0f-3059-401e-8063-1308b89f4cdf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Execution">
+      <UniqueIdentifier>{9d04a920-d2df-4cf1-a23e-3287bc8c754e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PER.hpp">
@@ -33,13 +36,13 @@
       <Filter>Shared</Filter>
     </ClInclude>
     <ClInclude Include="ExecutionUnit.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SimulatorUnit.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Execution</Filter>
     </ClInclude>
     <ClInclude Include="ImitatorUnit.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulatorUnit.hpp">
+      <Filter>Execution</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -47,10 +50,10 @@
       <Filter>Shared</Filter>
     </ClCompile>
     <ClCompile Include="GeneratorUnit.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Execution</Filter>
     </ClCompile>
     <ClCompile Include="ProcessorUnit.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Execution</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
