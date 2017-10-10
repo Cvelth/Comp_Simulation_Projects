@@ -9,27 +9,42 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Storage">
+      <UniqueIdentifier>{104359ab-c2a3-4f13-88f3-cd0c4e067fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{19b00d0f-3059-401e-8063-1308b89f4cdf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Task.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PER.hpp">
+      <Filter>Storage</Filter>
     </ClInclude>
     <ClInclude Include="LIFO.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Storage</Filter>
     </ClInclude>
     <ClInclude Include="AbstractStorage.hpp">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="shared.hpp">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.hpp">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecutionUnit.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PER.hpp">
+    <ClInclude Include="SimulatorUnit.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImitatorUnit.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Task.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Shared</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

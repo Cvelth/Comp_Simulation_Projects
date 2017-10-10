@@ -112,9 +112,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbstractStorage.hpp" />
+    <ClInclude Include="ExecutionUnit.hpp" />
+    <ClInclude Include="ImitatorUnit.hpp" />
     <ClInclude Include="LIFO.hpp" />
     <ClInclude Include="PER.hpp" />
     <ClInclude Include="shared.hpp" />
+    <ClInclude Include="SimulatorUnit.hpp" />
     <ClInclude Include="Task.hpp" />
   </ItemGroup>
   <ItemGroup>
