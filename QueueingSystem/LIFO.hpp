@@ -3,6 +3,9 @@
 #include <vector>
 #include "Task.hpp"
 #include "shared.hpp"
+#ifdef MULTI_THREADING
+	#include <shared_mutex>
+#endif
 
 namespace qs {
 	class LIFO : public AbstractStorage<Task> {

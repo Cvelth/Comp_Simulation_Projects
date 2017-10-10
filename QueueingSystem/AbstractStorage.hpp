@@ -1,5 +1,4 @@
 #pragma once
-#include <shared_mutex>
 namespace qs {
 	class Task;
 	template <typename StoredType = Task> class AbstractStorage {
