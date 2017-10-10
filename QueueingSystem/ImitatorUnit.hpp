@@ -19,6 +19,7 @@ namespace qs {
 		virtual void start() override { ImitatorUnit::start(); }
 		virtual void pause() override { ImitatorUnit::pause(); }
 		virtual void stop() override { ImitatorUnit::stop(); }
+		virtual qs::Color const getCurrentColor() override { return ImitatorUnit::getCurrentColor(); }
 	};
 	class ProcessorImitator : public ImitatorUnit, public ProcessorUnit {
 	protected:
@@ -33,5 +34,6 @@ namespace qs {
 		virtual void start() override { ImitatorUnit::start(); }
 		virtual void pause() override { ImitatorUnit::pause(); }
 		virtual void stop() override { ImitatorUnit::stop(); }
+		virtual qs::Color const getCurrentColor() override { return ImitatorUnit::getCurrentColor(); }
 	};
 }

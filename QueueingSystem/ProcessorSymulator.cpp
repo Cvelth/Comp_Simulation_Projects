@@ -51,7 +51,6 @@ void qs::ProcessorSimulator::loop() {
 					m_storage->repush(&m_current_task);
 				} else {
 					m_task_count++;
-					delete &m_current_task;
 				}
 			}
 	});

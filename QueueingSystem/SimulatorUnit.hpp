@@ -20,14 +20,14 @@ namespace qs {
 		virtual void loop() override;
 	public:
 		using SimulatorUnit::SimulatorUnit;
-		virtual float getCurrentPercent() override;
-
 		virtual bool is_running() override {
 			return *m_state == SystemState::Running;
 		}
 		virtual void start() override { SimulatorUnit::start(); }
 		virtual void pause() override { SimulatorUnit::pause(); }
 		virtual void stop() override { SimulatorUnit::stop(); }
+		virtual qs::Color const getCurrentColor() override { return SimulatorUnit::getCurrentColor(); }
+		virtual float getCurrentPercent() override;
 	};
 
 	class ProcessorSimulator : public SimulatorUnit, public ProcessorUnit {
@@ -35,13 +35,13 @@ namespace qs {
 		virtual void loop() override;
 	public:
 		using SimulatorUnit::SimulatorUnit;
-		virtual float getCurrentPercent() override;
-
 		virtual bool is_running() override {
 			return *m_state == SystemState::Running;
 		}
 		virtual void start() override { SimulatorUnit::start(); }
 		virtual void pause() override { SimulatorUnit::pause(); }
 		virtual void stop() override { SimulatorUnit::stop(); }
+		virtual qs::Color const getCurrentColor() override { return SimulatorUnit::getCurrentColor(); }
+		virtual float getCurrentPercent() override;
 	};
 }

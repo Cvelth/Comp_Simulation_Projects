@@ -2,14 +2,14 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
-namespace cs {
-	class ProcessorSimulator;
+namespace qs {
+	class QueueingSystemSimulation;
 }
 
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
 	Q_OBJECT
 private:
-	cs::ProcessorSimulator* m_simulator;
+	qs::QueueingSystemSimulation* m_simulator;
 	float m_aspect_ratio;
 	bool m_first;
 protected:
@@ -22,7 +22,7 @@ protected:
 	virtual void drawProcessor();
 	virtual void drawStorage();
 public:
-	Canvas(cs::ProcessorSimulator* simulator, QWidget *parent = nullptr);
+	Canvas(qs::QueueingSystemSimulation *simulator, QWidget *parent = nullptr);
 	~Canvas();
 
 public slots:

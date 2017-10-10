@@ -141,8 +141,8 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProcessorSimulator\ProcessorSimulator.vcxproj">
-      <Project>{ecc28da9-2f83-4608-98fb-206057cf86c6}</Project>
+    <ProjectReference Include="..\QueueingSystem\QueueingSystem.vcxproj">
+      <Project>{d1d6c555-4455-41ff-ada0-ea7821be4bd4}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

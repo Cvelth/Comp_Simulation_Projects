@@ -38,13 +38,12 @@ namespace qs {
 		inline size_t getTaskCount() {
 			return m_task_count;
 		}
-		inline Color getCurrentColor() {
+		inline Color const getCurrentColor() {
 			if (is_active())
 				return m_current_task.color();
 			else
 				return Color{0,0,0};
 		}
-		virtual float getCurrentPercent() abstract;
 	};
 
 	class GeneratorUnit {
@@ -57,6 +56,8 @@ namespace qs {
 		virtual void start() abstract;
 		virtual void pause() abstract;
 		virtual void stop() abstract;
+		virtual float getCurrentPercent() abstract;
+		virtual Color const getCurrentColor() abstract;
 	};
 	class ProcessorUnit {
 	protected:
@@ -72,5 +73,7 @@ namespace qs {
 		virtual void start() abstract;
 		virtual void pause() abstract;
 		virtual void stop() abstract;
+		virtual float getCurrentPercent() abstract;
+		virtual Color const getCurrentColor() abstract;
 	};
 }
