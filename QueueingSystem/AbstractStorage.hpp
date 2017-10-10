@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 namespace qs {
 	class Task;
 	template <typename StoredType = Task> class AbstractStorage {
