@@ -15,6 +15,8 @@ protected:
 
 	qs::QueueingSystemSimulation m_lifo_simulator;
 	qs::QueueingSystemSimulation m_per_simulator;
+	qs::QueueingSystemImitation m_lifo_imitator;
+	qs::QueueingSystemImitation m_per_imitator;
 	Canvas *m_lifo_canvas;
 	Canvas *m_per_canvas;
 
@@ -27,5 +29,6 @@ private:
 	
 protected slots:
 	void start_simulation();
+	void start_imitation();
 	void change_time_coefficient(int value);
 };

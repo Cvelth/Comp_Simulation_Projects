@@ -39,7 +39,11 @@ public:
     QLabel *label_3;
     QLineEdit *tau;
     QSpacerItem *horizontalSpacer_3;
-    QPushButton *start;
+    QPushButton *simulate;
+    QSpacerItem *horizontalSpacer_4;
+    QLabel *label_4;
+    QLineEdit *n;
+    QPushButton *imitate;
     QHBoxLayout *visualization_layout;
     QSlider *time;
 
@@ -103,10 +107,30 @@ public:
 
         horizontalLayout_3->addItem(horizontalSpacer_3);
 
-        start = new QPushButton(Lab1_GUIClass);
-        start->setObjectName(QStringLiteral("start"));
+        simulate = new QPushButton(Lab1_GUIClass);
+        simulate->setObjectName(QStringLiteral("simulate"));
 
-        horizontalLayout_3->addWidget(start);
+        horizontalLayout_3->addWidget(simulate);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_4);
+
+        label_4 = new QLabel(Lab1_GUIClass);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setFont(font);
+
+        horizontalLayout_3->addWidget(label_4);
+
+        n = new QLineEdit(Lab1_GUIClass);
+        n->setObjectName(QStringLiteral("n"));
+
+        horizontalLayout_3->addWidget(n);
+
+        imitate = new QPushButton(Lab1_GUIClass);
+        imitate->setObjectName(QStringLiteral("imitate"));
+
+        horizontalLayout_3->addWidget(imitate);
 
         horizontalLayout_3->setStretch(1, 8);
         horizontalLayout_3->setStretch(2, 1);
@@ -115,6 +139,8 @@ public:
         horizontalLayout_3->setStretch(7, 8);
         horizontalLayout_3->setStretch(8, 1);
         horizontalLayout_3->setStretch(9, 3);
+        horizontalLayout_3->setStretch(12, 1);
+        horizontalLayout_3->setStretch(13, 3);
 
         verticalLayout_2->addLayout(horizontalLayout_3);
 
@@ -133,7 +159,9 @@ public:
 
         verticalLayout_2->addWidget(time);
 
-        verticalLayout_2->setStretch(1, 1);
+        verticalLayout_2->setStretch(0, 1);
+        verticalLayout_2->setStretch(1, 10);
+        verticalLayout_2->setStretch(2, 1);
 
         retranslateUi(Lab1_GUIClass);
 
@@ -149,7 +177,10 @@ public:
         mu->setText(QApplication::translate("Lab1_GUIClass", "2", Q_NULLPTR));
         label_3->setText(QApplication::translate("Lab1_GUIClass", "\317\204 = ", Q_NULLPTR));
         tau->setText(QApplication::translate("Lab1_GUIClass", "1.0", Q_NULLPTR));
-        start->setText(QApplication::translate("Lab1_GUIClass", "Start", Q_NULLPTR));
+        simulate->setText(QApplication::translate("Lab1_GUIClass", "Simulate", Q_NULLPTR));
+        label_4->setText(QApplication::translate("Lab1_GUIClass", "n = ", Q_NULLPTR));
+        n->setText(QApplication::translate("Lab1_GUIClass", "1000", Q_NULLPTR));
+        imitate->setText(QApplication::translate("Lab1_GUIClass", "Imitate", Q_NULLPTR));
     } // retranslateUi
 
 };

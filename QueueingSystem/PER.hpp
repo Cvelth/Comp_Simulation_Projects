@@ -1,14 +1,13 @@
 #pragma once
 #include "AbstractStorage.hpp"
 #include <list>
-#include "Task.hpp"
-#include "shared.hpp"
 #ifdef MULTI_THREADING
 	#include <shared_mutex>
 #endif
 
 namespace qs {
-	class PER : public AbstractStorage {
+	template<typename Task>
+	class PER : public AbstractStorage<Task> {
 		#ifdef MULTI_THREADING
 			std::shared_mutex m_mutex;
 			std::shared_mutex m_repush_mutex;
@@ -43,48 +42,58 @@ namespace qs {
 		}
 		virtual Task pop() override {
 			Task ret;
-			if (m_initial_queue.size()) {
-				#ifdef MULTI_THREADING
-					m_mutex.lock();
-				#endif
-				ret = m_initial_queue.front();
-				m_initial_queue.pop_front();
-				#ifdef MULTI_THREADING
-					m_mutex.unlock();
-				#endif
-			} else if (m_repush_queue.size()) {
-				#ifdef MULTI_THREADING
-					m_repush_mutex.lock();
-				#endif
-				ret = m_repush_queue.front();
-				m_repush_queue.pop_front();
-				#ifdef MULTI_THREADING
-					m_repush_mutex.unlock();
-				#endif
-			} else
-				throw Exceptions::EmptyQueue();
+			try {
+				if (m_initial_queue.size()) {
+					#ifdef MULTI_THREADING
+						m_mutex.lock();
+					#endif
+					ret = m_initial_queue.front();
+					m_initial_queue.pop_front();
+					#ifdef MULTI_THREADING
+						m_mutex.unlock();
+					#endif
+				} else if (m_repush_queue.size()) {
+					#ifdef MULTI_THREADING
+						m_repush_mutex.lock();
+					#endif
+					ret = m_repush_queue.front();
+					m_repush_queue.pop_front();
+					#ifdef MULTI_THREADING
+						m_repush_mutex.unlock();
+					#endif
+				} else
+					throw Exceptions::EmptyQueue();
+			} catch (std::exception) {
+				//Do nothing
+			}
+
 			return ret;
 		}
 		virtual Task pop_default(Task const& t) override {
 			Task ret(t);
-			if (m_initial_queue.size()) {
-				#ifdef MULTI_THREADING
-					m_mutex.lock();
-				#endif
-				ret = m_initial_queue.front();
-				m_initial_queue.pop_front();
-				#ifdef MULTI_THREADING
-					m_mutex.unlock();
-				#endif
-			} else if (m_repush_queue.size()) {
-				#ifdef MULTI_THREADING
-					m_repush_mutex.lock();
-				#endif
-				ret = m_repush_queue.front();
-				m_repush_queue.pop_front();
-				#ifdef MULTI_THREADING
-					m_repush_mutex.unlock();
-				#endif
+			try {
+				if (m_initial_queue.size()) {
+					#ifdef MULTI_THREADING
+						m_mutex.lock();
+					#endif
+					ret = m_initial_queue.front();
+					m_initial_queue.pop_front();
+					#ifdef MULTI_THREADING
+						m_mutex.unlock();
+					#endif
+				} else if (m_repush_queue.size()) {
+					#ifdef MULTI_THREADING
+						m_repush_mutex.lock();
+					#endif
+					ret = m_repush_queue.front();
+					m_repush_queue.pop_front();
+					#ifdef MULTI_THREADING
+						m_repush_mutex.unlock();
+					#endif
+				}
+			} catch (std::exception) {
+				//Do nothing
+
 			}
 			return ret;
 		}

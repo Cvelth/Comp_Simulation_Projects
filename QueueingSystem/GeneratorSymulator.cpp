@@ -16,7 +16,7 @@ void qs::GeneratorSimulator::loop() {
 				auto duration = std::chrono::duration<float>(*m_time_coefficient *
 															 qs::constants::time_correction * (*d)(g));
 				m_current_process_end = m_current_process_start + duration;
-				m_current_task = *(new Task());
+				m_current_task = *(new TaskSimulation());
 				m_is_active = true;
 				std::this_thread::sleep_until(m_current_process_end);
 				m_current_process_start = std::chrono::high_resolution_clock::now();

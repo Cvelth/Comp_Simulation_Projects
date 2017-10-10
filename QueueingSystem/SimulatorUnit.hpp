@@ -1,17 +1,18 @@
 #pragma once
 #include "ExecutionUnit.hpp"
+#include "TaskSimulation.hpp"
 #include <chrono>
 namespace qs {
 	using time_point = std::chrono::time_point<std::chrono::high_resolution_clock,
 		std::chrono::duration<float, std::ratio<1, 1000000000>>>;
 
-	class SimulatorUnit : public ExecutionUnit {
+	class SimulatorUnit : public ExecutionUnit<TaskSimulation> {
 	protected:
 		number *m_time_coefficient;
 		time_point m_current_process_start;
 		time_point m_current_process_end;
 	public:
-		explicit SimulatorUnit(AbstractStorage* storage, number *time_coefficient, SystemState *state)
+		explicit SimulatorUnit(AbstractStorage<TaskSimulation>* storage, number *time_coefficient, SystemState *state)
 			: ExecutionUnit(storage, state), m_time_coefficient(time_coefficient) {}
 	};
 

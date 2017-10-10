@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 namespace qs {
-	class Task;
+	template<typename Task>
 	class AbstractStorage {
 	public:
 		virtual void push(Task *task = nullptr) abstract;

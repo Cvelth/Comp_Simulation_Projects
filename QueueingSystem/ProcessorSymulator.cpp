@@ -13,7 +13,7 @@ void qs::ProcessorSimulator::loop() {
 		m_is_active = true;
 		while (*m_state == SystemState::Running || *m_state == SystemState::Paused)
 			if (*m_state == SystemState::Running) {
-				m_current_task = m_storage->pop_default(Task(0.f, m_tau));
+				m_current_task = m_storage->pop_default(TaskSimulation(0.f, m_tau));
 				float wait = m_current_task.processing_left();
 				if (wait == 0.f) {
 					if (!d)
