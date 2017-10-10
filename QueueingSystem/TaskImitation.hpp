@@ -6,7 +6,10 @@ namespace qs {
 		friend QueueingSystemImitation;
 
 		Time generated;
-
-		TaskImitation(Time generated) : generated(generated) {}
+		Time length;
+		
+		TaskImitation(Time generated, Time length = 0.f) : generated(generated), length(length) {}
+	public:
+		TaskImitation() : length(0.f) {}
 	};
 }
