@@ -1,14 +1,10 @@
 #include "QueueingSystem.hpp"
+#include "TaskImitation.hpp"
 #include <thread>
 #include <random>
 
-using Time = float;
 Time start_point = 0.f;
 Time max = std::numeric_limits<Time>::max();
-
-struct Task {
-	Time generated;
-};
 
 void qs::QueueingSystemImitation::run(size_t tasks) {
 	std::thread t([&tasks, this]() {
@@ -23,7 +19,8 @@ void qs::QueueingSystemImitation::run(size_t tasks) {
 		Time next_processing = max;
 		while (tasks_processed <= tasks) {
 			if (next_generation < next_processing) {
-				
+				current_time = next_generation;
+				m_storage->push(new TaskImitation(current_time));
 			} else {
 
 			}
