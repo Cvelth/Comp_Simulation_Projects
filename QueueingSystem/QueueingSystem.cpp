@@ -12,6 +12,7 @@ void qs::QueueingSystemSimulation::initialize(SystemType type) {
 		default:
 			throw std::exception("Unsupported storage type was requested.");
 	}
+
 	m_generator = new GeneratorSimulator(m_storage, &m_time_coefficient, &m_state);
 	m_processor = new ProcessorSimulator(m_storage, &m_time_coefficient, &m_state);
 }
@@ -23,6 +24,7 @@ void qs::QueueingSystemImitation::initialize(SystemType type) {
 			break;
 		case SystemType::PER:
 			m_storage = new PER<TaskImitation>();
+
 			break;
 		default:
 			throw std::exception("Unsupported storage type was requested.");

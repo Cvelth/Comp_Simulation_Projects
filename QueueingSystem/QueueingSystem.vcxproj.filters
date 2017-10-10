@@ -39,6 +39,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+
     <ClCompile Include="ProcessorSymulator.cpp">
       <Filter>Execution</Filter>
     </ClCompile>

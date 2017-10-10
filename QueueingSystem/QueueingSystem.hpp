@@ -52,6 +52,7 @@ namespace qs {
 		number m_time_coefficient;
 	public:
 		using AbstractQueueingSystem<TaskSimulation>::AbstractQueueingSystem;
+
 		virtual void initialize(SystemType type) override;
 		void start() {
 			m_generator->start();
@@ -65,7 +66,7 @@ namespace qs {
 			m_generator->stop();
 			m_processor->stop();
 		}
-
+        
 		virtual void changeLambda(number l) override { m_generator->changeLambda(l); }
 		virtual void changeMu(number m) override { m_processor->changeMu(m); }
 		virtual void changeSigma(number s) override { m_processor->changeSigma(s); }
@@ -94,5 +95,6 @@ namespace qs {
 		virtual void changeSigma(number s) override { m_sigma = s; }
 		virtual void changeTau(number t) override { m_tau = t; }
 		virtual bool is_running() override { return false; }
+
 	};
 }

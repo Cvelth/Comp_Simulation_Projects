@@ -66,6 +66,7 @@ namespace qs {
 			} catch (std::exception) {
 				//Do nothing
 			}
+
 			return ret;
 		}
 		virtual Task pop_default(Task const& t) override {
@@ -92,6 +93,7 @@ namespace qs {
 				}
 			} catch (std::exception) {
 				//Do nothing
+
 			}
 			return ret;
 		}
