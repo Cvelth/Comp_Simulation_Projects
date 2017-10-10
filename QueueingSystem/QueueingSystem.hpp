@@ -1,4 +1,5 @@
 #pragma once
+#define MULTI_THREADING
 #include "shared.hpp"
 #include "AbstractStorage.hpp"
 #include "ExecutionUnit.hpp"
