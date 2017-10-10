@@ -33,6 +33,9 @@ namespace qs {
 			if (*m_state != SystemState::Error)
 				*m_state = SystemState::Stoped;
 		}
+		inline bool is_running() {
+			return *m_state == SystemState::Running;
+		}
 		inline bool is_active() {
 			return m_is_active;
 		}
@@ -40,7 +43,10 @@ namespace qs {
 			return m_task_count;
 		}
 		inline Color getCurrentColor() {
-			return m_current_task.color();
+			if (is_active())
+				return m_current_task.color();
+			else
+				return Color{0,0,0};
 		}
 		virtual float getCurrentPercent() abstract;
 	};

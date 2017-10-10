@@ -121,6 +121,8 @@
     <ClInclude Include="Task.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GeneratorUnit.cpp" />
+    <ClCompile Include="ProcessorUnit.cpp" />
     <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

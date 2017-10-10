@@ -15,4 +15,7 @@ namespace qs {
 	namespace Exceptions {
 		class EmptyQueue : std::exception {};
 	}
+	namespace constants {
+		const number time_correction = 1;
+	}
 }

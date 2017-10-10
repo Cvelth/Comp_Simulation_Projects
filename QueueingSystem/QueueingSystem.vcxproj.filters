@@ -46,5 +46,11 @@
     <ClCompile Include="Task.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratorUnit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorUnit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
