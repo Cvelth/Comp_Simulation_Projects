@@ -63,16 +63,26 @@ namespace qs {
 		virtual AbstractStorage* storage() override { return m_storage; }
 		virtual ProcessorUnit* processor() { return m_processor; }
 
-		inline bool is_running() {
+		virtual bool is_running() override {
 			return m_generator->is_running() && m_processor->is_running();
 		}
 		void changeTimeCoefficient(number c) { m_time_coefficient = c; }
 	};
 	class QueueingSystemImitation : public AbstractQueueingSystem {
-		number m_time_coefficient;
+		number m_lambda;
+		number m_mu;
+		number m_sigma;
+		number m_tau;
 	public:
 		using AbstractQueueingSystem::AbstractQueueingSystem;
 		virtual void initialize(SystemType type) override;
 		void run(size_t tasks);
+
+		virtual void changeLambda(number l) override { m_lambda = l; }
+		virtual void changeMu(number m) override { m_mu = m; }
+		virtual void changeSigma(number s) override { m_sigma = s; }
+		virtual void changeTau(number t) override { m_tau = t; }
+		virtual AbstractStorage* storage() override { return m_storage; }
+		virtual bool is_running() override { return false; }
 	};
 }

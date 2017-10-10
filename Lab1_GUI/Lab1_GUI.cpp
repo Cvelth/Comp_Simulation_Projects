@@ -21,10 +21,10 @@ Lab1_GUI::Lab1_GUI(QWidget *parent)
 	ui.visualization_layout->addWidget(m_lifo_canvas);
 	ui.visualization_layout->addWidget(m_per_canvas);
 
-	//m_lifo_imitator.initialize(qs::SystemType::LIFO);
-	//m_per_imitator.initialize(qs::SystemType::PER);
-	//m_lifo_imitator.changeSigma(1.0);
-	//m_per_imitator.changeSigma(1.0);
+	m_lifo_imitator.initialize(qs::SystemType::LIFO);
+	m_per_imitator.initialize(qs::SystemType::PER);
+	m_lifo_imitator.changeSigma(1.0);
+	m_per_imitator.changeSigma(1.0);
 }
 
 Lab1_GUI::~Lab1_GUI() {
@@ -57,17 +57,17 @@ void Lab1_GUI::start_simulation() {
 }
 
 void Lab1_GUI::start_imitation() {
-	//m_lifo_imitator.changeLambda(ui.lambda->text().toFloat());
-	//m_per_imitator.changeLambda(ui.lambda->text().toFloat());
-	//m_lifo_imitator.changeMu(ui.mu->text().toFloat());
-	//m_per_imitator.changeMu(ui.mu->text().toFloat());
-	//m_lifo_imitator.changeTau(ui.tau->text().toFloat());
-	//m_per_imitator.changeTau(ui.tau->text().toFloat());
-	//
-	//size_t number = ui.n->text().toUInt();
-	//
-	//if (!m_lifo_imitator.is_running())
-	//	m_lifo_imitator.run(number);
-	//if (!m_per_imitator.is_running())
-	//	m_per_imitator.run(number);
+	m_lifo_imitator.changeLambda(ui.lambda->text().toFloat());
+	m_per_imitator.changeLambda(ui.lambda->text().toFloat());
+	m_lifo_imitator.changeMu(ui.mu->text().toFloat());
+	m_per_imitator.changeMu(ui.mu->text().toFloat());
+	m_lifo_imitator.changeTau(ui.tau->text().toFloat());
+	m_per_imitator.changeTau(ui.tau->text().toFloat());
+	
+	size_t number = ui.n->text().toUInt();
+	
+	if (!m_lifo_imitator.is_running())
+		m_lifo_imitator.run(number);
+	if (!m_per_imitator.is_running())
+		m_per_imitator.run(number);
 }
