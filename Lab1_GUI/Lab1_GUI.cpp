@@ -56,6 +56,7 @@ void Lab1_GUI::start_simulation() {
 	m_timer.start();
 }
 
+#include "ImitationResultsWidget.hpp"
 void Lab1_GUI::start_imitation() {
 	m_lifo_imitator.changeLambda(ui.lambda->text().toFloat());
 	m_per_imitator.changeLambda(ui.lambda->text().toFloat());
@@ -70,4 +71,7 @@ void Lab1_GUI::start_imitation() {
 		m_lifo_imitator.run(number);
 	if (!m_per_imitator.is_running())
 		m_per_imitator.run(number);
+
+	ImitationResultsWidget results = new ImitationResultsWidget();
+	results.show();
 }
