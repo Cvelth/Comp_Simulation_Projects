@@ -72,6 +72,5 @@ void Lab1_GUI::start_imitation() {
 	if (!m_per_imitator.is_running())
 		m_per_imitator.run(number);
 
-	ImitationResultsWidget results = new ImitationResultsWidget();
-	results.show();
+	ImitationResultsWidget *results = new ImitationResultsWidget(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
 }

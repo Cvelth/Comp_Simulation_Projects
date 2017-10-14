@@ -43,7 +43,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="lambda">
        <property name="font">
         <font>
          <family>Cambria</family>
@@ -73,7 +73,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_2">
+      <widget class="QLineEdit" name="mu">
        <property name="font">
         <font>
          <family>Cambria</family>
@@ -103,7 +103,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_3">
+      <widget class="QLineEdit" name="tau">
        <property name="font">
         <font>
          <family>Cambria</family>
@@ -146,7 +146,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_4">
+      <widget class="QLineEdit" name="x1">
        <property name="font">
         <font>
          <family>Cambria</family>
@@ -176,7 +176,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_7">
+      <widget class="QLineEdit" name="x2">
        <property name="font">
         <font>
          <family>Cambria</family>
@@ -206,7 +206,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_6">
+      <widget class="QLineEdit" name="x3">
        <property name="font">
         <font>
          <family>Cambria</family>
@@ -236,7 +236,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_5">
+      <widget class="QLineEdit" name="x4">
        <property name="font">
         <font>
          <family>Cambria</family>
@@ -266,7 +266,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_8">
+      <widget class="QLineEdit" name="x5">
        <property name="font">
         <font>
          <family>Cambria</family>
@@ -309,7 +309,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_10">
+      <widget class="QLineEdit" name="f">
        <property name="font">
         <font>
          <family>Cambria</family>
