@@ -32,7 +32,7 @@
      <item>
       <widget class="QLineEdit" name="lambda">
        <property name="text">
-        <string>2</string>
+        <string>0.5</string>
        </property>
       </widget>
      </item>
@@ -65,7 +65,7 @@
      <item>
       <widget class="QLineEdit" name="mu">
        <property name="text">
-        <string>2</string>
+        <string>1.5</string>
        </property>
       </widget>
      </item>
@@ -98,7 +98,7 @@
      <item>
       <widget class="QLineEdit" name="tau">
        <property name="text">
-        <string>1.0</string>
+        <string>0.2</string>
        </property>
       </widget>
      </item>

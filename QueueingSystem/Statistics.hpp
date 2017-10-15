@@ -65,7 +65,7 @@ namespace qs {
 				float sum = 0.f;
 				for (auto it : m_tasks)
 					sum += it.full_time;
-				return m_average_time = sum / m_tasks.size();
+				return m_average_time = (sum / m_tasks.size());
 			}
 			else
 				return m_average_time;

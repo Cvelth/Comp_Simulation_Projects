@@ -69,15 +69,21 @@ void Lab1_GUI::start_imitation() {
 	
 	size_t number = ui.n->text().toUInt();
 
-	if (!m_lifo_imitator.is_running()) {
-		qs::ImitationStatistics s(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
-		m_lifo_imitator.run(number, &s, false);
-		new ImitationResultsWidget(s, true);
-	}
+	qs::ImitationStatistics lifo_stats(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
+	qs::ImitationStatistics per_stats(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
 
-	if (!m_per_imitator.is_running()) {
-		qs::ImitationStatistics s(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
-		m_per_imitator.run(number, &s, false);
-		new ImitationResultsWidget(s, true);
-	}
+	if (!m_lifo_imitator.is_running())
+		m_lifo_imitator.run(number, &lifo_stats, false);
+	
+
+	if (!m_per_imitator.is_running())
+		m_per_imitator.run(number, &per_stats, false);
+	
+	QWidget *w = new QWidget();
+	w->setAttribute(Qt::WA_DeleteOnClose);
+	QHBoxLayout *layout = new QHBoxLayout();
+	layout->addWidget(new ImitationResultsWidget(lifo_stats, true));
+	layout->addWidget(new ImitationResultsWidget(per_stats, true));
+	w->setLayout(layout);
+	w->show();
 }
