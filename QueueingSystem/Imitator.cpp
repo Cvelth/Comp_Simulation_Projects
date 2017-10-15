@@ -4,47 +4,50 @@
 #include <random>
 #include "Statistics.hpp"
 
-Time start_point = 0.f;
-Time max = std::numeric_limits<Time>::max();
+Time const start_point = 0.f;
+Time const max = std::numeric_limits<Time>::max();
 
-void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats) {
-	std::thread t([tasks, this]() {
+void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats, bool detach) {
+	std::thread t([tasks, stats, this]() {
 		std::random_device seed;
 		std::mt19937_64 g(seed());
 		std::poisson_distribution<number> p(m_lambda);
 		std::normal_distribution<number> n(m_mu, m_sigma);
-
+		if (stats) stats->clear();
 		Time current_time = start_point;
 		size_t tasks_generated = 0u;
 		size_t tasks_processed = 0u;
-		Time tasks_processing_time = 0u;
 		Time next_generation = p(g);
 		Time next_processing = m_tau;
 		while (tasks_processed < tasks) {
 			if (next_generation < next_processing) {
-				current_time = next_generation;
-				m_storage->push(new TaskImitation(current_time, n(g)));
+				m_storage->push(new TaskImitation(next_generation, n(g)));
 				tasks_generated++;
+				current_time = next_generation;
 				next_generation += p(g);
 			} else {
-				current_time = next_processing;
 				try {
 					auto task = m_storage->pop();
 					if (task.length > m_tau) {
 						task.length -= m_tau;
+						if (task.execution_started < 0.f)
+							task.execution_started = current_time;
 						m_storage->repush(&task);
 					} else {
 						tasks_processed++;
-						tasks_processing_time += current_time - task.generated;
+						stats->add_task(task.execution_started - task.generated, next_processing - task.generated);
 					}
 				} catch (qs::Exceptions::EmptyQueue) {}
+				current_time = next_processing;
 				next_processing += m_tau;
 			}
 		}
-		auto average_processing_time = tasks_processing_time / tasks_processed;
-		current_time = max;
+		stats->task_execution_percentage(float(tasks) / tasks_generated);
 	});
-	t.detach();
+	if (detach)
+		t.detach();
+	else
+		t.join();
 }
 
 //Git_hub_test

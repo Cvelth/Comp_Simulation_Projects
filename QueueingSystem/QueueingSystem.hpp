@@ -89,7 +89,7 @@ namespace qs {
 	public:
 		using AbstractQueueingSystem::AbstractQueueingSystem;
 		virtual void initialize(SystemType type) override;
-		void run(size_t tasks, ImitationStatistics *stats = nullptr);
+		void run(size_t tasks, ImitationStatistics *stats = nullptr, bool detach = true);
 
 		virtual void changeLambda(number l) override { m_lambda = l; }
 		virtual void changeMu(number m) override { m_mu = m; }

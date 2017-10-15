@@ -68,13 +68,15 @@ void Lab1_GUI::start_imitation() {
 	
 	size_t number = ui.n->text().toUInt();
 
-	qs::ImitationStatistics s(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
 	if (!m_lifo_imitator.is_running()) {
-		m_lifo_imitator.run(number, &s);
+		qs::ImitationStatistics s(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
+		m_lifo_imitator.run(number, &s, false);
 		new ImitationResultsWidget(s, true);
 	}
+
 	if (!m_per_imitator.is_running()) {
-		m_per_imitator.run(number, &s);
+		qs::ImitationStatistics s(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
+		m_per_imitator.run(number, &s, false);
 		new ImitationResultsWidget(s, true);
 	}
 }

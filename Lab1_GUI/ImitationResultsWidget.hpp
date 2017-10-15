@@ -7,7 +7,7 @@ namespace qs {
 class ImitationResultsWidget : public QWidget {	
 	Q_OBJECT
 public:
-	ImitationResultsWidget(qs::ImitationStatistics const& stats, bool delete_on_close = false, QWidget *parent = Q_NULLPTR);
+	ImitationResultsWidget(qs::ImitationStatistics &stats, bool delete_on_close = false, QWidget *parent = Q_NULLPTR);
 	~ImitationResultsWidget();
 private:
 	Ui::ImitationResultsWidget *ui;

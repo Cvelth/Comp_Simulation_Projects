@@ -40,7 +40,9 @@
     <ClInclude Include="TaskSimulation.hpp">
       <Filter>Shared</Filter>
     </ClInclude>
-    <ClInclude Include="Statistics.hpp" />
+    <ClInclude Include="Statistics.hpp">
+      <Filter>Statistics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProcessorSymulator.cpp">
@@ -56,6 +58,5 @@
     <ClCompile Include="TaskSimulation.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
-    <ClCompile Include="Statistics.cpp" />
   </ItemGroup>
 </Project>
