@@ -128,5 +128,22 @@ namespace qs {
 		virtual size_t type() override {
 			return 2;
 		}
+		virtual void clear() override {
+			#ifdef MULTI_THREADING
+				m_mutex.lock_shared();
+			#endif
+			m_initial_queue.clear();
+			#ifdef MULTI_THREADING
+				m_mutex.unlock_shared();
+			#endif
+
+			#ifdef MULTI_THREADING
+				m_repush_mutex.lock_shared();
+			#endif
+			m_repush_queue.clear();
+			#ifdef MULTI_THREADING
+				m_repush_mutex.unlock_shared();
+			#endif
+		}
 	};
 }

@@ -12,6 +12,7 @@ namespace qs {
 		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) abstract;
 		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) abstract;
 
+		virtual void clear() abstract;
 		virtual size_t type() abstract;
 	};
 }

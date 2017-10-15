@@ -12,19 +12,22 @@ void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats, 
 		std::random_device seed;
 		std::mt19937_64 g(seed());
 		std::poisson_distribution<number> p(m_lambda);
-		std::normal_distribution<number> n(m_mu, m_sigma);
+		std::normal_distribution<number> n(1.f / m_mu, m_sigma);
 		if (stats) stats->clear();
+		m_storage->clear();
 		Time current_time = start_point;
 		size_t tasks_generated = 0u;
 		size_t tasks_processed = 0u;
-		Time next_generation = p(g);
+		auto t = p(g);
+		Time next_generation = (t == 0.f ? 0.f : 1.f / t);
 		Time next_processing = m_tau;
 		while (tasks_processed < tasks) {
 			if (next_generation < next_processing) {
 				m_storage->push(new TaskImitation(next_generation, n(g)));
 				tasks_generated++;
 				current_time = next_generation;
-				next_generation += p(g);
+				auto t = p(g);
+				next_generation += (t == 0.f ? 0.f : 1.f / t);
 			} else {
 				try {
 					auto task = m_storage->pop();

@@ -73,9 +73,7 @@ void Lab1_GUI::start_imitation() {
 	qs::ImitationStatistics per_stats(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
 
 	if (!m_lifo_imitator.is_running())
-		m_lifo_imitator.run(number, &lifo_stats, false);
-	
-
+		m_lifo_imitator.run(number, &lifo_stats, false);	
 	if (!m_per_imitator.is_running())
 		m_per_imitator.run(number, &per_stats, false);
 	
