@@ -2,11 +2,12 @@
 #include "TaskImitation.hpp"
 #include <thread>
 #include <random>
+#include "Statistics.hpp"
 
 Time start_point = 0.f;
 Time max = std::numeric_limits<Time>::max();
 
-void qs::QueueingSystemImitation::run(size_t tasks) {
+void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats) {
 	std::thread t([tasks, this]() {
 		std::random_device seed;
 		std::mt19937_64 g(seed());

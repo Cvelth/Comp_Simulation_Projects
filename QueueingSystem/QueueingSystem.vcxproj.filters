@@ -10,6 +10,9 @@
     <Filter Include="Execution">
       <UniqueIdentifier>{9d04a920-d2df-4cf1-a23e-3287bc8c754e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Statistics">
+      <UniqueIdentifier>{0d93be53-4da5-4877-8a99-affdd162e18f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PER.hpp">
@@ -37,9 +40,9 @@
     <ClInclude Include="TaskSimulation.hpp">
       <Filter>Shared</Filter>
     </ClInclude>
+    <ClInclude Include="Statistics.hpp" />
   </ItemGroup>
   <ItemGroup>
-
     <ClCompile Include="ProcessorSymulator.cpp">
       <Filter>Execution</Filter>
     </ClCompile>
@@ -53,5 +56,6 @@
     <ClCompile Include="TaskSimulation.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
+    <ClCompile Include="Statistics.cpp" />
   </ItemGroup>
 </Project>

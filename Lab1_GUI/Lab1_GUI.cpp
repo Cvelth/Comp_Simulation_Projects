@@ -57,6 +57,7 @@ void Lab1_GUI::start_simulation() {
 }
 
 #include "ImitationResultsWidget.hpp"
+#include "..\QueueingSystem\Statistics.hpp"
 void Lab1_GUI::start_imitation() {
 	m_lifo_imitator.changeLambda(ui.lambda->text().toFloat());
 	m_per_imitator.changeLambda(ui.lambda->text().toFloat());
@@ -66,11 +67,14 @@ void Lab1_GUI::start_imitation() {
 	m_per_imitator.changeTau(ui.tau->text().toFloat());
 	
 	size_t number = ui.n->text().toUInt();
-	
-	if (!m_lifo_imitator.is_running())
-		m_lifo_imitator.run(number);
-	if (!m_per_imitator.is_running())
-		m_per_imitator.run(number);
 
-	ImitationResultsWidget *results = new ImitationResultsWidget(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
+	qs::ImitationStatistics s(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
+	if (!m_lifo_imitator.is_running()) {
+		m_lifo_imitator.run(number, &s);
+		new ImitationResultsWidget(s, true);
+	}
+	if (!m_per_imitator.is_running()) {
+		m_per_imitator.run(number, &s);
+		new ImitationResultsWidget(s, true);
+	}
 }

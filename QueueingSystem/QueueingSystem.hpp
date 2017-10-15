@@ -80,6 +80,7 @@ namespace qs {
 		}
 		void changeTimeCoefficient(number c) { m_time_coefficient = c; }
 	};
+	class ImitationStatistics;
 	class QueueingSystemImitation : public AbstractQueueingSystem<qs::TaskImitation> {
 		number m_lambda;
 		number m_mu;
@@ -88,7 +89,7 @@ namespace qs {
 	public:
 		using AbstractQueueingSystem::AbstractQueueingSystem;
 		virtual void initialize(SystemType type) override;
-		void run(size_t tasks);
+		void run(size_t tasks, ImitationStatistics *stats = nullptr);
 
 		virtual void changeLambda(number l) override { m_lambda = l; }
 		virtual void changeMu(number m) override { m_mu = m; }
