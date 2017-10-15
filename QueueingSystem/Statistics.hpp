@@ -28,6 +28,15 @@ namespace qs {
 		std::vector<TaskStatistics> m_tasks;
 		float m_task_execution_percentage;
 		float m_average_time;
+	protected:
+		inline float urgency(float t, float t1, float t2) {
+			if (t <= t1)
+				return 1.f;
+			else if (t <= t2)
+				return 1.f - (t - t1) / (t2 - t1);
+			else
+				return 0.f;
+		}
 	public:
 		ImitationStatistics(float lambda = 0.f, float mu = 0.f, float tau = 0.f) 
 			: Statistics(lambda, mu, tau), m_task_execution_percentage(-1.f), m_average_time(-1.f) {}
@@ -68,6 +77,18 @@ namespace qs {
 				auto temp = m_average_time - it.full_time;
 				sum += temp * temp;
 			}
+			return sum / m_tasks.size();
+		}
+		inline float average_waiting() {
+			float sum = 0.f;
+			for (auto it : m_tasks)
+				sum += it.waiting_time;
+			return sum / m_tasks.size();
+		}
+		inline float urgency(float t1, float t2) {
+			float sum = 0.f;
+			for (auto it : m_tasks)
+				sum += urgency(it.full_time, t1, t2);
 			return sum / m_tasks.size();
 		}
 	};

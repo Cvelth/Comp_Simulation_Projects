@@ -1,5 +1,6 @@
 #include "Lab1_GUI.hpp"
 #include "Canvas.hpp"
+#include "Task_details.hpp"
 
 Lab1_GUI::Lab1_GUI(QWidget *parent)
 	: QWidget(parent)
@@ -14,8 +15,8 @@ Lab1_GUI::Lab1_GUI(QWidget *parent)
 	m_per_simulator.changeTimeCoefficient(1.f);
 	m_lifo_simulator.initialize(qs::SystemType::LIFO);
 	m_per_simulator.initialize(qs::SystemType::PER);
-	m_lifo_simulator.changeSigma(1.0);
-	m_per_simulator.changeSigma(1.0);
+	m_lifo_simulator.changeSigma(task::sigma);
+	m_per_simulator.changeSigma(task::sigma);
 	m_lifo_canvas = new Canvas(&m_lifo_simulator);
 	m_per_canvas = new Canvas(&m_per_simulator);
 	ui.visualization_layout->addWidget(m_lifo_canvas);

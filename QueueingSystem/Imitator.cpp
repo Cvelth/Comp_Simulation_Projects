@@ -28,10 +28,10 @@ void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats, 
 			} else {
 				try {
 					auto task = m_storage->pop();
+					if (task.execution_started < 0.f)
+						task.execution_started = current_time;
 					if (task.length > m_tau) {
 						task.length -= m_tau;
-						if (task.execution_started < 0.f)
-							task.execution_started = current_time;
 						m_storage->repush(&task);
 					} else {
 						tasks_processed++;
