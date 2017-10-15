@@ -94,5 +94,8 @@
     <ClInclude Include="GeneratedFiles\ui_ImitationResultsWidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="Task_details.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
