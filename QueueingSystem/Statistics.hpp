@@ -91,10 +91,21 @@ namespace qs {
 				sum += urgency(it.full_time, t1, t2);
 			return sum / m_tasks.size();
 		}
+		inline size_t tasks_number() const {
+			return m_tasks.size();
+		}
 	};
 
 	class UniformStatistics : public ImitationStatistics {
+		float m_duration;
+		size_t m_frequency;
 	public:
-		using ImitationStatistics::ImitationStatistics;
+		UniformStatistics(float duration, size_t frequency,
+			float lambda = 0.f, float mu = 0.f, float tau = 0.f)
+			: ImitationStatistics(lambda, mu, tau), 
+			m_duration(duration), m_frequency(frequency) {}
+
+		inline float duration() const { return m_duration; }
+		inline size_t frequency() const { return m_frequency; }
 	};
 }

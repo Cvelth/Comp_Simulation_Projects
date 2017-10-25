@@ -89,12 +89,12 @@ void Lab1_GUI::start_imitation() {
 
 	bool uniforms_enabled = m_sw->areUniformsEnabled();
 	qs::UniformStatistics *lifo_unf_stats = uniforms_enabled ?
-		new qs::UniformStatistics(ui.lambda->text().toFloat(),
-			ui.mu->text().toFloat(), ui.tau->text().toFloat())
+		new qs::UniformStatistics(m_sw->duration(), m_sw->frequency(),
+			ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat())
 		: nullptr;
 	qs::UniformStatistics *per_unf_stats = uniforms_enabled ?
-		new qs::UniformStatistics(ui.lambda->text().toFloat(),
-			ui.mu->text().toFloat(), ui.tau->text().toFloat())
+		new qs::UniformStatistics(m_sw->duration(), m_sw->frequency(),
+			ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat())
 		: nullptr;
 	
 	if (!m_lifo_imitator.is_running())

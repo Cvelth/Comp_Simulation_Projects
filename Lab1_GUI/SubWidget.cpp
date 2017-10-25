@@ -19,6 +19,14 @@ bool SubWidget::areUniformsEnabled() {
 	return ui->enable->isChecked();
 }
 
+float SubWidget::duration() {
+	return ui->duration->text().toFloat();
+}
+
+float SubWidget::frequency() {
+	return ui->frequency->text().toFloat();
+}
+
 void SubWidget::enable_event() {
 	if (ui->enable->isChecked())
 		ui->group->setEnabled(true);

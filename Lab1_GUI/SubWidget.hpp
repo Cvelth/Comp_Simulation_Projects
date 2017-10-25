@@ -12,6 +12,8 @@ public:
 	~SubWidget();
 
 	bool areUniformsEnabled();
+	float duration();
+	float frequency();
 
 private:
 	Ui::SubWidget *ui;
