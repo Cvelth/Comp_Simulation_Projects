@@ -3,6 +3,8 @@
 namespace Ui { class SubWidget; };
 
 class SubWidget : public QWidget {
+	Q_OBJECT
+
 	Ui::SubWidget *ui;
 public:
 	SubWidget(QWidget *parent = Q_NULLPTR);
@@ -10,7 +12,7 @@ public:
 
 	bool areUniformsEnabled();
 	float duration();
-	float frequency();=
+	float frequency();
 
 public slots:
 	void button_event();

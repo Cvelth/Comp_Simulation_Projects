@@ -66,11 +66,14 @@
     <ClCompile Include="ImitationResultsWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SubWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SubWidget.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SubWidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SubWidget.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,11 +95,11 @@
     <CustomBuild Include="ImitationResultsWidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="SubWidget.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="SubWidget.hpp">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SubWidget.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
