@@ -5,6 +5,7 @@
 #include <QTimer>
 
 class Canvas;
+class SubWidget;
 
 class Lab1_GUI : public QWidget
 {
@@ -19,6 +20,8 @@ protected:
 	qs::QueueingSystemImitation m_per_imitator;
 	Canvas *m_lifo_canvas;
 	Canvas *m_per_canvas;
+
+	SubWidget *m_sw;
 
 public:
 	Lab1_GUI(QWidget *parent = Q_NULLPTR);

@@ -1,14 +1,16 @@
 #include "Lab1_GUI.hpp"
 #include "Canvas.hpp"
 #include "Task_details.hpp"
+#include "SubWidget.hpp"
 
 Lab1_GUI::Lab1_GUI(QWidget *parent)
-	: QWidget(parent)
-{
+	: QWidget(parent) {
+	m_sw = new SubWidget();
 	ui.setupUi(this);
 	connect(ui.simulate, &QPushButton::clicked, this, &Lab1_GUI::start_simulation);
 	connect(ui.imitate, &QPushButton::clicked, this, &Lab1_GUI::start_imitation);
 	connect(ui.time, &QSlider::valueChanged, this, &Lab1_GUI::change_time_coefficient);
+	connect(ui.subwidget, &QPushButton::clicked, m_sw, &SubWidget::button_event);
 	m_timer.setInterval(0);
 
 	m_lifo_simulator.changeTimeCoefficient(1.f);
@@ -31,6 +33,7 @@ Lab1_GUI::Lab1_GUI(QWidget *parent)
 Lab1_GUI::~Lab1_GUI() {
 	delete m_lifo_canvas;
 	delete m_per_canvas;
+	delete m_sw;
 }
 
 void Lab1_GUI::change_time_coefficient(int value) {
