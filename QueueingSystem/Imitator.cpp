@@ -7,7 +7,7 @@
 Time const start_point = 0.f;
 Time const max = std::numeric_limits<Time>::max();
 
-void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats, bool detach) {
+void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats, UniformStatistics *uniform_stats, bool detach) {
 	std::thread t([tasks, stats, this]() {
 		std::random_device seed;
 		std::mt19937_64 g(seed());

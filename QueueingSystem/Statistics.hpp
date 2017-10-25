@@ -92,4 +92,9 @@ namespace qs {
 			return sum / m_tasks.size();
 		}
 	};
+
+	class UniformStatistics : public ImitationStatistics {
+	public:
+		using ImitationStatistics::ImitationStatistics;
+	};
 }

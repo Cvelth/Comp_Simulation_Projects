@@ -62,6 +62,16 @@ void Lab1_GUI::start_simulation() {
 
 #include "ImitationResultsWidget.hpp"
 #include "..\QueueingSystem\Statistics.hpp"
+void showResults(ImitationResultsWidget *w1, ImitationResultsWidget *w2) {
+	QWidget *w = new QWidget();
+	w->setAttribute(Qt::WA_DeleteOnClose);
+	QHBoxLayout *layout = new QHBoxLayout();
+	layout->addWidget(w1);
+	layout->addWidget(w2);
+	w->setLayout(layout);
+	w->show();
+}
+
 void Lab1_GUI::start_imitation() {
 	m_lifo_imitator.changeLambda(ui.lambda->text().toFloat());
 	m_per_imitator.changeLambda(ui.lambda->text().toFloat());
@@ -72,19 +82,29 @@ void Lab1_GUI::start_imitation() {
 	
 	size_t number = ui.n->text().toUInt();
 
-	qs::ImitationStatistics lifo_stats(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
-	qs::ImitationStatistics per_stats(ui.lambda->text().toFloat(), ui.mu->text().toFloat(), ui.tau->text().toFloat());
+	qs::ImitationStatistics lifo_stats(ui.lambda->text().toFloat(), 
+		ui.mu->text().toFloat(), ui.tau->text().toFloat());
+	qs::ImitationStatistics per_stats(ui.lambda->text().toFloat(), 
+		ui.mu->text().toFloat(), ui.tau->text().toFloat());
 
-	if (!m_lifo_imitator.is_running())
-		m_lifo_imitator.run(number, &lifo_stats, false);	
-	if (!m_per_imitator.is_running())
-		m_per_imitator.run(number, &per_stats, false);
+	bool uniforms_enabled = m_sw->areUniformsEnabled();
+	qs::UniformStatistics *lifo_unf_stats = uniforms_enabled ?
+		new qs::UniformStatistics(ui.lambda->text().toFloat(),
+			ui.mu->text().toFloat(), ui.tau->text().toFloat())
+		: nullptr;
+	qs::UniformStatistics *per_unf_stats = uniforms_enabled ?
+		new qs::UniformStatistics(ui.lambda->text().toFloat(),
+			ui.mu->text().toFloat(), ui.tau->text().toFloat())
+		: nullptr;
 	
-	QWidget *w = new QWidget();
-	w->setAttribute(Qt::WA_DeleteOnClose);
-	QHBoxLayout *layout = new QHBoxLayout();
-	layout->addWidget(new ImitationResultsWidget(lifo_stats, true));
-	layout->addWidget(new ImitationResultsWidget(per_stats, true));
-	w->setLayout(layout);
-	w->show();
+	if (!m_lifo_imitator.is_running())
+		m_lifo_imitator.run(number, &lifo_stats, lifo_unf_stats, false);
+	if (!m_per_imitator.is_running())
+		m_per_imitator.run(number, &per_stats, per_unf_stats, false);
+
+	showResults(new ImitationResultsWidget(lifo_stats, true),
+		new ImitationResultsWidget(per_stats, true));
+	if (uniforms_enabled)
+		showResults(new ImitationResultsWidget(*lifo_unf_stats, true),
+			new ImitationResultsWidget(*per_unf_stats, true));
 }

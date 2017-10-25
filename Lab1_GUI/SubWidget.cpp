@@ -15,6 +15,10 @@ SubWidget::~SubWidget() {
 	delete ui;
 }
 
+bool SubWidget::areUniformsEnabled() {
+	return ui->enable->isChecked();
+}
+
 void SubWidget::enable_event() {
 	if (ui->enable->isChecked())
 		ui->group->setEnabled(true);

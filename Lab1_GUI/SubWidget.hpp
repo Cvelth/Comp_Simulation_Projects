@@ -11,6 +11,8 @@ public:
 	SubWidget(QWidget *parent = Q_NULLPTR);
 	~SubWidget();
 
+	bool areUniformsEnabled();
+
 private:
 	Ui::SubWidget *ui;
 
