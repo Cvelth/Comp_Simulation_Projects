@@ -12,7 +12,7 @@ void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats, 
 		std::random_device seed;
 		std::mt19937_64 g(seed());
 		std::uniform_real_distribution<number> p(0.f, 1.f);
-		std::normal_distribution<number> n(1.f / m_mu, 1.f / m_mu);
+		std::normal_distribution<number> n(1.f / m_mu, 0.001f / m_mu);
 		if (stats) stats->clear();
 		if (uniform_stats) uniform_stats->clear();
 		m_storage->clear();
@@ -50,7 +50,7 @@ void qs::QueueingSystemImitation::run(size_t tasks, ImitationStatistics *stats, 
 						task.execution_started = current_time;
 					if (task.length > m_tau) {
 						task.length -= m_tau;
-						is_there_a_task = true;s
+						is_there_a_task = true;
 					} else {
 						tasks_processed++;
 						if (uniform_stats && task.isUniform)

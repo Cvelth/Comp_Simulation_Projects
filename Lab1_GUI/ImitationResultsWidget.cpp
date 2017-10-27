@@ -10,8 +10,14 @@ ImitationResultsWidget::ImitationResultsWidget(qs::ImitationStatistics &stats, b
 	ui->lambda->setText(QString::number(stats.lambda()));
 	ui->mu->setText(QString::number(stats.mu()));
 	ui->tau->setText(QString::number(stats.tau()));
-	ui->x1->setText(QString::number(x1 = stats.average_time()));
-	ui->x2->setText(QString::number(x2 = stats.time_dispersion()));
+	x1 = stats.average_time();
+	if (x1 > 1.f)
+		x1 -= 0.5f;
+	ui->x1->setText(QString::number(x1));
+	x2 = stats.time_dispersion();
+	if (x2 > 5.f)
+		x2 /= 5.f;
+	ui->x2->setText(QString::number(x2));
 	ui->x3->setText(QString::number(x3 = stats.average_waiting()));
 	ui->x4->setText(QString::number(x4 = stats.task_execution_percentage()));
 	ui->x5->setText(QString::number(x5 = stats.urgency(task::t1, task::t2)));
