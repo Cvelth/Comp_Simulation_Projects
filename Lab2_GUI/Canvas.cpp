@@ -8,8 +8,8 @@ void Canvas::initilizeNets() {
 
 	}
 }
-void Canvas::draw() {
-	
+void Canvas::draw(std::pair<NetType const, NetInfo>& net) {
+
 }
 void Canvas::initializeGL() {
 	initializeOpenGLFunctions();
@@ -19,11 +19,12 @@ void Canvas::resizeGL(int w, int h) {
 
 }
 void Canvas::paintGL() {
+	glClear(GL_COLOR_BUFFER_BIT);
 	for (auto it : m_nets)
 		if (!std::get<0>(it.second)) {
 			initilizeNets();
 			break;
 		}
-	for (auto it : m_nets)
+	for (auto& it : m_nets)
 		draw(it);
 }
