@@ -113,6 +113,9 @@
   <ItemGroup>
     <None Include="PetriNet.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lib.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
