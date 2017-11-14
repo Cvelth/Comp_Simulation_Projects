@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include <map>
+#include <memory>
 namespace pn {
 	template <typename TaskType, size_t Cores = 1>
 	class PetriNet {
