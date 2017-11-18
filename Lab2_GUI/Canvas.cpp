@@ -1,6 +1,4 @@
 #include "Canvas.hpp"
-#define _USE_MATH_DEFINES
-#include "Math.h"
 #include <QMatrix4x4>
 Canvas::Canvas(QWidget *parent)	: QOpenGLWidget(parent), m_projection(nullptr), was_initialized(false) {
 	insertNet(std::make_shared<Net>(1.f));
@@ -11,32 +9,6 @@ Canvas::~Canvas() {
 void Canvas::insertNet(NetType const net) {
 	m_nets.insert(std::make_pair(net, std::make_tuple(false, 0, 0, 0)));
 }
-constexpr size_t Size = 24;
-constexpr size_t Coords = 2;
-float res[Size * Coords];
-void Canvas::initializeNets() {
-	for (auto& it : m_nets)
-		if (!std::get<0>(it.second)) {
-			glGenBuffers(1, &std::get<1>(it.second));
-			glBindBuffer(GL_ARRAY_BUFFER, std::get<1>(it.second));
-			size_t i = 0;
-			for (float f = 0.f; f <= M_PI * 2.1f; f += M_PI / Size * 2) {
-				res[i++] = 0.3f * cosf(f);
-				res[i++] = 0.3f * sinf(f);
-			}
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Size * Coords, res, GL_STATIC_DRAW);
-			std::get<0>(it.second) = true;
-		}
-}
-void Canvas::draw(std::pair<NetType const, NetInfo>& net) {
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, std::get<1>(net.second));
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-
-	glDrawArrays(GL_LINE_LOOP, 0, Size);
-	glDisableVertexAttribArray(0);
-}
-
 const char* vertex_source = ""
 	"#version 330 core\n"
 	""
