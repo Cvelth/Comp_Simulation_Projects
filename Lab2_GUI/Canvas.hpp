@@ -7,7 +7,9 @@
 #include "..\PetriNet\PetriNet.hpp"
 using Net = pn::PetriNet<int>;
 class QMatrix4x4;
-enum class ShaderType;
+enum class ShaderType {
+	Vertex, Fragment
+};
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
 	Q_OBJECT
 private:
@@ -18,6 +20,7 @@ private:
 	GLuint m_vertexArray;
 	GLuint m_program;
 	QMatrix4x4 *m_projection;
+	bool was_initialized;
 protected:
 	virtual void initializeNets();
 	virtual void draw(std::pair<NetType const, NetInfo> &net);

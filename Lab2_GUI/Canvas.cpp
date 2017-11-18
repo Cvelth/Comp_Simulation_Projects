@@ -2,7 +2,7 @@
 #define _USE_MATH_DEFINES
 #include "Math.h"
 #include <QMatrix4x4>
-Canvas::Canvas(QWidget *parent)	: QOpenGLWidget(parent), m_projection(nullptr) {
+Canvas::Canvas(QWidget *parent)	: QOpenGLWidget(parent), m_projection(nullptr), was_initialized(false) {
 	insertNet(std::make_shared<Net>(1.f));
 }
 Canvas::~Canvas() {
@@ -44,14 +44,12 @@ const char* vertex_source = ""
 	""
 	"out vec3 fragment_color;"
 	""
+	"uniform mat4 projection;"
 	"uniform vec3 color;"
 	"uniform vec2 translation;"
 	""
 	"void main(){"
-	"	gl_Position.xy = position + translation;"
-	"	gl_Position.z = 0.0;"
-	"	gl_Position.w = 1.0;"
-	""
+	"	gl_Position = projection * vec4(position + translation, 0.0, 1.0);"
 	"	fragment_color = color;"
 	"}";
 const char* fragment_source = ""
@@ -63,9 +61,6 @@ const char* fragment_source = ""
 	"void main() {"
 	"	color = fragment_color;"
 	"}";
-enum class ShaderType {
-	Vertex, Fragment
-};
 GLuint Canvas::compileSource(ShaderType type, const char* sourceText) {
 	const GLchar* source = static_cast<const GLchar*>(sourceText);
 	if (source == "") throw std::exception("The source string or file is empty.");
@@ -125,7 +120,7 @@ void Canvas::initializeGL() {
 	glBindVertexArray(m_vertexArray);
 	glLineWidth(1.5);
 
-	auto m_program = link({compileSource(ShaderType::Vertex, vertex_source),
+	m_program = link({compileSource(ShaderType::Vertex, vertex_source),
 						  compileSource(ShaderType::Fragment, fragment_source)});
 	glUseProgram(m_program);
 
@@ -134,13 +129,30 @@ void Canvas::initializeGL() {
 		glUniform3f(loc, 1.f, 0.f, 0.f);
 	} else
 		throw std::exception("Something wrong with uniform allocation.");
+
+	was_initialized = true;
+	resizeGL(width(), height());
 }
 void Canvas::resizeGL(int w, int h) {
-	glViewport(0, 0, w, h);
-	if (m_projection) delete m_projection;
-	m_projection = new QMatrix4x4();
-	auto ar = float(w) / h;
-	m_projection->ortho(-ar, +ar, -1.f / ar, +1.f / ar, -1, +1);
+	if (was_initialized) {
+		glViewport(0, 0, w, h);
+		if (m_projection) delete m_projection;
+		m_projection = new QMatrix4x4();
+		auto ar = float(w) / h;
+		m_projection->ortho(
+			ar > 1.f ? -ar : -1.f,
+			ar > 1.f ? ar : 1.f,
+			+1.f / (ar > 1.f ? 1.f : ar),
+			-1.f / (ar > 1.f ? 1.f : ar),
+			-1.f, +1.f
+		);
+
+		GLint loc = glGetUniformLocation(m_program, "projection");
+		if (loc != -1) {
+			glUniformMatrix4fv(loc, 1, false, m_projection->data());
+		} else
+			throw std::exception("Something wrong with uniform allocation.");
+	}
 }
 void Canvas::paintGL() {
 	initializeNets();
