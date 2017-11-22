@@ -1,135 +1,52 @@
 #include "Canvas.hpp"
 #include <QMatrix4x4>
-Canvas::Canvas(QWidget *parent)	: QOpenGLWidget(parent), m_projection(nullptr), was_initialized(false) {
-	insertNet(std::make_shared<Net>(1.f));
+#include <QMouseEvent>
+Canvas::Canvas(QWidget *parent)	: QOpenGLWidget(parent) {
+
 }
-Canvas::~Canvas() {
-	if (m_projection) delete m_projection;
-}
+Canvas::~Canvas() {}
 void Canvas::insertNet(NetType const net) {
-	m_nets.insert(std::make_pair(net, std::make_tuple(false, 0, 0, 0)));
-}
-const char* vertex_source = ""
-	"#version 330 core\n"
-	""
-	"layout(location = 0) in vec2 position;"
-	""
-	"out vec3 fragment_color;"
-	""
-	"uniform mat4 projection;"
-	"uniform vec3 color;"
-	"uniform vec2 translation;"
-	""
-	"void main(){"
-	"	gl_Position = projection * vec4(position + translation, 0.0, 1.0);"
-	"	fragment_color = color;"
-	"}";
-const char* fragment_source = ""
-"#version 330 core\n"
-	""
-	"in vec3 fragment_color;"
-	"out vec3 color;"
-	""
-	"void main() {"
-	"	color = fragment_color;"
-	"}";
-GLuint Canvas::compileSource(ShaderType type, const char* sourceText) {
-	const GLchar* source = static_cast<const GLchar*>(sourceText);
-	if (source == "") throw std::exception("The source string or file is empty.");
-
-	GLuint id;
-	if (type == ShaderType::Vertex)
-		id = glCreateShader(GL_VERTEX_SHADER);
-	else if (type == ShaderType::Fragment)
-		id = glCreateShader(GL_FRAGMENT_SHADER);
-	else
-		throw std::exception("Enum class ShaderType seems to be broken.");
-
-	glShaderSource(id, 1, &source, NULL);
-	glCompileShader(id);
-
-	GLint isCompiled;
-	glGetShaderiv(id, GL_COMPILE_STATUS, &isCompiled);
-
-	if (!isCompiled) {
-		GLsizei len;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
-
-		GLchar* log = new GLchar[len + 1];
-		glGetShaderInfoLog(id, len, &len, log);
-		throw std::exception(("Shader compilation error: " + std::string(log)).c_str());
-		delete[] log;
-	}
-	return id;
-}
-GLuint Canvas::link(const std::initializer_list<GLuint>& shaders) {
-	if (shaders.size() == 0u)
-		throw std::exception("There is no shaders to attach");
-
-	GLuint id = glCreateProgram();
-
-	for (auto shader : shaders)
-		glAttachShader(id, shader);
-
-	glLinkProgram(id);
-
-	GLint isLinked;
-	glGetProgramiv(id, GL_LINK_STATUS, &isLinked);
-	if (!isLinked) {
-		GLsizei len;
-		glGetProgramiv(id, GL_INFO_LOG_LENGTH, &len);
-
-		GLchar* log = new GLchar[len + 1];
-		glGetProgramInfoLog(id, len, &len, log);
-		throw std::exception(("Program linking error: " + std::string(log)).c_str());
-		delete[] log;
-	}
-	return id;
+	m_nets.insert(std::make_pair(net, std::make_tuple(0.f, 0.f)));
 }
 void Canvas::initializeGL() {
 	initializeOpenGLFunctions();
-	glGenVertexArrays(1, &m_vertexArray);
-	glBindVertexArray(m_vertexArray);
+	glClearColor(0.2f, 0.f, 0.3f, 1.f);
 	glLineWidth(1.5);
-
-	m_program = link({compileSource(ShaderType::Vertex, vertex_source),
-						  compileSource(ShaderType::Fragment, fragment_source)});
-	glUseProgram(m_program);
-
-	GLint loc = glGetUniformLocation(m_program, "color");
-	if (loc != -1) {
-		glUniform3f(loc, 1.f, 0.f, 0.f);
-	} else
-		throw std::exception("Something wrong with uniform allocation.");
-
-	was_initialized = true;
-	resizeGL(width(), height());
 }
 void Canvas::resizeGL(int w, int h) {
-	if (was_initialized) {
-		glViewport(0, 0, w, h);
-		if (m_projection) delete m_projection;
-		m_projection = new QMatrix4x4();
-		auto ar = float(w) / h;
-		m_projection->ortho(
-			ar > 1.f ? -ar : -1.f,
-			ar > 1.f ? ar : 1.f,
-			+1.f / (ar > 1.f ? 1.f : ar),
-			-1.f / (ar > 1.f ? 1.f : ar),
-			-1.f, +1.f
-		);
-
-		GLint loc = glGetUniformLocation(m_program, "projection");
-		if (loc != -1) {
-			glUniformMatrix4fv(loc, 1, false, m_projection->data());
-		} else
-			throw std::exception("Something wrong with uniform allocation.");
-	}
+	m_width = w; m_height = h;
+	glViewport(0, 0, w, h);
+	glLoadIdentity();
+	glOrtho(0, w, h, 0, -1, +1);
+}
+void Canvas::draw(std::pair<NetType const, NetInfo> &net) {
+	glBegin(GL_QUADS);
+	glColor3f(0.9f, 0.7f, 1.f);
+	float size = float(m_width) / 100.f;
+	glVertex2f(std::get<0>(net.second) - size, std::get<1>(net.second));
+	glVertex2f(std::get<0>(net.second), std::get<1>(net.second) - size);
+	glVertex2f(std::get<0>(net.second) + size, std::get<1>(net.second));
+	glVertex2f(std::get<0>(net.second), std::get<1>(net.second) + size);
+	glEnd();
 }
 void Canvas::paintGL() {
-	initializeNets();
-
 	glClear(GL_COLOR_BUFFER_BIT);
 	for (auto& it : m_nets)
 		draw(it);
+}
+#include <QMessageBox>
+void Canvas::mousePressEvent(QMouseEvent *e) {
+	float size = float(m_width) / 100.f;
+	for (auto it : m_nets) 
+		if (fabs(std::get<0>(it.second) - e->pos().x()) < size && fabs(std::get<1>(it.second) - e->pos().y()) < size) {
+			QMessageBox::warning(this, tr("Placement Error"),
+								 tr("You shouldn't create new device so close to existing one."));
+			return;
+		}
+	m_nets.insert(std::make_pair(createNewNet(), std::make_tuple(float(e->pos().x()), float(e->pos().y()))));
+	e->accept();
+	update();
+}
+Canvas::NetType Canvas::createNewNet() {
+	return std::make_shared<Net>(1.f);
 }
