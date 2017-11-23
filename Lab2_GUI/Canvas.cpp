@@ -90,9 +90,6 @@ bool Canvas::isLinked(NetNode const start, NetNode const end) const {
 	for (auto it : start.first->transitions())
 		if (*end.first == *it.first)
 			return true;
-	for (auto it : end.first->transitions())
-		if (*start.first == *it.first)
-			return true;
 	return false;
 }
 void Canvas::setLink(NetNode start, NetNode const end, float value) {
@@ -116,14 +113,13 @@ void Canvas::mouseReleaseEvent(QMouseEvent *e) {
 			m_selected_link = end;
 		} else {
 			LinkWidget d(start->first->name(), end->first->name(), this);
-			connect(&d, &LinkWidget::value_updated, [this, start, end](float value) {
-				setLink(*start, *end, value);
+			connect(&d, &LinkWidget::value_updated, [this, start, end](float to_first, float to_second) {
+				if (to_first)
+					setLink(*start, *end, to_first);
+				if (to_second)
+					setLink(*end, *start, to_second);
 			});
-			if (d.exec() == QDialog::Accepted) {
-				m_selection = Selection::Link;
-				m_selected_net = start;
-				m_selected_link = end;
-			}
+			d.exec();
 		}
 	}
 	m_draw_line = false;

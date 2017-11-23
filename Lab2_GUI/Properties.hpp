@@ -18,11 +18,12 @@ class LinkWidget : public QDialog {
 public:
 	LinkWidget(std::string from, std::string to, QWidget *parent = Q_NULLPTR);
 	~LinkWidget();
-	float value();
+	float to_second();
+	float to_first();
 private:
 	Ui::LinkWidget ui;
 signals:
-	void value_updated(float);
+	void value_updated(float, float);
 };
 #include "ui_WidgetDialog.h"
 class NetDialog : public QDialog {

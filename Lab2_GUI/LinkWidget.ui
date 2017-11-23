@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>229</width>
-    <height>274</height>
+    <height>365</height>
    </rect>
   </property>
   <property name="font">
@@ -28,7 +28,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>From</string>
+        <string>First</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
@@ -36,7 +36,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="from">
+      <widget class="QLineEdit" name="first">
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -49,7 +49,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>To</string>
+        <string>Second</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
@@ -57,7 +57,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="to">
+      <widget class="QLineEdit" name="second">
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -70,7 +70,7 @@
      <item>
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>Value</string>
+        <string>First -&gt; Second</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
@@ -78,15 +78,48 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="value">
+      <widget class="QDoubleSpinBox" name="to_second">
        <property name="decimals">
         <number>2</number>
        </property>
        <property name="minimum">
-        <double>0.010000000000000</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>0.010000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Second -&gt; First</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="to_first">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.000000000000000</double>
        </property>
       </widget>
      </item>
