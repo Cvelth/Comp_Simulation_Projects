@@ -5,8 +5,8 @@ Canvas::Canvas(QWidget *parent)	: QOpenGLWidget(parent), m_draw_line(false){
 
 }
 Canvas::~Canvas() {}
-void Canvas::insertNet(NetType const net) {
-	m_nets.insert(std::make_pair(net, std::make_tuple(0.f, 0.f)));
+void Canvas::insertNet(NetType const net, float x, float y) {
+	m_nets.insert(std::make_pair(net, std::make_tuple(x, y)));
 }
 void Canvas::initializeGL() {
 	initializeOpenGLFunctions();
@@ -42,22 +42,6 @@ void Canvas::paintGL() {
 	for (auto& it : m_nets)
 		draw(it);
 }
-#include <QMessageBox>
-void Canvas::mouseDoubleClickEvent(QMouseEvent *e) {
-	float size = float(m_width) / 100.f;
-	for (auto it : m_nets) 
-		if (fabs(std::get<0>(it.second) - e->pos().x()) < size && fabs(std::get<1>(it.second) - e->pos().y()) < size) {
-			QMessageBox::warning(this, tr("Placement Error"),
-								 tr("You shouldn't create new device so close to existing one."));
-			return;
-		}
-	m_nets.insert(std::make_pair(createNewNet(), std::make_tuple(float(e->pos().x()), float(e->pos().y()))));
-	e->accept();
-	update();
-}
-Canvas::NetType Canvas::createNewNet() {
-	return std::make_shared<Net>(1.f);
-}
 void Canvas::mouseMoveEvent(QMouseEvent *e) {
 	m_current_mouse_x = e->pos().x();
 	m_current_mouse_y = e->pos().y();
@@ -82,4 +66,25 @@ Canvas::NetType Canvas::findNet(size_t x, size_t y) {
 		if (std::get<0>(it.second) - x <= 2.f &&std::get<1>(it.second) - y <= 2.f)
 			return it.first;
 	return nullptr;
+}
+#include <QMessageBox>
+void Canvas::mouseDoubleClickEvent(QMouseEvent *e) {
+	float size = float(m_width) / 100.f;
+	for (auto it : m_nets) 
+		if (fabs(std::get<0>(it.second) - e->pos().x()) < size && fabs(std::get<1>(it.second) - e->pos().y()) < size) {
+			QMessageBox::warning(this, tr("Placement Error"),
+								 tr("You shouldn't create new device so close to existing one."));
+			return;
+		}
+	createNewNet(e->pos().x(), e->pos().y());
+	e->accept();
+	update();
+}
+#include "Properties.hpp"
+void Canvas::createNewNet(float x, float y) {
+	NetDialog d(this);
+	connect(&d, &NetDialog::newNetCreated, [this, x, y](NetType const net) {
+		insertNet(net, x, y);
+	});
+	d.exec();
 }

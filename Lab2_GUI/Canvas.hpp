@@ -11,9 +11,10 @@ enum class ShaderType {
 };
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
 	Q_OBJECT
-private:
+public:
 	using NetType = std::shared_ptr<Net>;
 	using NetInfo = std::tuple<float, float>;
+private:
 	std::unordered_map<NetType, NetInfo> m_nets;
 protected:
 	size_t m_height;
@@ -32,11 +33,12 @@ protected:
 	virtual void mousePressEvent(QMouseEvent *e) override;
 	virtual void mouseReleaseEvent(QMouseEvent *e) override;
 	virtual void mouseMoveEvent(QMouseEvent *e) override;
-	virtual NetType createNewNet();
+	virtual void createNewNet(float x = 0.f, float y = 0.f);
 	virtual NetType findNet(size_t x, size_t y);
 public:
 	Canvas(QWidget *parent = Q_NULLPTR);
 	~Canvas();
 
-	virtual void insertNet(NetType const net);
+public slots:
+	void insertNet(NetType const net, float x = 0.f, float y = 0.f);
 };
