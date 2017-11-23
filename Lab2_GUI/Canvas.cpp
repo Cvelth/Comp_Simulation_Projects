@@ -111,13 +111,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *e) {
 	}
 
 	if (start && end && *start != *end) {
-		if (isLinked(*start, *end)) {
-			m_selection = Selection::Link;
-			m_selected_net = start;
-			m_selected_link = end;
-			emit deselection_triggered();
-			emit linkSelected(start->first->name(), end->first->name(), start->first->weight(end->first.get()), end->first->weight(start->first.get()));
-		} else {
+		if (!isLinked(*start, *end)) {
 			LinkWidget d(start->first->name(), end->first->name(), this);
 			connect(&d, &LinkWidget::value_updated, [this, start, end](float to_first, float to_second) {
 				if (to_first)
@@ -127,6 +121,11 @@ void Canvas::mouseReleaseEvent(QMouseEvent *e) {
 			});
 			d.exec();
 		}
+		m_selection = Selection::Link;
+		m_selected_net = start;
+		m_selected_link = end;
+		emit deselection_triggered();
+		emit linkSelected(start->first->name(), end->first->name(), start->first->weight(end->first.get()), end->first->weight(start->first.get()));
 	}
 	m_draw_line = false;
 	update();
