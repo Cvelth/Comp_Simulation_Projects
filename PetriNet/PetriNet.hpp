@@ -1,17 +1,18 @@
 #pragma once
 #include <list>
+#include <vector>
 #include <map>
 #include <memory>
 namespace pn {
-	template <typename TaskType, size_t Cores = 1>
+	template <typename TaskType>
 	class PetriNet {
 	private:
 		float m_tau;
 		std::list<TaskType> m_awaiting;
-		std::shared_ptr<TaskType> m_executing[Cores];
+		std::vector<std::shared_ptr<TaskType>> m_executing;
 		std::map<PetriNet*, size_t> m_transitions;
 	public:
-		PetriNet(float tau) : m_tau(tau) {}
+		PetriNet(float tau, size_t cores = 1) : m_tau(tau) { m_executing.resize(cores); }
 		void insert(TaskType const& task) {
 			m_awaiting.push_back(task);
 		}
