@@ -3,6 +3,18 @@
 #include <QMouseEvent>
 Canvas::Canvas(QWidget *parent) : QOpenGLWidget(parent), m_draw_line(false) {}
 Canvas::~Canvas() {}
+std::vector<Canvas::NetType> Canvas::nets() {
+	std::vector<NetType> ret;
+	for (auto& it : m_nets)
+		ret.push_back(it.first);
+	return ret;
+}
+std::vector<Canvas::NetType> const Canvas::nets() const {
+	std::vector<NetType> ret;
+	for (auto& it : m_nets)
+		ret.push_back(it.first);
+	return ret;
+}
 void Canvas::insertNet(NetType const net, float x, float y) {
 	m_nets.insert(std::make_pair(net, std::make_tuple(x, y)));
 }

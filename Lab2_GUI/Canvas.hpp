@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <memory>
 #include "..\PetriNet\PetriNet.hpp"
-using Net = pn::PetriNet<int>;
+using Net = pn::PetriNet<size_t>;
 class QMatrix4x4;
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
 	Q_OBJECT
@@ -46,6 +46,8 @@ protected:
 public:
 	Canvas(QWidget *parent = Q_NULLPTR);
 	~Canvas();
+	std::vector<NetType> nets();
+	std::vector<NetType> const nets() const;
 signals:
 	void netSelected(std::string name, size_t cores, float tau, float usage);
 	void linkSelected(std::string first_name, std::string second_name, float to_second, float to_first);

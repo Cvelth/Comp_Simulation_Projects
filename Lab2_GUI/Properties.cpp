@@ -17,7 +17,7 @@ NetWidget::NetWidget(QWidget *parent) : QWidget(parent) {
 }
 NetWidget::~NetWidget() {}
 Canvas::NetType NetWidget::network() {
-	return std::make_shared<pn::PetriNet<int>>(ui.name->text().toStdString(), float(ui.tau->value()), size_t(ui.cores->value()));
+	return std::make_shared<Net>(ui.name->text().toStdString(), float(ui.tau->value()), size_t(ui.cores->value()));
 }
 void NetWidget::select(std::string name, size_t cores, float tau, float usage) {
 	ui.name->setText(QString::fromStdString(name));
