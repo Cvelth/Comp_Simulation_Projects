@@ -30,6 +30,7 @@ protected:
 	NetNode* m_selected_link;
 protected:
 	virtual void draw(NetNode &net, bool selected = false);
+	virtual void draw(NetNode &from, NetNode &to);
 	virtual void initializeGL() override;
 	virtual void resizeGL(int w, int h) override;
 	virtual void paintGL() override;
@@ -39,6 +40,9 @@ protected:
 	virtual void mouseMoveEvent(QMouseEvent *e) override;
 	virtual void createNewNet(float x = 0.f, float y = 0.f);
 	virtual NetNode* findNet(size_t x, size_t y);
+	virtual NetNode* findNet(Net *net);
+	virtual bool isLinked(NetNode const start, NetNode const end) const;
+	virtual void setLink(NetNode start, NetNode const end, float value);
 public:
 	Canvas(QWidget *parent = Q_NULLPTR);
 	~Canvas();

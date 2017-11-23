@@ -19,3 +19,16 @@ NetWidget::~NetWidget() {}
 Canvas::NetType NetWidget::network() {
 	return std::make_shared<pn::PetriNet<int>>(ui.name->text().toStdString(), float(ui.tau->value()), size_t(ui.cores->value()));
 }
+LinkWidget::LinkWidget(std::string from, std::string to, QWidget *parent) : QDialog(parent) {
+	ui.setupUi(this);
+	ui.from->setText(QString::fromStdString(from));
+	ui.to->setText(QString::fromStdString(to));
+	connect(ui.save, &QPushButton::clicked, [this]() { 
+		emit value_updated(value()); 
+		close();
+	});
+}
+LinkWidget::~LinkWidget() {}
+float LinkWidget::value() {
+	return ui.value->value();
+}
