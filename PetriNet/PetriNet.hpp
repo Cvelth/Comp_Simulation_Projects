@@ -20,7 +20,6 @@ namespace pn {
 		void insert(TaskType const& task) {
 			m_awaiting.push_back(task);
 		}
-		void tau() const { return m_tau; }
 		void step(float &time) {
 			for (size_t i = 0; i < m_executing.size(); i++)
 				if (!m_awaiting.empty())
@@ -30,18 +29,25 @@ namespace pn {
 					}
 			time += m_tau;
 		}
-		void link(PetriNet *net, float value) {
-			if (m_transitions[net])
-				m_transitions[net] = value;
-			else
-				m_transitions.insert(std::make_pair(net, value));
+		void link(PetriNet *net, float value) { m_transitions[net] = value; }
+		float weight(PetriNet const* other){
+			for (auto& it : m_transitions)
+				if (*it.first == *other)
+					return it.second;
+			return 0.f;
+		}
+		float operator[](PetriNet const* other) {
+			return weight(other);
 		}
 		std::string name() const { return m_name; }
+		float tau() const { return m_tau; }
+		size_t cores() const { return m_executing.size(); }
+		float usage() const { return 0.f; /*To implement*/ }
 		std::map<PetriNet*, float> transitions() { return m_transitions; }
 		std::map<PetriNet*, float> transitions() const { return m_transitions; }
 		bool operator==(PetriNet const& other) {
-			return m_name == other.m_name && m_tau == other.m_tau 
-				&& m_awaiting.size() == other.m_awaiting.size() 
+			return m_name == other.m_name && m_tau == other.m_tau
+				&& m_awaiting.size() == other.m_awaiting.size()
 				&& m_executing.size() == other.m_executing.size();
 		}
 	};

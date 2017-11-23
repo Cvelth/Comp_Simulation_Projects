@@ -64,12 +64,6 @@ void Canvas::mouseMoveEvent(QMouseEvent *e) {
 	update();
 }
 void Canvas::mousePressEvent(QMouseEvent *e) {
-	auto n = findNet(e->pos().x(), e->pos().y());
-	if (n) {
-		m_selection = Selection::Net;
-		m_selected_net = n;
-	} else
-		m_selection = Selection::None;
 	m_last_mouse_x = e->pos().x();
 	m_last_mouse_y = e->pos().y();
 	m_draw_line = true;
@@ -106,11 +100,23 @@ void Canvas::createNewNet(float x, float y) {
 void Canvas::mouseReleaseEvent(QMouseEvent *e) {
 	auto start = findNet(m_last_mouse_x, m_last_mouse_y);
 	auto end = findNet(e->pos().x(), e->pos().y());
+	if (end) {
+		m_selection = Selection::Net;
+		m_selected_net = end;
+		emit deselection_triggered();
+		emit netSelected(end->first->name(), end->first->cores(), end->first->tau(), end->first->usage());
+	} else {
+		m_selection = Selection::None;
+		emit deselection_triggered();
+	}
+
 	if (start && end && *start != *end) {
 		if (isLinked(*start, *end)) {
 			m_selection = Selection::Link;
 			m_selected_net = start;
 			m_selected_link = end;
+			emit deselection_triggered();
+			emit linkSelected(start->first->name(), end->first->name(), start->first->weight(end->first.get()), end->first->weight(start->first.get()));
 		} else {
 			LinkWidget d(start->first->name(), end->first->name(), this);
 			connect(&d, &LinkWidget::value_updated, [this, start, end](float to_first, float to_second) {

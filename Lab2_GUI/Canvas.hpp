@@ -46,7 +46,10 @@ protected:
 public:
 	Canvas(QWidget *parent = Q_NULLPTR);
 	~Canvas();
-
+signals:
+	void netSelected(std::string name, size_t cores, float tau, float usage);
+	void linkSelected(std::string first_name, std::string second_name, float to_second, float to_first);
+	void deselection_triggered();
 public slots:
 	void insertNet(NetType const net, float x = 0.f, float y = 0.f);
 };

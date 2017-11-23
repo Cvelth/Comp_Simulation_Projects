@@ -10,6 +10,8 @@ public:
 	Canvas::NetType network();
 private:
 	Ui::NetWidget ui;
+public slots:
+	void select(std::string name, size_t cores, float tau, float usage);
 };
 #include <QDialog>
 #include "ui_LinkWidget.h"
@@ -24,6 +26,8 @@ private:
 	Ui::LinkWidget ui;
 signals:
 	void value_updated(float, float);
+public slots:
+	void select(std::string first_name, std::string second_name, float to_second, float to_first);
 };
 #include "ui_WidgetDialog.h"
 class NetDialog : public QDialog {
