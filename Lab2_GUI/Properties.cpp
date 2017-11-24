@@ -1,4 +1,10 @@
 #include "Properties.hpp"
+Usage::Usage(QString name, QString value, QWidget *parent) {
+	ui.setupUi(this);
+	ui.label->setText(name);
+	ui.value->setText(value);
+}
+Usage::~Usage() {}
 #include "..\PetriNet\PetriNet.hpp"
 NetDialog::NetDialog(QWidget *parent) : QDialog(parent) {
 	ui.setupUi(this);
@@ -19,11 +25,22 @@ NetWidget::~NetWidget() {}
 Canvas::NetType NetWidget::network() {
 	return std::make_shared<Net>(ui.name->text().toStdString(), float(ui.tau->value()), size_t(ui.cores->value()));
 }
-void NetWidget::select(std::string name, size_t cores, float tau, float usage) {
+void NetWidget::select(std::string name, size_t cores, float tau, std::vector<float> usage) {
 	ui.name->setText(QString::fromStdString(name));
 	ui.cores->setValue(cores);
 	ui.tau->setValue(tau);
-	ui.usage->setText(QString::number(usage * 100) + "%");
+
+	for (auto it : m_usage)
+		delete it;
+	m_usage.clear();
+	if (cores == 1) {
+		m_usage.push_back(new Usage("Usage", QString::number(usage[0] * 100) + "%"));
+		ui.usage->addWidget(m_usage.front());
+	} else
+		for (size_t i = 0; i < usage.size(); i++) {
+			m_usage.push_back(new Usage("Usage of core #" + QString::number(i), QString::number(usage[i] * 100) + "%"));
+			ui.usage->addWidget(m_usage[i]);
+		}
 	show();
 }
 LinkWidget::LinkWidget(std::string first, std::string second, QWidget *parent) : QDialog(parent) {

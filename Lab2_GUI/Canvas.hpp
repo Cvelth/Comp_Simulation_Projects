@@ -49,7 +49,7 @@ public:
 	std::vector<NetType> nets();
 	std::vector<NetType> const nets() const;
 signals:
-	void netSelected(std::string name, size_t cores, float tau, float usage);
+	void netSelected(std::string name, size_t cores, float tau, std::vector<float> usage);
 	void linkSelected(std::string first_name, std::string second_name, float to_second, float to_first);
 	void deselection_triggered();
 public slots:

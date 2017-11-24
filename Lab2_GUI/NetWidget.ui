@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>229</width>
-    <height>276</height>
+    <height>260</height>
    </rect>
   </property>
   <property name="font">
@@ -89,21 +89,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Usage</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="usage"/>
-     </item>
-    </layout>
+    <layout class="QVBoxLayout" name="usage"/>
    </item>
   </layout>
  </widget>

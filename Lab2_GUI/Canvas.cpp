@@ -45,6 +45,13 @@ void Canvas::draw(NetNode &from, NetNode &to) {
 void Canvas::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	//Selection of a node
+	glBegin(GL_QUADS);
+	glColor3f(1.f, 0.2, 0.2f);
+	if (m_selection == Selection::Net) draw(*m_selected_net, true);
+	glEnd();
+
+	//All the links
 	glBegin(GL_LINES);
 	glColor3f(0.95f, 0.4f, 1.f);
 	for (auto& it : m_nets) 
@@ -55,13 +62,13 @@ void Canvas::paintGL() {
 	if (m_selection == Selection::Link) draw(*m_selected_net, *m_selected_link);
 	glEnd();
 
+	//All the nodes
 	glBegin(GL_QUADS);
-	glColor3f(1.f, 0.2, 0.2f);
-	if (m_selection == Selection::Net) draw(*m_selected_net, true);
 	glColor3f(0.9f, 0.5f, 0.9f);
 	for (auto& it : m_nets) draw(it);
 	glEnd();
 
+	//Future link
 	if (m_draw_line) {
 		glBegin(GL_LINES);
 		glColor3f(0.8f, 0.3f, 0.5f);

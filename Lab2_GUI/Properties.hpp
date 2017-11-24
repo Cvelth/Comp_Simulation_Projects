@@ -1,5 +1,14 @@
 #pragma once
 #include <QWidget>
+#include "ui_Usage.h"
+class Usage : public QWidget {
+	Q_OBJECT
+public:
+	Usage(QString name = "", QString value = "", QWidget *parent = Q_NULLPTR);
+	~Usage();
+private:
+	Ui::Usage ui;
+};
 #include "Canvas.hpp"
 #include "ui_NetWidget.h"
 class NetWidget : public QWidget {
@@ -10,8 +19,9 @@ public:
 	Canvas::NetType network();
 private:
 	Ui::NetWidget ui;
+	std::vector<Usage*> m_usage;
 public slots:
-	void select(std::string name, size_t cores, float tau, float usage);
+	void select(std::string name, size_t cores, float tau, std::vector<float> usage);
 };
 #include <QDialog>
 #include "ui_LinkWidget.h"
