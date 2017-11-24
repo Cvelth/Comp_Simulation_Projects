@@ -91,5 +91,16 @@ namespace pn {
 				&& m_executing.size() == other.m_executing.size()
 				&& m_weight_sum == other.m_weight_sum;
 		}
+		void update(std::string name, size_t cores, float tau) {
+			m_name = name;
+			m_executing.resize(cores);
+			m_tau = tau;
+		}
+		void update_link(pn::PetriNet<TaskType> *selected_link, float value) {
+			if (value == 0.f)
+				m_transitions.erase(selected_link);
+			else
+				m_transitions[selected_link] = value;
+		}
 	};
 }
