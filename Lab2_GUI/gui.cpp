@@ -26,6 +26,9 @@ gui::gui(QWidget *parent) : QWidget(parent) {
 	m_net->hide();
 	m_link->hide();
 
+	ui.splitter->setStretchFactor(0, 9);
+	ui.splitter->setStretchFactor(1, 1);
+
 	connect(ui.start, &QPushButton::clicked, [this]() {
 		std::vector<size_t> tasks;
 		for (size_t i = 0u; i < ui.tasks->value(); i++) tasks.push_back(i);
