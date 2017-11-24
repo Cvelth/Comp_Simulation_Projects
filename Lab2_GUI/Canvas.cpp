@@ -108,6 +108,11 @@ bool Canvas::isLinked(NetNode const start, NetNode const end) const {
 void Canvas::setLink(NetNode start, NetNode const end, float value) {
 	start.first->link(end.first.get(), value);
 }
+void Canvas::clean() {
+	m_nets.clear();
+	m_selection = Selection::None;
+	update();
+}
 #include "Properties.hpp"
 void Canvas::createNewNet(float x, float y) {
 	NetDialog d(this);

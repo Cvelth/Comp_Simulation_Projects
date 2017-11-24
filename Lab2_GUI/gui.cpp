@@ -29,4 +29,7 @@ gui::gui(QWidget *parent) : QWidget(parent) {
 		for (size_t i = 0u; i < ui.tasks->value(); i++) tasks.push_back(i);
 		pn::PetriNetSystemSimulator<size_t>::simulate(m_canvas->nets(), tasks, ui.total_tasks->value());
 	});
+	connect(ui.clean, &QPushButton::clicked, [this]() {
+		m_canvas->clean();
+	});
 }
