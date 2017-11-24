@@ -74,8 +74,14 @@ namespace pn {
 		std::string name() const { return m_name; }
 		float tau() const { return m_tau; }
 		size_t cores() const { return m_executing.size(); }
-		float usage(size_t core = 0) const { 
+		float usage(size_t core) const { 
 			return float(std::get<2>(m_executing[core])) / m_tacts; 
+		}
+		std::vector<float> usage() const {
+			std::vector<float> ret;
+			for (auto it : m_executing)
+				ret.push_back(float(std::get<2>(it)) / m_tacts);
+			return ret;
 		}
 		std::map<PetriNet*, float> transitions() { return m_transitions; }
 		std::map<PetriNet*, float> transitions() const { return m_transitions; }
