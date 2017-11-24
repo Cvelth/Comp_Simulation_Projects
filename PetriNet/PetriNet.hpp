@@ -1,29 +1,95 @@
 #pragma once
+#include <string>
 #include <list>
+#include <vector>
 #include <map>
 #include <memory>
+#include <random>
 namespace pn {
-	template <typename TaskType, size_t Cores = 1>
-	class PetriNet {
+	template <typename TaskType> class PetriNetSystemSimulator;	
+	template <typename TaskType> class PetriNet {
+		friend PetriNetSystemSimulator<TaskType>;
 	private:
+		std::string m_name;
 		float m_tau;
 		std::list<TaskType> m_awaiting;
-		std::shared_ptr<TaskType> m_executing[Cores];
-		std::map<PetriNet*, size_t> m_transitions;
+		std::vector<std::tuple<bool, TaskType, size_t>> m_executing;
+		std::map<PetriNet*, float> m_transitions;
+		float m_weight_sum;
+		size_t m_tacts;
+		std::mt19937_64 g;
+		std::uniform_real_distribution<float> d;
 	public:
-		PetriNet(float tau) : m_tau(tau) {}
+		PetriNet(std::string name = ""s, float tau = 1.f, size_t cores = 1) 
+			: m_tau(tau), m_name(name), m_weight_sum(0.f),
+			m_tacts(0), g(std::random_device()()) {
+
+			m_executing.resize(cores); 
+		}
 		void insert(TaskType const& task) {
 			m_awaiting.push_back(task);
 		}
-		void tau() const { return m_tau; }
 		void step(float &time) {
-			for (size_t i = 0; i < Cores; i++)
+			for (size_t i = 0; i < m_executing.size(); i++) {
+				if (std::get<0>(m_executing[i])) {
+					taskDone(std::get<1>(m_executing[i]));
+					std::get<0>(m_executing[i]) = false;
+				}
 				if (!m_awaiting.empty())
-					if (!m_executing[i]) {
-						m_executing[i] = m_awaiting.front();
+					if (!std::get<0>(m_executing[i])) {
+						std::get<0>(m_executing[i]) = true;
+						std::get<1>(m_executing[i]) = m_awaiting.front();
 						m_awaiting.pop_front();
+						std::get<2>(m_executing[i])++;
 					}
+			}
 			time += m_tau;
+			m_tacts++;
+		}
+		void taskDone(TaskType &task) {
+			if (m_transitions.empty()) 
+				throw std::exception("There's nowhere to put executed task.");
+			float r = d(g);
+			auto it = m_transitions.begin();
+			do {
+				r -= it->second;
+				it++;
+			} while (r > 0.f);
+			(--it)->first->insert(task);
+		}
+		void link(PetriNet *net, float value) { 
+			m_transitions[net] = value;
+			m_weight_sum += value;
+			d = std::uniform_real_distribution<float>(0.f, m_weight_sum);
+		}
+		float weight(PetriNet const* other){
+			for (auto& it : m_transitions)
+				if (*it.first == *other)
+					return it.second;
+			return 0.f;
+		}
+		float operator[](PetriNet const* other) {
+			return weight(other);
+		}
+		std::string name() const { return m_name; }
+		float tau() const { return m_tau; }
+		size_t cores() const { return m_executing.size(); }
+		float usage(size_t core) const { 
+			return float(std::get<2>(m_executing[core])) / m_tacts; 
+		}
+		std::vector<float> usage() const {
+			std::vector<float> ret;
+			for (auto it : m_executing)
+				ret.push_back(float(std::get<2>(it)) / m_tacts);
+			return ret;
+		}
+		std::map<PetriNet*, float> transitions() { return m_transitions; }
+		std::map<PetriNet*, float> transitions() const { return m_transitions; }
+		bool operator==(PetriNet const& other) {
+			return m_name == other.m_name && m_tau == other.m_tau
+				&& m_awaiting.size() == other.m_awaiting.size()
+				&& m_executing.size() == other.m_executing.size()
+				&& m_weight_sum == other.m_weight_sum;
 		}
 	};
 }
