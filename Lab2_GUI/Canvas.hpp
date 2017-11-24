@@ -55,4 +55,6 @@ signals:
 	void deselection_triggered();
 public slots:
 	void insertNet(NetType const net, float x = 0.f, float y = 0.f);
+	void update_selected_node(std::string name, size_t cores, float tau);
+	void update_selected_link(float to_second, float to_first);
 };

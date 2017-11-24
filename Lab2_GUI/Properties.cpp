@@ -3,6 +3,7 @@ Usage::Usage(QString name, QString value, QWidget *parent) {
 	ui.setupUi(this);
 	ui.label->setText(name);
 	ui.value->setText(value);
+	ui.value->setReadOnly(true);
 }
 Usage::~Usage() {}
 #include "..\PetriNet\PetriNet.hpp"
@@ -18,10 +19,15 @@ NetDialog::NetDialog(QWidget *parent) : QDialog(parent) {
 	});
 }
 NetDialog::~NetDialog() {}
-NetWidget::NetWidget(QWidget *parent) : QWidget(parent) {
+NetWidget::NetWidget(QWidget *parent) : QWidget(parent), m_update(nullptr) {
 	ui.setupUi(this);
 }
-NetWidget::~NetWidget() {}
+NetWidget::~NetWidget() {
+	for (auto it : m_usage)
+		delete it;
+	if (m_update)
+		delete m_update;
+}
 Canvas::NetType NetWidget::network() {
 	return std::make_shared<Net>(ui.name->text().toStdString(), float(ui.tau->value()), size_t(ui.cores->value()));
 }
@@ -41,6 +47,13 @@ void NetWidget::select(std::string name, size_t cores, float tau, std::vector<fl
 			m_usage.push_back(new Usage("Usage of core #" + QString::number(i), QString::number(usage[i] * 100) + "%"));
 			ui.usage->addWidget(m_usage[i]);
 		}
+	if (m_update)
+		delete m_update;
+	m_update = new QPushButton("Update");
+	connect(m_update, &QPushButton::clicked, [this]() {
+		emit updated(ui.name->text().toStdString(), ui.cores->value(), ui.tau->value());
+	});
+	ui.usage->addWidget(m_update);
 	show();
 }
 LinkWidget::LinkWidget(std::string first, std::string second, QWidget *parent) : QDialog(parent) {
@@ -48,7 +61,7 @@ LinkWidget::LinkWidget(std::string first, std::string second, QWidget *parent) :
 	ui.first->setText(QString::fromStdString(first));
 	ui.second->setText(QString::fromStdString(second));
 	connect(ui.save, &QPushButton::clicked, [this]() { 
-		emit value_updated(to_second(), to_first());
+		emit updated(to_second(), to_first());
 		close();
 	});
 }

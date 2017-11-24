@@ -137,7 +137,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *e) {
 	if (start && end && *start != *end) {
 		if (!isLinked(*start, *end)) {
 			LinkWidget d(start->first->name(), end->first->name(), this);
-			connect(&d, &LinkWidget::value_updated, [this, start, end](float to_first, float to_second) {
+			connect(&d, &LinkWidget::updated, [this, start, end](float to_first, float to_second) {
 				if (to_first)
 					setLink(*start, *end, to_first);
 				if (to_second)
@@ -166,4 +166,23 @@ void Canvas::mouseDoubleClickEvent(QMouseEvent *e) {
 	createNewNet(e->pos().x(), e->pos().y());
 	e->accept();
 	update();
+}
+void Canvas::update_selected_node(std::string name, size_t cores, float tau) {
+	if (m_selection == Selection::Net) {
+		m_selected_net->first->update(name, cores, tau);
+	} else {
+		QMessageBox::warning(this, tr("Selection Error"),
+							 tr("A net must be selected for it to be updated."));
+		return;
+	}
+}
+void Canvas::update_selected_link(float to_second, float to_first) {
+	if (m_selection == Selection::Link) {
+		m_selected_net->first->update_link(m_selected_link->first.get(), to_second);
+		m_selected_link->first->update_link(m_selected_net->first.get(), to_first);
+	} else {
+		QMessageBox::warning(this, tr("Selection Error"),
+							 tr("A link must be selected for it to be updated."));
+		return;
+	}
 }

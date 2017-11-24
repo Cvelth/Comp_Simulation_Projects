@@ -21,6 +21,8 @@ gui::gui(QWidget *parent) : QWidget(parent) {
 	connect(m_canvas, &Canvas::netSelected, m_net, &NetWidget::select);
 	connect(m_canvas, &Canvas::linkSelected, m_link, &LinkWidget::select);
 	connect(m_canvas, &Canvas::deselection_triggered, this, &gui::deselect);
+	connect(m_net, &NetWidget::updated, m_canvas, &Canvas::update_selected_node);
+	connect(m_link, &LinkWidget::updated, m_canvas, &Canvas::update_selected_link);
 	m_net->hide();
 	m_link->hide();
 

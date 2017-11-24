@@ -11,6 +11,7 @@ private:
 };
 #include "Canvas.hpp"
 #include "ui_NetWidget.h"
+class QPushButton;
 class NetWidget : public QWidget {
 	Q_OBJECT
 public:
@@ -20,8 +21,11 @@ public:
 private:
 	Ui::NetWidget ui;
 	std::vector<Usage*> m_usage;
+	QPushButton *m_update;
 public slots:
 	void select(std::string name, size_t cores, float tau, std::vector<float> usage);
+signals:
+	void updated(std::string name, size_t cores, float tau);
 };
 #include <QDialog>
 #include "ui_LinkWidget.h"
@@ -35,7 +39,7 @@ public:
 private:
 	Ui::LinkWidget ui;
 signals:
-	void value_updated(float, float);
+	void updated(float, float);
 public slots:
 	void select(std::string first_name, std::string second_name, float to_second, float to_first);
 };
