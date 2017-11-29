@@ -31,10 +31,11 @@ NetWidget::~NetWidget() {
 Canvas::NetType NetWidget::network() {
 	return std::make_shared<Net>(ui.name->text().toStdString(), float(ui.tau->value()), size_t(ui.cores->value()));
 }
-void NetWidget::select(std::string name, size_t cores, float tau, std::vector<float> usage) {
+void NetWidget::select(std::string name, size_t cores, float tau, std::vector<float> usage, float queue) {
 	ui.name->setText(QString::fromStdString(name));
 	ui.cores->setValue(cores);
 	ui.tau->setValue(tau);
+	ui.queue->setText(QString::number(queue));
 
 	for (auto it : m_usage)
 		delete it;

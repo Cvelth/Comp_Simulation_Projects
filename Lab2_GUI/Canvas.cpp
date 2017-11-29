@@ -128,7 +128,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *e) {
 		m_selection = Selection::Net;
 		m_selected_net = end;
 		emit deselection_triggered();
-		emit netSelected(end->first->name(), end->first->cores(), end->first->tau(), end->first->usage());
+		emit netSelected(end->first->name(), end->first->cores(), end->first->tau(), end->first->usage(), end->first->queue());
 	} else {
 		m_selection = Selection::None;
 		emit deselection_triggered();

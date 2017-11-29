@@ -23,7 +23,7 @@ private:
 	std::vector<Usage*> m_usage;
 	QPushButton *m_update;
 public slots:
-	void select(std::string name, size_t cores, float tau, std::vector<float> usage);
+	void select(std::string name, size_t cores, float tau, std::vector<float> usage, float queue);
 signals:
 	void updated(std::string name, size_t cores, float tau);
 };

@@ -17,11 +17,12 @@ namespace pn {
 		std::map<PetriNet*, float> m_transitions;
 		float m_weight_sum;
 		size_t m_tacts;
+		size_t m_queue_sum;
 		std::mt19937_64 g;
 		std::uniform_real_distribution<float> d;
 	public:
 		PetriNet(std::string name = ""s, float tau = 1.f, size_t cores = 1) 
-			: m_tau(tau), m_name(name), m_weight_sum(0.f),
+			: m_tau(tau), m_name(name), m_weight_sum(0.f), m_queue_sum(0u),
 			m_tacts(0), g(std::random_device()()) {
 
 			m_executing.resize(cores); 
@@ -30,6 +31,7 @@ namespace pn {
 			m_awaiting.push_back(task);
 		}
 		void step(float &time) {
+			m_queue_sum += m_awaiting.size();
 			for (size_t i = 0; i < m_executing.size(); i++) {
 				if (std::get<0>(m_executing[i])) {
 					taskDone(std::get<1>(m_executing[i]));
@@ -83,6 +85,7 @@ namespace pn {
 				ret.push_back(float(std::get<2>(it)) / m_tacts);
 			return ret;
 		}
+		float queue() const { return float(m_queue_sum) / m_tacts; }
 		std::map<PetriNet*, float> transitions() { return m_transitions; }
 		std::map<PetriNet*, float> transitions() const { return m_transitions; }
 		bool operator==(PetriNet const& other) {
