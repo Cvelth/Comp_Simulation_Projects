@@ -16,6 +16,8 @@ namespace pn {
 		}
 	public:
 		static void simulate(std::vector<std::shared_ptr<PetriNet<TaskType>>> nets, std::vector<TaskType> tasks, size_t total_tasks) {
+			for (auto &it : nets)
+				it->clear();
 			std::vector<float> time;
 			for (auto it : tasks)
 				nets.front()->insert(it);

@@ -85,6 +85,16 @@ namespace pn {
 				ret.push_back(float(std::get<2>(it)) / m_tacts);
 			return ret;
 		}
+		void clear() {
+			m_weight_sum = 0.f;
+			m_queue_sum = 0u;
+			m_tacts = 0u;
+			m_awaiting.clear();
+			for (auto &it : m_executing) {
+				std::get<0>(it) = false;
+				std::get<2>(it) = 0u;
+			}
+		}
 		float queue() const { return float(m_queue_sum) / m_tacts; }
 		std::map<PetriNet*, float> transitions() { return m_transitions; }
 		std::map<PetriNet*, float> transitions() const { return m_transitions; }
