@@ -161,6 +161,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArcMath\ArcMath.vcxproj">
+      <Project>{25488785-0415-4fe4-83f5-d736a4686948}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\PetriNet\PetriNet.vcxproj">
       <Project>{41a6e783-257e-45d1-8e03-222b20e095aa}</Project>
     </ProjectReference>

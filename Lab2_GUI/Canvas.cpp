@@ -38,10 +38,6 @@ void Canvas::draw(NetNode &net, bool selected) {
 	glVertex2f(std::get<0>(net.second) + size, std::get<1>(net.second));
 	glVertex2f(std::get<0>(net.second), std::get<1>(net.second) + size);
 }
-void Canvas::draw(NetNode &from, NetNode &to) {
-	glVertex2f(std::get<0>(from.second), std::get<1>(from.second));
-	glVertex2f(std::get<0>(to.second), std::get<1>(to.second));
-}
 void Canvas::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -52,12 +48,14 @@ void Canvas::paintGL() {
 	glEnd();
 
 	//All the links
-	glBegin(GL_LINES);
-	glColor3f(0.95f, 0.4f, 1.f);
 	for (auto& it : m_nets) 
 		for (auto& it2 : it.first->transitions()) {
-			draw(it, *findNet(it2.first));
+			glBegin(GL_LINE_LOOP);
+			glColor3f(0.95f, 0.4f, 1.f);
+			draw(it, *findNet(it2.first)); //HERE!!!!
+			glEnd();
 		}
+	glBegin(GL_LINES);
 	glColor3f(1.f, 0.2, 0.2f);
 	if (m_selection == Selection::Link) draw(*m_selected_net, *m_selected_link);
 	glEnd();
@@ -185,4 +183,11 @@ void Canvas::update_selected_link(float to_second, float to_first) {
 							 tr("A link must be selected for it to be updated."));
 		return;
 	}
+}
+#include "..\ArcMath\ArcMath.hpp"
+void Canvas::draw(NetNode &from, NetNode &to) {
+	auto points = arc_math::generate(std::get<0>(from.second), std::get<1>(from.second), 
+									 std::get<0>(to.second), std::get<1>(to.second));
+	for (size_t i = 0; i < points.size() - 1; i += 2)
+		glVertex2f(points[i], points[i + 1]);
 }
