@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab1_GUI", "Lab1_GUI\Lab1_GUI.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab2_GUI", "Lab2_GUI\Lab2_GUI.vcxproj", "{B949B6BC-E3E3-4CA7-B3FC-93A560FCC009}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PetriNet", "PetriNet\PetriNet.vcxproj", "{41A6E783-257E-45D1-8E03-222B20E095AA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArcMath", "ArcMath\ArcMath.vcxproj", "{25488785-0415-4FE4-83F5-D736A4686948}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,14 @@ Global
 		{41A6E783-257E-45D1-8E03-222B20E095AA}.Release|x64.Build.0 = Release|x64
 		{41A6E783-257E-45D1-8E03-222B20E095AA}.Release|x86.ActiveCfg = Release|Win32
 		{41A6E783-257E-45D1-8E03-222B20E095AA}.Release|x86.Build.0 = Release|Win32
+		{25488785-0415-4FE4-83F5-D736A4686948}.Debug|x64.ActiveCfg = Debug|x64
+		{25488785-0415-4FE4-83F5-D736A4686948}.Debug|x64.Build.0 = Debug|x64
+		{25488785-0415-4FE4-83F5-D736A4686948}.Debug|x86.ActiveCfg = Debug|Win32
+		{25488785-0415-4FE4-83F5-D736A4686948}.Debug|x86.Build.0 = Debug|Win32
+		{25488785-0415-4FE4-83F5-D736A4686948}.Release|x64.ActiveCfg = Release|x64
+		{25488785-0415-4FE4-83F5-D736A4686948}.Release|x64.Build.0 = Release|x64
+		{25488785-0415-4FE4-83F5-D736A4686948}.Release|x86.ActiveCfg = Release|Win32
+		{25488785-0415-4FE4-83F5-D736A4686948}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
