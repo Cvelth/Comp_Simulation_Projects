@@ -31,6 +31,7 @@ protected:
 protected:
 	virtual void draw(NetNode &net, bool selected = false);
 	virtual void draw(NetNode &from, NetNode &to);
+	virtual void draw(float sx, float sy, float ex, float ey);
 	virtual void initializeGL() override;
 	virtual void resizeGL(int w, int h) override;
 	virtual void paintGL() override;
