@@ -29,7 +29,7 @@ point operator~(point const& p) {
 number operator*(point const& s, point const& e) {
 	return s.x * e.x + s.y * e.y;
 }
-std::vector<number> arc_math::generate(point const& s, point const& e, float q, size_t const accuracy) {
+std::vector<number> arc_math::generate_p(point const& s, point const& e, float q, size_t const accuracy) {
 	std::vector<number> arc;
 
 	point o = middle(s, e) + !(e - s) * q;

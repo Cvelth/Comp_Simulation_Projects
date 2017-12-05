@@ -21,7 +21,7 @@ namespace arc_math {
 		(accuracy) shows how many lines will be returned from the function.
 		return points are inserted into std::vector.
 	*/
-	DLL std::vector<number> generate(point const& s, point const& e, float q = 1.f, size_t const accuracy = 20ull);
+	DLL std::vector<number> generate_p(point const& s, point const& e, float q = 1.f, size_t const accuracy = 20ull);
 	/*
 		the function for generation of an Arc with given start (sx and sy coordinates) and end (ex and ey coordinates) points.
 		(q) determines the coefficient of radius dependent on distance between the points.
@@ -29,6 +29,6 @@ namespace arc_math {
 		return points are inserted into std::vector.
 	*/
 	inline std::vector<number> generate(number const& sx, number const& sy, number const& ex, number const& ey, float q = 1.f, size_t const accuracy = 20ull) {
-		return generate(point{sx, sy}, point{ex,ey}, q, accuracy);
+		return generate_p(point{sx, sy}, point{ex,ey}, q, accuracy);
 	}
 }
