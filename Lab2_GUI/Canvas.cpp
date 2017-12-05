@@ -50,9 +50,9 @@ void Canvas::paintGL() {
 	//All the links
 	for (auto& it : m_nets) 
 		for (auto& it2 : it.first->transitions()) {
-			glBegin(GL_LINE_LOOP);
+			glBegin(GL_LINE_STRIP);
 			glColor3f(0.95f, 0.4f, 1.f);
-			draw(it, *findNet(it2.first)); //HERE!!!!
+			draw(it, *findNet(it2.first));
 			glEnd();
 		}
 	glBegin(GL_LINES);
@@ -68,10 +68,9 @@ void Canvas::paintGL() {
 
 	//Future link
 	if (m_draw_line) {
-		glBegin(GL_LINES);
+		glBegin(GL_LINE_STRIP);
 		glColor3f(0.8f, 0.3f, 0.5f);
-		glVertex2f(m_last_mouse_x, m_last_mouse_y);
-		glVertex2f(m_current_mouse_x, m_current_mouse_y);
+		draw(m_last_mouse_x, m_last_mouse_y, m_current_mouse_x, m_current_mouse_y);
 		glEnd();
 	}
 }
@@ -185,9 +184,12 @@ void Canvas::update_selected_link(float to_second, float to_first) {
 	}
 }
 #include "..\ArcMath\ArcMath.hpp"
-void Canvas::draw(NetNode &from, NetNode &to) {
-	auto points = arc_math::generate(std::get<0>(from.second), std::get<1>(from.second), 
-									 std::get<0>(to.second), std::get<1>(to.second));
-	for (size_t i = 0; i < points.size() - 1; i += 2)
+void Canvas::draw(float sx, float sy, float ex, float ey) {
+	auto points = arc_math::generate(sx, sy, ex, ey);
+	for (int i = 0; i < int(points.size()) - 1; i += 2)
 		glVertex2f(points[i], points[i + 1]);
+}
+void Canvas::draw(NetNode &from, NetNode &to) {
+	return draw(std::get<0>(from.second), std::get<1>(from.second), 
+				std::get<0>(to.second), std::get<1>(to.second));
 }
