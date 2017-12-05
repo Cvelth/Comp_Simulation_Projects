@@ -28,7 +28,7 @@ namespace arc_math {
 		(accuracy) shows how many lines will be returned from the function.
 		return points are inserted into std::vector.
 	*/
-	inline std::vector<number> generate(number const& sx, number const& sy, number const& ex, number const& ey, float r = 1.f, size_t const accuracy = 20ull) {
+	inline std::vector<number> generate(number const& sx, number const& sy, number const& ex, number const& ey, float q = 1.f, size_t const accuracy = 20ull) {
 		return generate(point{sx, sy}, point{ex,ey}, q, accuracy);
 	}
 }
