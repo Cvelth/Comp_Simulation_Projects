@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PetriNet", "PetriNet\PetriN
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArcMath", "ArcMath\ArcMath.vcxproj", "{25488785-0415-4FE4-83F5-D736A4686948}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab3_GUI", "Lab3_GUI\Lab3_GUI.vcxproj", "{F9116DB1-5CC6-4222-A078-69034FAC25BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -57,6 +59,12 @@ Global
 		{25488785-0415-4FE4-83F5-D736A4686948}.Release|x64.Build.0 = Release|x64
 		{25488785-0415-4FE4-83F5-D736A4686948}.Release|x86.ActiveCfg = Release|Win32
 		{25488785-0415-4FE4-83F5-D736A4686948}.Release|x86.Build.0 = Release|Win32
+		{F9116DB1-5CC6-4222-A078-69034FAC25BB}.Debug|x64.ActiveCfg = Debug|x64
+		{F9116DB1-5CC6-4222-A078-69034FAC25BB}.Debug|x64.Build.0 = Debug|x64
+		{F9116DB1-5CC6-4222-A078-69034FAC25BB}.Debug|x86.ActiveCfg = Debug|x64
+		{F9116DB1-5CC6-4222-A078-69034FAC25BB}.Release|x64.ActiveCfg = Release|x64
+		{F9116DB1-5CC6-4222-A078-69034FAC25BB}.Release|x64.Build.0 = Release|x64
+		{F9116DB1-5CC6-4222-A078-69034FAC25BB}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
