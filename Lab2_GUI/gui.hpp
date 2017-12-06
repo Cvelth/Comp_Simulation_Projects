@@ -9,7 +9,7 @@ class gui : public QWidget {
 public:
 	gui(QWidget *parent = Q_NULLPTR);
 	~gui();
-private:
+protected:
 	Ui::guiClass ui;
 	Canvas *m_canvas;
 	NetWidget *m_net;

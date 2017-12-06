@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,5,2,2">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,5,0,2">
      <item>
       <widget class="QSpinBox" name="tasks">
        <property name="minimum">
@@ -43,11 +43,15 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="start">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="buttons">
+       <item>
+        <widget class="QPushButton" name="start">
+         <property name="text">
+          <string>Start</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="QPushButton" name="clean">
@@ -98,7 +102,7 @@
          <x>0</x>
          <y>0</y>
          <width>585</width>
-         <height>471</height>
+         <height>469</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
