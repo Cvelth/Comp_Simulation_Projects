@@ -10,20 +10,17 @@ gui_l3::gui_l3(QWidget *parent) : gui(parent) {
 	connect(m_b, &QPushButton::clicked, [this]() {
 		std::vector<size_t> tasks;
 		for (size_t i = 0u; i <= ui.tasks->value(); i++) tasks.push_back(i);
-		pn::PetriNetSystemSimulator<size_t>::simulate(m_canvas->nets(), tasks, ui.total_tasks->value() * 100);
+		pn::PetriNetSystemSimulator<size_t>::simulate(m_canvas->nets(), tasks, ui.total_tasks->value() * m_canvas->nets().size() * m_canvas->nets().size());
 		std::vector<std::pair<std::string, float>> results;
 		for (auto it : m_canvas->nets()) {
 			auto temp = it->usage();
 			if (temp.size() == 1)
 				results.push_back(std::make_pair(it->name(), temp[0]));
 			else
-				for (auto value : temp) {
+				for (size_t i = 0; i < temp.size(); i++) {
 					std::stringstream s;
-					s << it->name();
-					s << "[";
-					s << value;
-					s << "]";
-					results.push_back(std::make_pair(s.str(), value));
+					s << it->name() << "[" << i << "]";
+					results.push_back(std::make_pair(s.str(), temp[i]));
 				}
 		}
 		
