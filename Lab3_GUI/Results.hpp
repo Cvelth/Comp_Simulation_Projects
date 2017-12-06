@@ -3,7 +3,7 @@
 class QLabel;
 class QLineEdit;
 class Result : public QVBoxLayout {
-	Q_OBJECT
+	//Q_OBJECT
 protected:
 	QLabel *m_label;
 	QLineEdit *m_value;
@@ -13,7 +13,7 @@ public:
 };
 #include <QWidget>
 class Results : public QWidget {
-	Q_OBJECT
+	//Q_OBJECT
 protected:
 	QVBoxLayout *m_layout;
 	std::vector<Result*> m_results;
