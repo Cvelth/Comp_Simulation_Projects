@@ -8,5 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PetriNetSystemSimulator.hpp" />
+    <ClInclude Include="PetriNetTheoreticalCalculation.hpp" />
   </ItemGroup>
 </Project>
