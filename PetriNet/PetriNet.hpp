@@ -115,5 +115,8 @@ namespace pn {
 			else
 				m_transitions[selected_link] = value;
 		}
+		size_t awaiting() const {
+			return m_awaiting.size();
+		}
 	};
 }

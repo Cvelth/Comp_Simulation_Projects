@@ -128,7 +128,7 @@ inline void pn::PetriNetTheoreticalCalculation<TaskType>::makeMove(int oldIndex,
 	}
 	if (state != newState) {
 		intensity[state][state] -= probability / current[oldIndex]->tau();
-		intensity[newState][state] += probability / current[oldIndex]->tau();
+		intensity[newState][state] += probability / current[oldIndex]->tau();//It isn't executed. Bu it should be logit.
 	}
 }
 template<typename TaskType>
