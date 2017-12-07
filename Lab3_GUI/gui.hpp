@@ -2,7 +2,7 @@
 #include "..\Lab2_GUI\gui.hpp"
 class QPushButton;
 class gui_l3 : public gui {
-	Q_OBJECT
+	//Q_OBJECT
 public:
 	gui_l3(QWidget *parent = Q_NULLPTR);
 	virtual ~gui_l3();
