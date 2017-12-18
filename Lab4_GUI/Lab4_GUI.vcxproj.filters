@@ -80,12 +80,6 @@
     <CustomBuild Include="LinkWidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="NetWidget.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Usage.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="WidgetDialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
@@ -95,12 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_LinkWidget.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_NetWidget.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_Usage.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_WidgetDialog.h">

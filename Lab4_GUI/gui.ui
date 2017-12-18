@@ -6,61 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>520</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>gui</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,5,4,2">
-     <item>
-      <widget class="QSpinBox" name="tasks">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>9999999</number>
-       </property>
-       <property name="value">
-        <number>5</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="total_tasks">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>1000000000</number>
-       </property>
-       <property name="value">
-        <number>1000000</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="buttons">
-       <item>
-        <widget class="QPushButton" name="start">
-         <property name="text">
-          <string>Start Simulation</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="clean">
-       <property name="text">
-        <string>Clean</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QPushButton" name="find">
+     <property name="text">
+      <string>Find the Path</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QSplitter" name="splitter">
@@ -101,8 +60,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>585</width>
-         <height>469</height>
+         <width>385</width>
+         <height>353</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
