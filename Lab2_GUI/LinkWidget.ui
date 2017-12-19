@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>229</width>
-    <height>181</height>
+    <height>313</height>
    </rect>
   </property>
   <property name="font">
@@ -24,9 +24,51 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>First</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="first">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Second</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="second">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout_6">
      <item>
-      <widget class="QLabel" name="to_second_label">
+      <widget class="QLabel" name="label_5">
        <property name="text">
         <string>First -&gt; Second</string>
        </property>
@@ -56,7 +98,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_7">
      <item>
-      <widget class="QLabel" name="to_first_label">
+      <widget class="QLabel" name="label_6">
        <property name="text">
         <string>Second -&gt; First</string>
        </property>
