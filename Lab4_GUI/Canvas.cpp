@@ -70,7 +70,7 @@ City Canvas::find_city(float x, float y) {
 City Canvas::find_city(Position &position) {
 	return find_city(position.first, position.second);
 }
-Canvas::Canvas(QWidget *parent) : QOpenGLWidget(parent), m_draw_line(false) {}
+Canvas::Canvas(QWidget *parent) : QOpenGLWidget(parent), m_draw_line(false), m_selection(false) {}
 Canvas::~Canvas() {}
 void Canvas::clean() {
 	m_cities.clear();
@@ -94,7 +94,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *e) {
 
 	auto start = find_city(m_last_mouse_x, m_last_mouse_y);
 	auto end = find_city(e->pos().x(), e->pos().y());
-	if (start && end && start != end) {
+	if (start != -1 && end != -1 && start != end) {
 		if (m_links[start][end] == 0.f) {
 			LinkWidget d(start, end, this);
 			connect(&d, &LinkWidget::updated, [this, start, end](float to_second, float to_first) {
@@ -107,7 +107,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *e) {
 		m_selected_from = start;
 		m_selected_to = end;
 		emit deselection_triggered();
-		emit linkSelected(start, end, m_links[start][end], m_links[start][end]);
+		emit linkSelected(start, end, m_links[start][end], m_links[end][start]);
 	}
 	m_draw_line = false;
 	update();

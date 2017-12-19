@@ -11,7 +11,7 @@ LinkWidget::LinkWidget(City first, City second, QWidget *parent) : QDialog(paren
 LinkWidget::~LinkWidget() {}
 float LinkWidget::to_second() { return ui.to_second->value(); }
 float LinkWidget::to_first() { return ui.to_first->value(); }
-void LinkWidget::select(City from, City to, float to_second, float to_first) {
+void LinkWidget::select(City first, City second, float to_second, float to_first) {
 	ui.to_second_label->setText(QString::number(first) + " -> " + QString::number(second));
 	ui.to_first_label->setText(QString::number(second) + " -> " + QString::number(first));
 	ui.to_second->setValue(to_second);

@@ -20,13 +20,10 @@ gui::gui(QWidget *parent) : QWidget(parent) {
 	connect(m_link, &LinkWidget::updated, m_canvas, &Canvas::update_selected_link);
 	m_link->hide();
 
-	ui.splitter->setStretchFactor(0, 8);
-	ui.splitter->setStretchFactor(1, 2);
+	ui.splitter->setStretchFactor(0, 9);
+	ui.splitter->setStretchFactor(1, 1);
 
 	connect(ui.find, &QPushButton::clicked, [this]() {
 		//Find the answer.
-	});
-	connect(ui.clean, &QPushButton::clicked, [this]() {
-		m_canvas->clean();
 	});
 }
