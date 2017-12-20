@@ -13,13 +13,24 @@
   <property name="windowTitle">
    <string>gui</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
    <item>
-    <widget class="QPushButton" name="find">
-     <property name="text">
-      <string>Find the Path</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,1">
+     <item>
+      <widget class="QPushButton" name="find">
+       <property name="text">
+        <string>Find the Path</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="matrix">
+       <property name="text">
+        <string>Open the Matrix</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QSplitter" name="splitter">
@@ -61,7 +72,7 @@
          <x>0</x>
          <y>0</y>
          <width>385</width>
-         <height>353</height>
+         <height>351</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">

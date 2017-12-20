@@ -26,4 +26,11 @@ gui::gui(QWidget *parent) : QWidget(parent) {
 	connect(ui.find, &QPushButton::clicked, [this]() {
 		//Find the answer.
 	});
+	connect(ui.matrix, &QPushButton::clicked, [this]() {
+		MatrixDialog d(m_canvas->links());
+		connect(&d, &MatrixDialog::confirm, [this](std::vector<std::vector<Distance>> links) {
+			m_canvas->links(links);
+		});
+		d.exec();
+	});
 }

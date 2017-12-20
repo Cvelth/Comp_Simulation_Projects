@@ -18,3 +18,34 @@ void LinkWidget::select(City first, City second, float to_second, float to_first
 	ui.to_first->setValue(to_first);
 	show();
 }
+#include <QTableWidget>
+MatrixWidget::MatrixWidget(std::vector<std::vector<Distance>> links) {
+	auto size = links.size();
+	ui.setupUi(this);
+	m_links = links;
+	ui.matrix->setColumnCount(size);
+	ui.matrix->setRowCount(size);
+	for (size_t i = 0; i < size; i++) {
+		ui.matrix->setVerticalHeaderItem(i, new QTableWidgetItem(QString::number(i)));
+		ui.matrix->setHorizontalHeaderItem(i, new QTableWidgetItem(QString::number(i)));
+		for (size_t j = 0; j < size; j++)
+			ui.matrix->setItem(i, j, new QTableWidgetItem(QString::number(m_links[i][j])));
+	}
+	connect(ui.matrix, &QTableWidget::cellChanged, [this](int i, int j) {
+		if (i != j) m_links[i][j] = ui.matrix->item(i, j)->text().toDouble();
+	});
+}
+MatrixWidget::~MatrixWidget() {}
+#include <QMessageBox>
+MatrixDialog::MatrixDialog(std::vector<std::vector<Distance>> links) {
+	ui.setupUi(this);
+	connect(ui.ok, &QPushButton::clicked, [this]() {
+		emit confirm(m_widget->result());
+		close();
+	});
+	connect(ui.cancel, &QPushButton::clicked, [this]() {
+		close();
+	});
+	ui.layout->addWidget(m_widget = new MatrixWidget(links));
+}
+MatrixDialog::~MatrixDialog() {}

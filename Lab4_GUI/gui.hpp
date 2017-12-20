@@ -12,6 +12,6 @@ protected:
 	Ui::guiClass ui;
 	Canvas *m_canvas;
 	LinkWidget *m_link;
-	protected slots:
+protected slots:
 	void deselect();
 };

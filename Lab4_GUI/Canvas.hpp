@@ -40,6 +40,8 @@ public:
 	Canvas(QWidget *parent = Q_NULLPTR);
 	~Canvas();
 	void clean();
+	std::vector<std::vector<Distance>> const& links() const { return m_links; }
+	void links(std::vector<std::vector<Distance>> const& links) { m_links = links; }
 signals:
 	void linkSelected(City first, City second, float to_second, float to_first);
 	void deselection_triggered();
