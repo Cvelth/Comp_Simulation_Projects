@@ -28,7 +28,7 @@ MatrixWidget::MatrixWidget(std::vector<std::vector<Distance>> links) {
 		if (i != j) m_links[i][j] = ui.matrix->item(i, j)->text().toDouble();
 	});
 	connect(ui.randomize, &QPushButton::clicked, [this]() {
-		std::mt19937_64 g;
+		std::mt19937_64 g((std::random_device())());
 		std::uniform_real_distribution<float> d(0.f, 100.f);
 		for (size_t i = 0; i < m_links.size(); i++)
 			for (size_t j = 0; j < m_links.size(); j++)
