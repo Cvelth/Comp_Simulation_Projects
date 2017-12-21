@@ -38,7 +38,7 @@ void Canvas::paintGL() {
 	glEnd();
 
 	//Answer links
-	if (m_draw_answer) {
+	if (m_draw_answer && m_answer.size() != 0) {
 		for (size_t i = 0; i < m_answer.size() - 1; i++) {
 			glBegin(GL_LINE_STRIP);
 			glColor3f(0.95f, 0.4f, 0.f);
