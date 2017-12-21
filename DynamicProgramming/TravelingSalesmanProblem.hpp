@@ -13,6 +13,6 @@ namespace dp {
 			As a result, the function returns an array of cities: order in wich they would appear in the solution path,
 			where result[0] is a first city to visit and result[number_of_cities - 1] -- last one.
 		*/
-		std::vector<City> solve(std::vector<std::vector<Distance>> &input_matrix);
+		std::vector<City> solve(std::vector<std::vector<Distance>> const& input_matrix);
 	}
 }
