@@ -19,10 +19,27 @@ void LinkWidget::select(City first, City second, float to_second, float to_first
 	show();
 }
 #include <QTableWidget>
+#include <random>
 MatrixWidget::MatrixWidget(std::vector<std::vector<Distance>> links) {
-	auto size = links.size();
 	ui.setupUi(this);
 	m_links = links;
+	fill();
+	connect(ui.matrix, &QTableWidget::cellChanged, [this](int i, int j) {
+		if (i != j) m_links[i][j] = ui.matrix->item(i, j)->text().toDouble();
+	});
+	connect(ui.randomize, &QPushButton::clicked, [this]() {
+		std::mt19937_64 g;
+		std::uniform_real_distribution<float> d(0.f, 100.f);
+		for (size_t i = 0; i < m_links.size(); i++)
+			for (size_t j = 0; j < m_links.size(); j++)
+				if (i != j) 
+					m_links[i][j] = d(g);
+		fill();
+	});
+}
+MatrixWidget::~MatrixWidget() {}
+void MatrixWidget::fill() {
+	auto size = m_links.size();
 	ui.matrix->setColumnCount(size);
 	ui.matrix->setRowCount(size);
 	for (size_t i = 0; i < size; i++) {
@@ -31,11 +48,7 @@ MatrixWidget::MatrixWidget(std::vector<std::vector<Distance>> links) {
 		for (size_t j = 0; j < size; j++)
 			ui.matrix->setItem(i, j, new QTableWidgetItem(QString::number(m_links[i][j])));
 	}
-	connect(ui.matrix, &QTableWidget::cellChanged, [this](int i, int j) {
-		if (i != j) m_links[i][j] = ui.matrix->item(i, j)->text().toDouble();
-	});
 }
-MatrixWidget::~MatrixWidget() {}
 #include <QMessageBox>
 MatrixDialog::MatrixDialog(std::vector<std::vector<Distance>> links) {
 	ui.setupUi(this);

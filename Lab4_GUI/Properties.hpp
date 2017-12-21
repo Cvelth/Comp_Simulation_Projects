@@ -28,6 +28,8 @@ public:
 	std::vector<std::vector<Distance>> result() { return m_links; }
 protected:
 	std::vector<std::vector<Distance>> m_links;
+protected:
+	void fill();
 private:
 	Ui::MatrixWidget ui;
 };

@@ -24,6 +24,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
+    <widget class="QPushButton" name="randomize">
+     <property name="text">
+      <string>Randomize</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QTableWidget" name="matrix">
      <property name="font">
       <font>
