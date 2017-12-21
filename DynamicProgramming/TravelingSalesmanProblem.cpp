@@ -24,11 +24,11 @@ std::map<std::vector<dp::TravelingSalesmanProblem::City>, float> solveTSP_inner(
 			merge(res, solveTSP_inner(next, weight + inputs[current.back()][i], cities, inputs));
 		}
 	}
-	return res;//!
+	return res;
 }
-std::vector<dp::TravelingSalesmanProblem::City> solveTSP(size_t cities, std::vector<std::vector<dp::TravelingSalesmanProblem::Distance>> const& inputs) {
+std::vector<dp::TravelingSalesmanProblem::City> dp::TravelingSalesmanProblem::solve(std::vector<std::vector<Distance>> const& input_matrix) {
 	std::map<std::vector<dp::TravelingSalesmanProblem::City>, float> res;
-	merge(res, solveTSP_inner({0}, 0.f, cities, inputs));
+	merge(res, solveTSP_inner({0}, 0.f, input_matrix.size(), input_matrix));
 
 	dp::TravelingSalesmanProblem::Distance min = std::numeric_limits<dp::TravelingSalesmanProblem::Distance>::max();
 	std::vector<dp::TravelingSalesmanProblem::City> output;
@@ -39,9 +39,6 @@ std::vector<dp::TravelingSalesmanProblem::City> solveTSP(size_t cities, std::vec
 		}
 	return output;
 }
-std::vector<dp::TravelingSalesmanProblem::City> dp::TravelingSalesmanProblem::solve(std::vector<std::vector<Distance>> const& input_matrix) {
-	return solveTSP(input_matrix.size(), input_matrix);
-}
-std::vector<dp::TravelingSalesmanProblem::City> dp::TravelingSalesmanProblem::other_method::solve(std::vector<std::vector<Distance>> const & input_matrix) {
+std::vector<dp::TravelingSalesmanProblem::City> dp::TravelingSalesmanProblem::other_method::solve(std::vector<std::vector<Distance>> const& input_matrix) {
 	return std::vector<City>();
 }
