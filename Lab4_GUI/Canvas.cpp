@@ -157,7 +157,7 @@ void Canvas::update_selected_link(float to_second, float to_first) {
 }
 #include "..\ArcMath\ArcMath.hpp"
 void Canvas::draw(float sx, float sy, float ex, float ey) {
-	auto points = arc_math::generate(sx, sy, ex, ey);
+	auto points = arc_math::generate(sx, sy, ex, ey, 1.5f);
 	for (int i = 0; i < int(points.size()) - 1; i += 2)
 		glVertex2f(points[i], points[i + 1]);
 }

@@ -26,6 +26,9 @@ gui::gui(QWidget *parent) : QWidget(parent) {
 	connect(ui.find, &QPushButton::clicked, [this]() {
 		m_canvas->answer(dp::TravelingSalesmanProblem::solve(m_canvas->links()));
 	});
+	connect(ui.find2, &QPushButton::clicked, [this]() {
+		m_canvas->answer(dp::TravelingSalesmanProblem::other_method::solve(m_canvas->links()));
+	});
 	connect(ui.matrix, &QPushButton::clicked, [this]() {
 		MatrixDialog d(m_canvas->links());
 		connect(&d, &MatrixDialog::confirm, [this](std::vector<std::vector<Distance>> links) {
