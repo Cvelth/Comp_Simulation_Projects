@@ -175,6 +175,9 @@
     <ProjectReference Include="..\ArcMath\ArcMath.vcxproj">
       <Project>{25488785-0415-4fe4-83f5-d736a4686948}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\DynamicProgramming\DynamicProgramming.vcxproj">
+      <Project>{befe6f8d-e4bc-4997-9e8d-9c7d3bdcafc9}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="LinkWidget.ui">

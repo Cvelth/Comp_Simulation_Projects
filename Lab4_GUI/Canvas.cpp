@@ -37,6 +37,21 @@ void Canvas::paintGL() {
 	if (m_selection) draw(m_selected_from, m_selected_to);
 	glEnd();
 
+	//Answer links
+	if (m_draw_answer) {
+		for (size_t i = 0; i < m_answer.size() - 1; i++) {
+			glBegin(GL_LINE_STRIP);
+			glColor3f(0.95f, 0.4f, 0.f);
+			draw(m_answer[i], m_answer[i + 1]);
+			glEnd();
+		}
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.95f, 0.4f, 0.f);
+		draw(m_answer[m_answer.size() - 1], m_answer[0]);
+		glEnd();
+	}
+
 	//All the cities
 	glBegin(GL_QUADS);
 	glColor3f(0.9f, 0.5f, 0.9f);
@@ -70,12 +85,17 @@ City Canvas::find_city(float x, float y) {
 City Canvas::find_city(Position &position) {
 	return find_city(position.first, position.second);
 }
-Canvas::Canvas(QWidget *parent) : QOpenGLWidget(parent), m_draw_line(false), m_selection(false) {}
+Canvas::Canvas(QWidget *parent) : QOpenGLWidget(parent), m_draw_line(false), m_selection(false), m_draw_answer(false) {}
 Canvas::~Canvas() {}
 void Canvas::clean() {
 	m_cities.clear();
 	m_links.clear();
 	m_selection = false;
+	update();
+}
+void Canvas::answer(std::vector<dp::TravelingSalesmanProblem::City> answer) {
+	m_draw_answer = true;
+	m_answer = answer;
 	update();
 }
 void Canvas::addCity(Position &position) {

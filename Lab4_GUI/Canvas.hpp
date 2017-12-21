@@ -22,6 +22,8 @@ protected:
 	bool m_selection;
 	City m_selected_from;
 	City m_selected_to;
+	bool m_draw_answer;
+	std::vector<dp::TravelingSalesmanProblem::City> m_answer;
 protected:
 	virtual void draw(Position &city);
 	virtual void draw(City &from, City &to);
@@ -42,6 +44,7 @@ public:
 	void clean();
 	std::vector<std::vector<Distance>> const& links() const { return m_links; }
 	void links(std::vector<std::vector<Distance>> const& links) { m_links = links; }
+	void answer(std::vector<dp::TravelingSalesmanProblem::City> answer);
 signals:
 	void linkSelected(City first, City second, float to_second, float to_first);
 	void deselection_triggered();

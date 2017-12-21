@@ -24,7 +24,7 @@ gui::gui(QWidget *parent) : QWidget(parent) {
 	ui.splitter->setStretchFactor(1, 1);
 
 	connect(ui.find, &QPushButton::clicked, [this]() {
-		//Find the answer.
+		m_canvas->answer(dp::TravelingSalesmanProblem::solve(m_canvas->links()));
 	});
 	connect(ui.matrix, &QPushButton::clicked, [this]() {
 		MatrixDialog d(m_canvas->links());
