@@ -1,8 +1,6 @@
 #include "TravelingSalesmanProblem.hpp"
 #include <map>
-#include <algorithm>
 #include <numeric>
-#include <memory>
 std::map<std::vector<dp::TravelingSalesmanProblem::City>, float>& merge(std::map<std::vector<dp::TravelingSalesmanProblem::City>, float> &first, std::map<std::vector<dp::TravelingSalesmanProblem::City>, float> second) {
 	for (auto it : second) {
 		if (first.find(it.first) == first.end())
@@ -40,16 +38,21 @@ std::vector<dp::TravelingSalesmanProblem::City> dp::TravelingSalesmanProblem::so
 		}
 	return output;
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#include <algorithm>
 bool is_ignored(size_t i, size_t j, std::vector<std::pair<dp::TravelingSalesmanProblem::City, dp::TravelingSalesmanProblem::City>> ignored) {
 	return i != j && std::find_if(ignored.begin(), ignored.end(), [&i, &j](std::pair<dp::TravelingSalesmanProblem::City, dp::TravelingSalesmanProblem::City> &it) { 
 		return it.first == i || it.second == j || (it.first == j && it.second == i);
 	}) == ignored.end();
 }
-std::vector<dp::TravelingSalesmanProblem::City> solveTSP_2(std::vector<std::vector<dp::TravelingSalesmanProblem::Distance>> const& input_matrix, 
-														   std::vector<std::pair<dp::TravelingSalesmanProblem::City, dp::TravelingSalesmanProblem::City>> ignored = {}, 
-														   std::shared_ptr<std::vector<dp::TravelingSalesmanProblem::City>> res = std::make_shared<std::vector<dp::TravelingSalesmanProblem::City>>())
+#include <set>
+#include <memory>
+std::set<std::pair<dp::TravelingSalesmanProblem::City, dp::TravelingSalesmanProblem::City>> solveTSP_2(std::vector<std::vector<dp::TravelingSalesmanProblem::Distance>> const& input_matrix,
+														   std::vector<std::pair<dp::TravelingSalesmanProblem::City, dp::TravelingSalesmanProblem::City>> ignored = {},
+														   std::shared_ptr<std::set<std::pair<dp::TravelingSalesmanProblem::City, dp::TravelingSalesmanProblem::City>>> res = 
+																std::make_shared<std::set<std::pair<dp::TravelingSalesmanProblem::City, dp::TravelingSalesmanProblem::City>>>())
 {
-	if (res->size() >= input_matrix.size())
+	if (res->size() + 1 >= input_matrix.size())
 		return *res;
 
 	size_t size = input_matrix.size();
@@ -61,9 +64,10 @@ std::vector<dp::TravelingSalesmanProblem::City> solveTSP_2(std::vector<std::vect
 				if (modified[i][j] < min) {
 					min = modified[i][j];
 				}
-		for (size_t j = 0; j < size; j++)
-			if (is_ignored(i, j, ignored))
-				modified[i][j] -= min;
+		if (min != 0.f)
+			for (size_t j = 0; j < size; j++)
+				if (is_ignored(i, j, ignored))
+					modified[i][j] -= min;
 	}
 
 	for (size_t j = 0; j < size; j++) {
@@ -72,9 +76,10 @@ std::vector<dp::TravelingSalesmanProblem::City> solveTSP_2(std::vector<std::vect
 			if (is_ignored(i, j, ignored))
 				if (modified[i][j] < min)
 					min = modified[i][j];
-		for (size_t i = 0; i < size; i++)
-			if (is_ignored(i, j, ignored))
-				modified[i][j] -= min;
+		if (min != 0.f)
+			for (size_t i = 0; i < size; i++)
+				if (is_ignored(i, j, ignored))
+					modified[i][j] -= min;
 	}
 
 	dp::TravelingSalesmanProblem::Distance max_zero = std::numeric_limits<dp::TravelingSalesmanProblem::Distance>::min();
@@ -100,14 +105,31 @@ std::vector<dp::TravelingSalesmanProblem::City> solveTSP_2(std::vector<std::vect
 				}
 
 	ignored.push_back(std::make_pair(max_zero_i, max_zero_j));
-	if (!res->empty() && res->back() == max_zero_i) 
-		res->push_back(max_zero_j);
-	else {
-		res->push_back(max_zero_i);
-		res->push_back(max_zero_j);
-	}
+	res->insert(std::make_pair(max_zero_i, max_zero_j));
 	return solveTSP_2(input_matrix, ignored, res);
 }
+#include <list>
 std::vector<dp::TravelingSalesmanProblem::City> dp::TravelingSalesmanProblem::other_method::solve(std::vector<std::vector<Distance>> const& input_matrix) {
-	return solveTSP_2(input_matrix);
+	auto links = solveTSP_2(input_matrix);
+	std::list<dp::TravelingSalesmanProblem::City> res;
+	while (links.size() > 1u) {
+		for (auto it = links.begin(); it != links.end(); it++) {
+			if (res.empty()) {
+				res.push_back(it->first);
+				res.push_back(it->second);
+			} else {
+				if (res.front() == it->second) {
+					res.push_front(it->first);
+					links.erase(it);
+					it = links.begin();
+				}
+				if (res.back() == it->first) {
+					res.push_back(it->second);
+					links.erase(it);
+					it = links.begin();
+				}
+			}
+		}
+	}
+	return std::vector<dp::TravelingSalesmanProblem::City>(res.begin(), res.end());
 }

@@ -45,11 +45,6 @@ void Canvas::paintGL() {
 			draw(m_answer[i], m_answer[i + 1]);
 			glEnd();
 		}
-
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.95f, 0.4f, 0.f);
-		draw(m_answer[m_answer.size() - 1], m_answer[0]);
-		glEnd();
 	}
 
 	//All the cities
