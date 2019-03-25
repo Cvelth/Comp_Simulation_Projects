@@ -55,5 +55,9 @@ namespace qs {
 		virtual void stop() override { SimulatorUnit::stop(); }
 		virtual qs::Color const getCurrentColor() override { return SimulatorUnit::getCurrentColor(); }
 		virtual float getCurrentPercent() override;
+
+		virtual size_t completed() const override { return m_completed_tasks.size(); }
+		virtual size_t dropped() const override { return m_dropped_tasks.size(); }
+		virtual size_t queue_size() const override { return m_storage->size(); }
 	};
 }

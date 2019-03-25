@@ -79,5 +79,9 @@ namespace qs {
 		virtual void stop() abstract;
 		virtual float getCurrentPercent() abstract;
 		virtual Color const getCurrentColor() abstract;
+
+		virtual size_t completed() const abstract;
+		virtual size_t dropped() const abstract;
+		virtual size_t queue_size() const abstract;
 	};
 }

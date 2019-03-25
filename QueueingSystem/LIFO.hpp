@@ -77,9 +77,18 @@ namespace qs {
 		}
 		virtual void clear() override {
 			#ifdef MULTI_THREADING
-				m_mutex.lock_shared();
+				m_mutex.lock();
 			#endif
 			m_queue.clear();
+			#ifdef MULTI_THREADING
+				m_mutex.unlock();
+			#endif
+		}
+		virtual size_t size() override {
+			#ifdef MULTI_THREADING
+				m_mutex.lock_shared();
+			#endif
+			return m_queue.size();
 			#ifdef MULTI_THREADING
 				m_mutex.unlock_shared();
 			#endif

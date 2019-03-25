@@ -14,5 +14,6 @@ namespace qs {
 
 		virtual void clear() abstract;
 		virtual size_t type() abstract;
+		virtual size_t size() abstract;
 	};
 }

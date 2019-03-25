@@ -18,14 +18,14 @@ namespace qs {
 		EDF() : m_queue() {}
 		virtual void push(Task *task = nullptr) override {
 			#ifdef MULTI_THREADING
-			m_mutex.lock();
+				m_mutex.lock();
 			#endif
 			if (task)
 				m_queue.emplace(task->expiration_point(), *task);
 			else
 				m_queue.emplace(std::chrono::high_resolution_clock::now(), Task());
 			#ifdef MULTI_THREADING
-			m_mutex.unlock();
+				m_mutex.unlock();
 			#endif
 		}
 		virtual void repush(Task *task = nullptr) override {
@@ -35,12 +35,12 @@ namespace qs {
 			Task ret;
 			if (m_queue.size()) {
 				#ifdef MULTI_THREADING
-				m_mutex.lock();
+					m_mutex.lock();
 				#endif
 				ret = m_queue.begin()->second;
 				m_queue.erase(m_queue.begin());
 				#ifdef MULTI_THREADING
-				m_mutex.unlock();
+					m_mutex.unlock();
 				#endif
 			} else {
 				throw Exceptions::EmptyQueue();
@@ -51,24 +51,24 @@ namespace qs {
 			Task ret(t);
 			if (m_queue.size()) {
 				#ifdef MULTI_THREADING
-				m_mutex.lock();
+					m_mutex.lock();
 				#endif
 				ret = m_queue.begin()->second;
 				m_queue.erase(m_queue.begin());
 				#ifdef MULTI_THREADING
-				m_mutex.unlock();
+					m_mutex.unlock();
 				#endif
 			}
 			return ret;
 		}
 		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
 			#ifdef MULTI_THREADING
-			m_mutex.lock_shared();
+				m_mutex.lock_shared();
 			#endif
 			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++)
 				lambda(t->second);
 			#ifdef MULTI_THREADING
-			m_mutex.unlock_shared();
+				m_mutex.unlock_shared();
 			#endif
 		}
 		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
@@ -79,11 +79,20 @@ namespace qs {
 		}
 		virtual void clear() override {
 			#ifdef MULTI_THREADING
-			m_mutex.lock_shared();
+				m_mutex.lock();
 			#endif
 			m_queue.clear();
 			#ifdef MULTI_THREADING
-			m_mutex.unlock_shared();
+				m_mutex.unlock();
+			#endif
+		}
+		virtual size_t size() override {
+			#ifdef MULTI_THREADING
+				m_mutex.lock_shared();
+			#endif
+			return m_queue.size();
+			#ifdef MULTI_THREADING
+				m_mutex.unlock_shared();
 			#endif
 		}
 	};

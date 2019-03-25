@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>GUI</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,10,1">
+  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,10,6,1">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,1,0,1,1,0,1,1,0,1,1,0,1,0,3">
      <item>
@@ -38,7 +38,10 @@
         <number>4</number>
        </property>
        <property name="minimum">
-        <double>0.010000000000000</double>
+        <double>0.000100000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.999899999999997</double>
        </property>
        <property name="value">
         <double>2.000000000000000</double>
@@ -80,7 +83,10 @@
         <number>4</number>
        </property>
        <property name="minimum">
-        <double>0.010000000000000</double>
+        <double>0.000100000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.999899999999997</double>
        </property>
        <property name="value">
         <double>1.000000000000000</double>
@@ -122,7 +128,10 @@
         <number>4</number>
        </property>
        <property name="minimum">
-        <double>0.010000000000000</double>
+        <double>0.000100000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.999899999999997</double>
        </property>
        <property name="value">
         <double>2.000000000000000</double>
@@ -203,13 +212,13 @@
      <item>
       <widget class="QDoubleSpinBox" name="exp">
        <property name="decimals">
-        <number>4</number>
+        <number>3</number>
        </property>
        <property name="maximum">
-        <double>99.999899999999997</double>
+        <double>999.999000000000024</double>
        </property>
        <property name="value">
-        <double>1.000000000000000</double>
+        <double>10.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -237,6 +246,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="visualization_layout"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="chart_layout"/>
    </item>
    <item>
     <widget class="QSlider" name="time">

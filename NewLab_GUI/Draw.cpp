@@ -80,7 +80,7 @@ void Canvas::initialDraw() {
 }
 
 void Canvas::drawGenerator() {
-	float percent = m_simulator->generator()->getCurrentPercent() / 1.e+3f;
+	float percent = m_simulator->generator()->getCurrentPercent();
 	percent = percent > 1.f ? 1.f : percent;
 	float point = 0.6f * percent - 0.8f;
 
