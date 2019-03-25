@@ -41,6 +41,7 @@ namespace qs {
 
 	class ProcessorSimulator : public SimulatorUnit, public ProcessorUnit {
 	protected:
+		std::vector<TaskSimulation> m_completed_tasks;
 		std::vector<TaskSimulation> m_dropped_tasks;
 	protected:
 		virtual void loop() override;
