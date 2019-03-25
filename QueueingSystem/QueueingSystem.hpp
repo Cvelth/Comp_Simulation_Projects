@@ -19,13 +19,7 @@ namespace qs {
 		SystemState m_state;
 		AbstractStorage<Task> *m_storage;
 	public:
-		AbstractQueueingSystem() :
-			m_state(qs::SystemState::Stoped) {}
-		AbstractQueueingSystem(SystemType type) :
-			AbstractQueueingSystem() {
-			initialize(type);
-		}
-
+		AbstractQueueingSystem() : m_state(qs::SystemState::Stoped) {}
 		virtual void initialize(SystemType type) abstract;
 
 		virtual void changeLambda(number l) abstract;
@@ -54,6 +48,11 @@ namespace qs {
 		using AbstractQueueingSystem<TaskSimulation>::AbstractQueueingSystem;
 
 		virtual void initialize(SystemType type) override;
+		void initialize(SystemType type, float time_coefficient) {
+			changeTimeCoefficient(time_coefficient);
+			initialize(type);
+		}
+
 		void start() {
 			m_generator->start();
 			m_processor->start();

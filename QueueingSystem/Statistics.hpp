@@ -4,14 +4,16 @@ namespace qs {
 	class Statistics {
 	protected:
 		float m_lambda;
+		float m_sigma;
 		float m_mu;
 		float m_tau;
 	public:
-		Statistics(float lambda = 0.f, float mu = 0.f, float tau = 0.f) 
-			: m_lambda(lambda), m_mu(mu), m_tau(tau) {};
+		Statistics(float lambda = 0.f, float sigma = 0.f, float mu = 0.f, float tau = 0.f) 
+			: m_lambda(lambda), m_sigma(sigma), m_mu(mu), m_tau(tau) {};
 		~Statistics() {}
 
 		inline float lambda() const { return m_lambda; }
+		inline float sigma() const { return m_sigma; }
 		inline float mu() const { return m_mu; }
 		inline float tau() const { return m_tau; }
 
