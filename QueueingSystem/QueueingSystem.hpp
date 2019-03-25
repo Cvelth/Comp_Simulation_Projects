@@ -3,14 +3,12 @@
 #include "shared.hpp"
 #include "AbstractStorage.hpp"
 #include "ExecutionUnit.hpp"
-#include "LIFO.hpp"
-#include "PER.hpp"
 #include "TaskSimulation.hpp"
 #include "TaskImitation.hpp"
 
 namespace qs {
 	enum class SystemType {
-		LIFO, PER
+		LIFO, PER, EDF
 	};
 
 	template <typename Task>
@@ -33,6 +31,7 @@ namespace qs {
 			switch (t) {
 				case 1:	return SystemType::LIFO;
 				case 2:	return SystemType::PER;
+				case 3: return SystemType::EDF;
 				default: throw std::exception("Unsupported storage type was requested");
 			}
 		}
@@ -67,6 +66,7 @@ namespace qs {
 		}
         
 		virtual void changeLambda(number l) override { m_generator->changeLambda(l); }
+		virtual void changeExpiration(number l) { m_generator->changeExpiration(l); }
 		virtual void changeMu(number m) override { m_processor->changeMu(m); }
 		virtual void changeSigma(number s) override { m_processor->changeSigma(s); }
 		virtual void changeTau(number t) override { m_processor->changeTau(t); }

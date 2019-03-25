@@ -129,7 +129,7 @@ void Canvas::drawProcessor() {
 }
 
 void Canvas::drawStorage() {
-	if (m_simulator->type() == qs::SystemType::LIFO) {
+	if (m_simulator->type() == qs::SystemType::LIFO || m_simulator->type() == qs::SystemType::EDF) {
 		float y = 0.f;
 		glBegin(GL_QUADS);
 		m_simulator->for_each_push([&y, this](qs::TaskSimulation const& task) {

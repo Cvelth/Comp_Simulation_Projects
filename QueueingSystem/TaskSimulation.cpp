@@ -11,8 +11,8 @@ qs::TaskSimulation::TaskSimulation(float expiration, float color, float processi
 		m_color = Color{0.95f, 0.75f, 0.95f};
 }
 bool qs::TaskSimulation::is_expired() const {
-	auto dur = std::chrono::high_resolution_clock::now() - m_creation_time;
-	auto exp = std::chrono::nanoseconds(size_t(m_expiration * 1e9));
-	auto b = dur > exp;
 	return m_expiration != 0.f && std::chrono::high_resolution_clock::now() - m_creation_time > std::chrono::nanoseconds(size_t(m_expiration * 1e9));
+}
+std::chrono::high_resolution_clock::time_point qs::TaskSimulation::expiration_point() const {
+	return m_creation_time + std::chrono::nanoseconds(size_t(m_expiration * 1e9));
 }

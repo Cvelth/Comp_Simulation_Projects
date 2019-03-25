@@ -43,20 +43,23 @@
     <ClInclude Include="Statistics.hpp">
       <Filter>Statistics</Filter>
     </ClInclude>
+    <ClInclude Include="EDF.hpp">
+      <Filter>Storage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ProcessorSymulator.cpp">
-      <Filter>Execution</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratorSymulator.cpp">
-      <Filter>Execution</Filter>
-    </ClCompile>
     <ClCompile Include="QueueingSystem.cpp" />
     <ClCompile Include="Imitator.cpp">
       <Filter>Execution</Filter>
     </ClCompile>
     <ClCompile Include="TaskSimulation.cpp">
       <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratorSimulator.cpp">
+      <Filter>Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorSimulator.cpp">
+      <Filter>Execution</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

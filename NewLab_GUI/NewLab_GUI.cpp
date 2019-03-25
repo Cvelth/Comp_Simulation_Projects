@@ -17,6 +17,7 @@ NewLab_GUI::NewLab_GUI(QWidget *parent)	: QWidget(parent) {
 
 	add(simulators, qs::SystemType::LIFO);
 	add(simulators, qs::SystemType::PER);
+	add(simulators, qs::SystemType::EDF);
 
 	for (auto s : simulators)
 		ui.visualization_layout->addWidget(s.second);
@@ -36,10 +37,11 @@ void NewLab_GUI::change_time_coefficient(int value) {
 
 void NewLab_GUI::start() {
 	for (auto s : simulators) {
-		s.first->changeLambda(ui.lambda->text().toFloat());
-		s.first->changeSigma(ui.sigma->text().toFloat());
-		s.first->changeMu(ui.mu->text().toFloat());
-		s.first->changeTau(ui.tau->text().toFloat());
+		s.first->changeLambda(ui.lambda->value());
+		s.first->changeSigma(ui.sigma->value());
+		s.first->changeMu(ui.mu->value());
+		s.first->changeTau(ui.tau->value());
+		s.first->changeExpiration(ui.exp->value());
 
 		if (!s.first->is_running())
 			s.first->start();

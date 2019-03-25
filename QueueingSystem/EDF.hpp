@@ -1,0 +1,90 @@
+#pragma once
+#pragma once
+#include "AbstractStorage.hpp"
+#include <map>
+#include <chrono>
+#ifdef MULTI_THREADING
+#include <shared_mutex>
+#endif
+
+namespace qs {
+	template<typename Task>
+	class EDF : public AbstractStorage<Task> {
+		#ifdef MULTI_THREADING
+		std::shared_mutex m_mutex;
+		#endif
+		std::multimap<std::chrono::high_resolution_clock::time_point, Task> m_queue;
+	public:
+		EDF() : m_queue() {}
+		virtual void push(Task *task = nullptr) override {
+			#ifdef MULTI_THREADING
+			m_mutex.lock();
+			#endif
+			if (task)
+				m_queue.emplace(task->expiration_point(), *task);
+			else
+				m_queue.emplace(std::chrono::high_resolution_clock::now(), Task());
+			#ifdef MULTI_THREADING
+			m_mutex.unlock();
+			#endif
+		}
+		virtual void repush(Task *task = nullptr) override {
+			push(task);
+		}
+		virtual Task pop() override {
+			Task ret;
+			if (m_queue.size()) {
+				#ifdef MULTI_THREADING
+				m_mutex.lock();
+				#endif
+				ret = m_queue.begin()->second;
+				m_queue.erase(m_queue.begin());
+				#ifdef MULTI_THREADING
+				m_mutex.unlock();
+				#endif
+			} else {
+				throw Exceptions::EmptyQueue();
+			}
+			return ret;
+		}
+		virtual Task pop_default(Task const& t) override {
+			Task ret(t);
+			if (m_queue.size()) {
+				#ifdef MULTI_THREADING
+				m_mutex.lock();
+				#endif
+				ret = m_queue.begin()->second;
+				m_queue.erase(m_queue.begin());
+				#ifdef MULTI_THREADING
+				m_mutex.unlock();
+				#endif
+			}
+			return ret;
+		}
+		virtual void for_each_push(std::function<void(Task const& task)> const& lambda) override {
+			#ifdef MULTI_THREADING
+			m_mutex.lock_shared();
+			#endif
+			for (auto t = m_queue.rbegin(); t != m_queue.rend(); t++)
+				lambda(t->second);
+			#ifdef MULTI_THREADING
+			m_mutex.unlock_shared();
+			#endif
+		}
+		virtual void for_each_repush(std::function<void(Task const& task)> const& lambda) override {
+			return for_each_push(lambda);
+		}
+		virtual size_t type() override {
+			return 3;
+		}
+		virtual void clear() override {
+			#ifdef MULTI_THREADING
+			m_mutex.lock_shared();
+			#endif
+			m_queue.clear();
+			#ifdef MULTI_THREADING
+			m_mutex.unlock_shared();
+			#endif
+		}
+	};
+}

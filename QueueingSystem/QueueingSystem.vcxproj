@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbstractStorage.hpp" />
+    <ClInclude Include="EDF.hpp" />
     <ClInclude Include="ExecutionUnit.hpp" />
     <ClInclude Include="LIFO.hpp" />
     <ClInclude Include="PER.hpp" />
@@ -123,9 +124,9 @@
     <ClInclude Include="TaskImitation.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratorSymulator.cpp" />
+    <ClCompile Include="GeneratorSimulator.cpp" />
     <ClCompile Include="Imitator.cpp" />
-    <ClCompile Include="ProcessorSymulator.cpp" />
+    <ClCompile Include="ProcessorSimulator.cpp" />
     <ClCompile Include="QueueingSystem.cpp" />
     <ClCompile Include="TaskSimulation.cpp" />
   </ItemGroup>

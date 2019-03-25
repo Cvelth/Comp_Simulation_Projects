@@ -1,5 +1,8 @@
 #include "QueueingSystem.hpp"
 #include "SimulatorUnit.hpp"
+#include "LIFO.hpp"
+#include "PER.hpp"
+#include "EDF.hpp"
 
 void qs::QueueingSystemSimulation::initialize(SystemType type) {
 	switch (type) {
@@ -8,6 +11,9 @@ void qs::QueueingSystemSimulation::initialize(SystemType type) {
 			break;
 		case SystemType::PER:
 			m_storage = new PER<TaskSimulation>();
+			break;
+		case SystemType::EDF:
+			m_storage = new EDF<TaskSimulation>();
 			break;
 		default:
 			throw std::exception("Unsupported storage type was requested.");

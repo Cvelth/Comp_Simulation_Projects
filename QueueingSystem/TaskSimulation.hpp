@@ -55,5 +55,6 @@ namespace qs {
 			m_expiration = value;
 		}
 		bool is_expired() const;
+		std::chrono::high_resolution_clock::time_point expiration_point() const;
 	};
 }
