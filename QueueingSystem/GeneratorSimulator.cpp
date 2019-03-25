@@ -1,6 +1,7 @@
 #include "SimulatorUnit.hpp"
 #include <thread>
 #include <random>
+#include <chrono>
 #include "AbstractStorage.hpp"
 
 void qs::GeneratorSimulator::loop() {
@@ -17,6 +18,7 @@ void qs::GeneratorSimulator::loop() {
 															 qs::constants::time_correction * (*d)(g));
 				m_current_process_end = m_current_process_start + duration;
 				m_current_task = *(new TaskSimulation());
+				m_current_task.set_expiration_time(std::chrono::high_resolution_clock::now() + std::chrono::nanoseconds(size_t(m_expiration * 10e9)));
 				m_is_active = true;
 				std::this_thread::sleep_until(m_current_process_end);
 				m_current_process_start = std::chrono::high_resolution_clock::now();

@@ -49,9 +49,11 @@ namespace qs {
 	class GeneratorUnit {
 	protected:
 		number m_lambda;
+		number m_expiration = 0.f;
 	public:
 		virtual bool is_running() abstract;
 		inline void changeLambda(number l) { m_lambda = l; }
+		inline void changeExpiration(number l) { m_expiration = l; }
 
 		virtual void start() abstract;
 		virtual void pause() abstract;
