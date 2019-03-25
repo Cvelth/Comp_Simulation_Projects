@@ -1,0 +1,25 @@
+<UI version="4.0" >
+ <class>NewLab_GUIClass</class>
+ <widget class="QWidget" name="NewLab_GUIClass" >
+  <property name="objectName" >
+   <string notr="true">NewLab_GUIClass</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+	<x>0</x>
+	<y>0</y>
+	<width>600</width>
+	<height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>NewLab_GUI</string>
+  </property>
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources>
+   <include location="NewLab_GUI.qrc"/>
+ </resources>
+ <connections/>
+</UI>

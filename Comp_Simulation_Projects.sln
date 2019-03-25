@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicProgramming", "Dynam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab4_GUI", "Lab4_GUI\Lab4_GUI.vcxproj", "{D5F672E6-3D54-4C9B-BBEF-0158A0C73288}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NewLab_GUI", "NewLab_GUI\NewLab_GUI.vcxproj", "{99BA89E9-D99B-4E18-9723-C895FEB5347E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -83,6 +85,12 @@ Global
 		{D5F672E6-3D54-4C9B-BBEF-0158A0C73288}.Release|x64.ActiveCfg = Release|x64
 		{D5F672E6-3D54-4C9B-BBEF-0158A0C73288}.Release|x64.Build.0 = Release|x64
 		{D5F672E6-3D54-4C9B-BBEF-0158A0C73288}.Release|x86.ActiveCfg = Release|x64
+		{99BA89E9-D99B-4E18-9723-C895FEB5347E}.Debug|x64.ActiveCfg = Debug|x64
+		{99BA89E9-D99B-4E18-9723-C895FEB5347E}.Debug|x64.Build.0 = Debug|x64
+		{99BA89E9-D99B-4E18-9723-C895FEB5347E}.Debug|x86.ActiveCfg = Debug|x64
+		{99BA89E9-D99B-4E18-9723-C895FEB5347E}.Release|x64.ActiveCfg = Release|x64
+		{99BA89E9-D99B-4E18-9723-C895FEB5347E}.Release|x64.Build.0 = Release|x64
+		{99BA89E9-D99B-4E18-9723-C895FEB5347E}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
