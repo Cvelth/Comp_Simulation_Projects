@@ -40,7 +40,7 @@ namespace qs {
 	};
 
 	class QueueingSystemSimulation : public AbstractQueueingSystem<TaskSimulation> {
-		GeneratorUnit *m_generator;
+		GeneratorUnit<AbstractStorage<TaskSimulation>> *m_generator;
 		ProcessorUnit *m_processor;
 		number m_time_coefficient;
 	public:
@@ -71,13 +71,14 @@ namespace qs {
 		virtual void changeSigma(number s) override { m_processor->changeSigma(s); }
 		virtual void changeTau(number t) override { m_processor->changeTau(t); }
 
-		virtual GeneratorUnit* generator() { return m_generator; }
+		virtual GeneratorUnit<AbstractStorage<TaskSimulation>>* generator() { return m_generator; }
 		virtual ProcessorUnit* processor() { return m_processor; }
 
 		virtual bool is_running() override {
 			return m_generator->is_running() && m_processor->is_running();
 		}
 		void changeTimeCoefficient(number c) { m_time_coefficient = c; }
+		void synchronize(QueueingSystemSimulation const& other);
 	};
 	class ImitationStatistics;
 	class UniformStatistics;

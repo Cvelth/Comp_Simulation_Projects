@@ -19,8 +19,10 @@ NewLab_GUI::NewLab_GUI(QWidget *parent)	: QWidget(parent) {
 	add(simulators, qs::SystemType::PER);
 	add(simulators, qs::SystemType::EDF);
 
-	for (auto s : simulators)
+	for (auto s : simulators) {
+		s.first->synchronize(*simulators.front().first);
 		ui.visualization_layout->addWidget(s.second);
+	}
 }
 
 NewLab_GUI::~NewLab_GUI() {

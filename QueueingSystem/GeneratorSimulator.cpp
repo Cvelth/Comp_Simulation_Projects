@@ -22,6 +22,8 @@ void qs::GeneratorSimulator::loop() {
 				std::this_thread::sleep_until(m_current_process_end);
 				m_current_process_start = std::chrono::high_resolution_clock::now();
 				m_storage->push(&m_current_task);
+				for (auto &storage : m_additional_storage)
+					storage->push(new TaskSimulation(m_current_task));
 			}
 	});
 	t.detach();

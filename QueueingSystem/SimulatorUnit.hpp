@@ -3,6 +3,7 @@
 #include "TaskSimulation.hpp"
 #include <chrono>
 #include <vector>
+#include <set>
 namespace qs {
 	using time_point = std::chrono::time_point<std::chrono::high_resolution_clock,
 		std::chrono::duration<float, std::ratio<1, 1000000000>>>;
@@ -17,7 +18,9 @@ namespace qs {
 			: ExecutionUnit(storage, state), m_time_coefficient(time_coefficient) {}
 	};
 
-	class GeneratorSimulator : public SimulatorUnit, public GeneratorUnit {
+	class GeneratorSimulator : public SimulatorUnit, public GeneratorUnit<AbstractStorage<TaskSimulation>> {
+	protected:
+		std::set<AbstractStorage<TaskSimulation>*> m_additional_storage;
 	protected:
 		virtual void loop() override;
 	public:
@@ -30,6 +33,10 @@ namespace qs {
 		virtual void stop() override { SimulatorUnit::stop(); }
 		virtual qs::Color const getCurrentColor() override { return SimulatorUnit::getCurrentColor(); }
 		virtual float getCurrentPercent() override;
+		virtual void add_storage(AbstractStorage<TaskSimulation> *storage) override {
+			if (storage != m_storage)
+				m_additional_storage.insert(storage);
+		}
 	};
 
 	class ProcessorSimulator : public SimulatorUnit, public ProcessorUnit {

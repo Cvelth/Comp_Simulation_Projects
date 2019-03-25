@@ -1,5 +1,5 @@
 #pragma once
-#include "shared.hpp" 
+#include "shared.hpp"
 #include "AbstractStorage.hpp"
 namespace qs {
 	template <typename Task>
@@ -46,6 +46,7 @@ namespace qs {
 		}
 	};
 
+	template <typename Storage>
 	class GeneratorUnit {
 	protected:
 		number m_lambda;
@@ -60,6 +61,7 @@ namespace qs {
 		virtual void stop() abstract;
 		virtual float getCurrentPercent() abstract;
 		virtual Color const getCurrentColor() abstract;
+		virtual void add_storage(Storage *storage) abstract;
 	};
 	class ProcessorUnit {
 	protected:
