@@ -12,9 +12,11 @@ void qs::ProcessorSimulator::loop() {
 		m_is_active = true;
 		while (*m_state == SystemState::Running || *m_state == SystemState::Paused)
 			if (*m_state == SystemState::Running) {
-				do {
-					m_current_task = m_storage->pop_default(TaskSimulation(0.f, m_tau, std::chrono::high_resolution_clock::now()/* - std::chrono::seconds(1)*/));
-				} while (m_current_task.expiration_time() > std::chrono::high_resolution_clock::now());
+				while (true)					
+					if ((m_current_task = m_storage->pop_default(TaskSimulation(0.f, 0.f, m_tau))).is_expired())
+						m_dropped_tasks.push_back(m_current_task);
+					else
+						break;
 				float wait = m_current_task.processing_left();
 				if (wait == 0.f) {
 					if (!d)

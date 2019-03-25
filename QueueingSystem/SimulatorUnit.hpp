@@ -2,6 +2,7 @@
 #include "ExecutionUnit.hpp"
 #include "TaskSimulation.hpp"
 #include <chrono>
+#include <vector>
 namespace qs {
 	using time_point = std::chrono::time_point<std::chrono::high_resolution_clock,
 		std::chrono::duration<float, std::ratio<1, 1000000000>>>;
@@ -32,6 +33,8 @@ namespace qs {
 	};
 
 	class ProcessorSimulator : public SimulatorUnit, public ProcessorUnit {
+	protected:
+		std::vector<TaskSimulation> m_dropped_tasks;
 	protected:
 		virtual void loop() override;
 	public:
