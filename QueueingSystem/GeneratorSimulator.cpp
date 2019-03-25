@@ -9,6 +9,7 @@ void qs::GeneratorSimulator::loop() {
 		std::random_device seed;
 		std::mt19937_64 g(seed());
 		std::poisson_distribution<number> *d = nullptr;
+		std::normal_distribution<number> *n_d = nullptr;
 		m_current_process_start = std::chrono::high_resolution_clock::now();
 		while (*m_state == SystemState::Running || *m_state == SystemState::Paused)
 			if (*m_state == SystemState::Running) {
@@ -17,7 +18,13 @@ void qs::GeneratorSimulator::loop() {
 				auto duration = std::chrono::duration<float>(*m_time_coefficient *
 															 qs::constants::time_correction * (*d)(g));
 				m_current_process_end = m_current_process_start + duration;
-				m_current_task = *(new TaskSimulation(m_expiration));
+				if (!n_d)
+					n_d = new std::normal_distribution<number>(m_expiration, 1.f);
+				else if (n_d->mean() != m_expiration || n_d->sigma() != 1.f) {
+					delete n_d;
+					n_d = new std::normal_distribution<number>(m_expiration, 1.f);
+				}
+				m_current_task = *(new TaskSimulation((*n_d)(g)));
 				m_is_active = true;
 				std::this_thread::sleep_until(m_current_process_end);
 				m_current_process_start = std::chrono::high_resolution_clock::now();
