@@ -7,12 +7,9 @@
 void qs::ProcessorSimulator::loop() {
 	std::thread t([this]() {
 		m_current_process_start = std::chrono::high_resolution_clock::now();
-		std::random_device seed;
-		std::mt19937_64 g(seed());
+		std::mt19937_64 g(std::random_device{}());
 		std::normal_distribution<number> *d = nullptr;
 		m_is_active = true;
-		m_mu /= 5.f;
-		m_tau *= 10.f;
 		while (*m_state == SystemState::Running || *m_state == SystemState::Paused)
 			if (*m_state == SystemState::Running) {
 				m_current_task = m_storage->pop_default(TaskSimulation(0.f, m_tau));
